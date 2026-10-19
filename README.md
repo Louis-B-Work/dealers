@@ -20,6 +20,11 @@ self-contained HTML preview; it does not require an install or compile step.
 
 ## Local development
 
+This is an independent personal repository, not a fork of or a dependency on
+the CF247 UI builder. Use the `designs` branch for ongoing design work; merge
+finished changes into `main` to publish them. Its only Git remote is
+`https://github.com/Louis-B-Work/dealers.git`.
+
 Use Node.js 22 and npm:
 
 ```sh
