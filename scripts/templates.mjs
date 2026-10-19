@@ -31,7 +31,8 @@ export const templates = [
   {
     name: 'standard-06',
     port: 5179,
-    expectedTitle: 'Northline Motor Co. | Considered Cars',
+    expectedTitle: 'Dealership Name | Considered Cars',
     staticPreview: 'index.html',
+    staticAssets: ['styles.css', 'stock.mjs', 'app.mjs'],
   },
 ]

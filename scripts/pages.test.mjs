@@ -32,12 +32,34 @@ test('gallery links to exactly the six published previews, with no localhost URL
 })
 
 for (const template of templates) {
+  test(`${template.name} has a gallery screenshot with portable markup`, async () => {
+    const html = await readFile(join(output, 'index.html'), 'utf8')
+    const image = `./previews/${template.name}.jpg`
+    const tag = [...html.matchAll(/<img\b[^>]*class="card-preview"[^>]*>/g)]
+      .map(([markup]) => markup)
+      .find((markup) => markup.includes(`src="${image}"`))
+    assert.ok(tag, `Missing gallery image for ${template.name}`)
+    assert.match(tag, /alt="[^"]+"/)
+    assert.match(tag, /width="1440" height="900"/)
+    const published = await readFile(join(output, 'previews', `${template.name}.jpg`))
+    assert.deepEqual(published, await readFile(join(designsRoot, 'previews', `${template.name}.jpg`)))
+    assert.equal(published.readUInt16BE(0), 0xffd8, 'Preview must be a JPEG')
+    assert.ok(published.length < 350_000, 'Preview must stay below 350 KB')
+  })
+
   test(`${template.name} has a published entry point and portable assets`, async () => {
     const filename = join(output, template.name, 'index.html')
     const html = await readFile(filename, 'utf8')
     assert.ok(html.includes(`<title>${template.expectedTitle}</title>`))
     if (template.staticPreview) {
       assert.equal(html, await readFile(join(designsRoot, template.name, template.staticPreview), 'utf8'))
+      for (const asset of template.staticAssets ?? []) {
+        assert.equal(
+          await readFile(join(output, template.name, asset), 'utf8'),
+          await readFile(join(designsRoot, template.name, asset), 'utf8'),
+          `${asset} must be published without changes`,
+        )
+      }
     } else {
       assert.match(html, /<script type="module"[^>]+src="\.\/assets\//)
     }

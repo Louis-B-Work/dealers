@@ -1,0 +1,27 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Template 6 preview",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"dev:standard-06"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Template gallery",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"dev"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		}
+	]
+}
