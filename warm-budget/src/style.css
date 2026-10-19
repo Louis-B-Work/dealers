@@ -1,0 +1,296 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ *
+ * Design tokens — cream page, near-black ink, teal accent.
+ *
+ * Token *names* are semantic and match the three premium drafts
+ * (paper = a surface, ink = text on it, line = a border), so all four
+ * templates can be read side by side. What differs here is the values
+ * and the geometry: a warm cream ground instead of white, a single
+ * friendly teal doing the work an accent hue does, and generous radii
+ * rather than template 03's square edges.
+ * ------------------------------------------------------------------ */
+:root {
+  /* Colours are stored as space-separated RGB channels so Tailwind's
+     `rgb(var(--token) / <alpha-value>)` opacity syntax works. */
+  --c-ink: 26 32 31; /* primary text — near-black with a faint green cast */
+  --c-ink-soft: 84 94 92;
+  --c-ink-muted: 131 141 139;
+  --c-ink-inverse: 252 249 243; /* text on the dark hero block */
+
+  --c-paper: 252 249 243; /* the cream page itself */
+  --c-paper-soft: 255 255 255; /* cards lift off the cream by being white */
+  --c-paper-sink: 244 240 232; /* inset — inputs, wells, image backgrounds */
+  --c-paper-dark: 18 36 34; /* the hero block and footer */
+
+  --c-line: 228 222 211; /* hairline borders, warm rather than grey */
+  --c-line-soft: 238 233 224;
+  --c-line-strong: 26 32 31;
+
+  --c-accent: 15 118 110; /* teal — buttons, prices, links */
+  --c-accent-strong: 12 94 88; /* accent hover */
+  --c-accent-soft: 20 184 166; /* accent on the dark hero, where 700 is too dim */
+  --c-accent-wash: 224 242 240; /* pale teal chip/badge fill */
+  --c-accent-ink: 255 255 255; /* text on accent */
+
+  /* One warm secondary so the page isn't single-hue. Used for "just
+     arrived"-style badges and the reassurance cards, never for a
+     control — the teal owns every interactive element. */
+  --c-highlight: 217 119 6;
+  --c-highlight-wash: 253 240 217;
+  --c-highlight-ink: 120 60 6;
+
+  /* Reserved for genuine validation errors only. The palette is teal,
+     so unlike template 03 red is still free to mean "wrong". */
+  --c-danger: 185 40 40;
+
+  /* Top bar height. Every page is offset by exactly this, and sticky
+     elements subtract it so nothing hides beneath the bar. The bar is one
+     height at all times: condensing it on scroll made it jump. */
+  --nav-h: 88px;
+
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Anchor targets clear the bar rather than sitting underneath it. */
+  scroll-padding-top: calc(var(--nav-h) + 16px);
+}
+
+body {
+  margin: 0;
+  background-color: rgb(var(--c-paper));
+  color: rgb(var(--c-ink));
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgb(var(--c-accent));
+  color: rgb(var(--c-accent-ink));
+}
+
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid rgb(var(--c-accent));
+  outline-offset: 2px;
+}
+
+@layer components {
+  /* Shared horizontal gutter. Tighter than the premium drafts — this
+     template fills its width rather than framing itself in whitespace. */
+  .u-gutter {
+    @apply mx-auto w-full max-w-[1280px] px-5 sm:px-8 lg:px-10;
+  }
+
+  /* Almost the full viewport, held off the edges by a deeper gutter. The
+     furniture (nav and footer) and the full-bleed browsing bands (stock and
+     reviews) all use this, so every one of them starts and ends on the same
+     vertical line at any screen width. Deliberately uncapped: a max-width
+     here would pull the nav and footer inwards on wide screens while the
+     bands stayed at the edges, and the two would stop lining up. */
+  .u-gutter-wide {
+    @apply w-full px-5 sm:px-8 lg:px-12 xl:px-16;
+  }
+
+  /* Standard vertical rhythm between full-width sections. */
+  .u-section {
+    @apply py-14 sm:py-16 lg:py-20;
+  }
+
+  /* Small label above a heading. Uppercase, but at friendly tracking
+     rather than the premium templates' very wide letter-spacing. */
+  .u-eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-accent;
+  }
+
+  /* Display type runs semibold and tight — warm and confident rather
+     than light and airy. */
+  .u-display {
+    @apply font-display font-semibold leading-[1.15] tracking-[-0.015em] text-ink;
+  }
+
+  .u-lead {
+    @apply text-base leading-relaxed text-ink-soft sm:text-lg;
+  }
+
+  .u-rule {
+    @apply border-t border-line;
+  }
+
+  /* ---- Surfaces ---------------------------------------------------- */
+
+  /* The template's surface primitive: a white, well-rounded card sitting
+     on the cream page, held by a hairline and the faintest shadow. */
+  .card {
+    @apply rounded-panel border border-line bg-paper-soft shadow-card;
+  }
+
+  /* Interactive cards. Deliberately minimal: the border darkens and the
+     shadow grows a little. Nothing moves, nothing scales, nothing
+     changes colour temperature. */
+  .card-hover {
+    @apply transition-[border-color,box-shadow] duration-150 ease-out hover:border-ink/25 hover:shadow-card-hover;
+  }
+
+  /* ---- Buttons ----------------------------------------------------- */
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-control px-6 py-3 text-sm font-semibold transition-[background-color,border-color,color,box-shadow,transform] duration-150 ease-out disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  /* The one loud element on a section: solid teal, white text. */
+  .btn-primary {
+    @apply btn border border-accent bg-accent text-accent-ink shadow-card hover:-translate-y-px hover:border-accent-strong hover:bg-accent-strong;
+  }
+
+  /* Used where the teal would compete with a price or a card — the ink
+     button is the quieter "second" call to action. */
+  .btn-dark {
+    @apply btn border border-ink bg-ink text-paper hover:-translate-y-px hover:bg-ink/90;
+  }
+
+  /* Outlined on the cream page. */
+  .btn-ghost {
+    @apply btn border border-line bg-paper-soft text-ink hover:-translate-y-px hover:border-ink/30;
+  }
+
+  /* Quietest of the four: text plus an underline on hover, no chrome. */
+  .btn-quiet {
+    @apply btn border border-transparent px-2 py-1 text-accent hover:text-accent-strong hover:underline hover:underline-offset-4;
+  }
+
+  /* Outlined for use on the dark hero block. */
+  .btn-on-dark {
+    @apply btn border border-white/30 bg-white/10 text-ink-inverse hover:-translate-y-px hover:border-white/60 hover:bg-white/20;
+  }
+
+  /* ---- Form controls ----------------------------------------------- */
+
+  .field {
+    @apply w-full rounded-tile border border-line bg-paper-soft px-4 py-3 text-sm text-ink transition-colors duration-150 ease-out placeholder:text-ink-muted hover:border-ink/25 focus:border-accent focus:outline-none;
+  }
+
+  .field-label {
+    @apply mb-1.5 block text-xs font-semibold text-ink-soft;
+  }
+
+  /* Validation is marked by weight and a doubled border as well as
+     colour, so it never depends on colour alone. */
+  .field-invalid {
+    @apply border-2 border-danger;
+  }
+
+  /* ---- Chips & badges ---------------------------------------------- */
+
+  /* Spec pills on the vehicle card — the template's signature detail. */
+  .chip {
+    @apply inline-flex items-center rounded-full bg-paper-sink px-2.5 py-1 text-xs font-medium text-ink-soft;
+  }
+
+  .chip-accent {
+    @apply inline-flex items-center rounded-full bg-accent-wash px-2.5 py-1 text-xs font-semibold text-accent;
+  }
+
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full bg-highlight-wash px-3 py-1 text-xs font-semibold text-highlight-ink;
+  }
+
+  /* ---- Compliance -------------------------------------------------- */
+
+  /* Regulated small print. Quiet, but never so quiet it stops being
+     readable — 11px at ink-muted still clears contrast on cream. */
+  .u-legal {
+    @apply text-[0.6875rem] leading-relaxed text-ink-muted;
+  }
+
+  /* ---- Utilities --------------------------------------------------- */
+
+  /* A scroll rail that keeps its native swipe and keyboard scrolling but
+     loses the bar itself, because the arrows above it do that job. */
+  .u-scroll-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .u-scroll-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Motion
+ *
+ * This template has no scroll-reveal and no entrance animation: every
+ * section is painted in its final state. The only transitions in the
+ * build are the 150ms colour/border/shadow moves declared above, plus a
+ * 1px lift on buttons. Under `prefers-reduced-motion` even those are
+ * dropped, along with smooth scrolling.
+ * ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Hide the number input spinners on the finance calculator's inputs —
+   the value is driven by the slider and the field is a readout. */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* Range input, used by the finance calculator. Styled by hand because
+   the native control is grey on every platform and would be the only
+   thing on the page not carrying the accent. */
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  /* `--c-line` rather than a surface token, so the track stays visible on a
+     white card *and* on an inset well. */
+  background: rgb(var(--c-line));
+  outline: none;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: rgb(var(--c-accent));
+  border: 3px solid rgb(var(--c-paper-soft));
+  box-shadow: 0 1px 3px rgb(26 32 31 / 0.25);
+  cursor: pointer;
+}
+
+input[type='range']::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: rgb(var(--c-accent));
+  border: 3px solid rgb(var(--c-paper-soft));
+  box-shadow: 0 1px 3px rgb(26 32 31 / 0.25);
+  cursor: pointer;
+}

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#15423e" />
+      <stop offset="55%" stop-color="#11302d" />
+      <stop offset="100%" stop-color="#0c1f1d" />
+    </linearGradient>
+    <radialGradient id="pool" cx="50%" cy="58%" r="55%">
+      <stop offset="0%" stop-color="#1f6b63" stop-opacity="0.55" />
+      <stop offset="100%" stop-color="#1f6b63" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#sky)" />
+  <rect width="1600" height="900" fill="url(#pool)" />
+
+  <!-- Forecourt floor -->
+  <rect y="640" width="1600" height="260" fill="#0a1a18" />
+  <path d="M0 640h1600" stroke="#2a7d73" stroke-opacity="0.35" stroke-width="2" />
+
+  <!-- Car silhouette, centred on the floor line -->
+  <g fill="#0a1a18" stroke="#3f9d92" stroke-opacity="0.45" stroke-width="3" stroke-linejoin="round">
+    <path
+      d="M470 640l28-92a58 58 0 0 1 55-40h494a58 58 0 0 1 55 40l28 92z"
+    />
+    <path
+      d="M430 640a40 40 0 0 1 40-40h660a40 40 0 0 1 40 40v10a14 14 0 0 1-14 14H444a14 14 0 0 1-14-14z"
+    />
+  </g>
+  <g fill="#1f6b63" fill-opacity="0.55">
+    <circle cx="560" cy="664" r="40" />
+    <circle cx="1040" cy="664" r="40" />
+  </g>
+  <g fill="#0a1a18">
+    <circle cx="560" cy="664" r="18" />
+    <circle cx="1040" cy="664" r="18" />
+  </g>
+</svg>

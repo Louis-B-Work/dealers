@@ -1,0 +1,12 @@
+{
+  "name": "dealers",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "setup": "node ./scripts/run-templates.mjs ci",
+    "build": "node ./scripts/run-templates.mjs build",
+    "test": "node --test ./scripts/pages.test.mjs",
+    "dev": "node ./scripts/start-hub.mjs",
+    "check:finance": "node ./scripts/check-finance.mjs"
+  }
+}

@@ -1,0 +1,8 @@
+# The hub launcher and each template app install their own dependencies.
+node_modules/
+
+# Per-template production builds are reproducible from source.
+dist/
+
+# TypeScript incremental build state.
+*.tsbuildinfo

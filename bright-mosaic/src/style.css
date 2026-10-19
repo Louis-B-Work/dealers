@@ -1,0 +1,209 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ *
+ * Design tokens — bright forecourt palette.
+ * `ink` is the foreground and `paper` the background. Blue is for
+ * actions; yellow (`deal`) is reserved for prices, like a price sticker.
+ * ------------------------------------------------------------------ */
+:root {
+  /* Colours are stored as space-separated RGB channels so Tailwind's
+     `rgb(var(--token) / <alpha-value>)` opacity syntax works. */
+  --c-ink: 15 23 42; /* slate-navy text */
+  --c-ink-soft: 51 65 85;
+  --c-ink-muted: 100 116 139;
+
+  --c-paper: 246 247 249; /* page background */
+  --c-paper-soft: 238 241 246; /* alternate section band */
+  --c-paper-sink: 228 235 247; /* blue-tinted band, used behind CTAs */
+  --c-surface: 255 255 255; /* raised cards and panels */
+
+  --c-line: 222 227 235; /* hairline borders */
+
+  --c-accent: 29 78 216; /* action blue */
+  --c-accent-soft: 37 99 235;
+  --c-accent-ink: 255 255 255; /* text on accent */
+
+  --c-deal: 250 204 21; /* price-sticker yellow */
+  --c-deal-ink: 15 23 42; /* text on deal */
+
+  --nav-h: 72px;
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: rgb(var(--c-paper));
+  color: rgb(var(--c-ink));
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgb(var(--c-accent) / 0.9);
+  color: rgb(var(--c-accent-ink));
+}
+
+/* Consistent focus ring for keyboard users */
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid rgb(var(--c-accent));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@layer components {
+  /* Shared horizontal gutter for full-bleed sections (nav, hero, featured
+     vehicles, brand story, footer). Defined once so they can't drift apart. */
+  .u-gutter {
+    @apply px-5 sm:px-8 lg:px-12 xl:px-16 2xl:px-20;
+  }
+
+  .u-eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-bold uppercase tracking-micro text-accent;
+  }
+
+  .u-display {
+    @apply font-display font-extrabold leading-[1.05] tracking-tight text-ink;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold transition duration-300 ease-premium;
+  }
+
+  .btn-primary {
+    @apply btn bg-ink text-paper hover:-translate-y-0.5 hover:bg-ink-soft hover:shadow-lift;
+  }
+
+  .btn-accent {
+    @apply btn bg-accent text-accent-ink hover:-translate-y-0.5 hover:bg-accent-soft hover:shadow-lift;
+  }
+
+  .btn-ghost {
+    @apply btn border border-line bg-surface text-ink hover:-translate-y-0.5 hover:border-ink-muted hover:shadow-soft;
+  }
+
+  .field {
+    @apply w-full rounded-control border border-line bg-surface px-4 py-3 text-sm text-ink transition placeholder:text-ink-muted focus:border-accent;
+  }
+
+  /* The base-of-card label: name on the left, cash price on a yellow sticker. */
+  .price-pill {
+    @apply inline-flex shrink-0 items-center rounded-full bg-deal px-3 py-1 text-xs font-extrabold tabular-nums text-deal-ink;
+  }
+
+  .card-hover {
+    @apply transition duration-500 ease-premium hover:-translate-y-1.5 hover:shadow-lift;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Page-load intro (above the fold: nav + hero)
+ * Driven by CSS animation rather than the IntersectionObserver used for
+ * scroll reveals — content that is already in view on refresh shouldn't
+ * depend on an observer callback to become visible.
+ * ------------------------------------------------------------------ */
+@keyframes introRise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 26px, 0) scale(0.985);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@keyframes introRisePlain {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 26px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes introDrop {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -12px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+[data-intro],
+[data-intro-nav] {
+  opacity: 0;
+  animation-duration: 1.1s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+  animation-delay: var(--intro-delay, 0ms);
+}
+
+[data-intro] {
+  animation-name: introRise;
+}
+
+/* Blur is skipped where an element already composites a backdrop-filter. */
+[data-intro='plain'] {
+  animation-name: introRisePlain;
+}
+
+[data-intro-nav] {
+  animation-name: introDrop;
+  animation-duration: 0.8s;
+}
+
+/* ------------------------------------------------------------------ *
+ * Scroll-reveal (driven by useScrollReveal)
+ * ------------------------------------------------------------------ */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  [data-intro],
+  [data-intro-nav] {
+    animation: none;
+    opacity: 1;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

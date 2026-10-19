@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="studio" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" />
+      <stop offset="0.62" stop-color="#f4f4f4" />
+      <stop offset="1" stop-color="#e8e8e8" />
+    </linearGradient>
+    <radialGradient id="pool" cx="50%" cy="72%" r="46%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.9" />
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ededed" />
+      <stop offset="1" stop-color="#fafafa" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#studio)" />
+  <rect y="700" width="1920" height="380" fill="url(#floor)" />
+  <rect width="1920" height="1080" fill="url(#pool)" />
+
+  <g stroke="#0a0a0a" stroke-width="1">
+    <line x1="0" y1="700" x2="1920" y2="700" opacity="0.1" />
+    <line x1="0" y1="716" x2="1920" y2="716" opacity="0.05" />
+  </g>
+
+  <g fill="#dcdcdc">
+    <path d="M560 694c40-90 150-150 400-150s360 60 400 150c60 6 96 20 96 40 0 22-40 30-120 30H584c-80 0-120-8-120-30 0-20 36-34 96-40z" />
+    <ellipse cx="760" cy="766" rx="70" ry="70" fill="#c8c8c8" />
+    <ellipse cx="1160" cy="766" rx="70" ry="70" fill="#c8c8c8" />
+    <ellipse cx="760" cy="766" rx="30" ry="30" fill="#ededed" />
+    <ellipse cx="1160" cy="766" rx="30" ry="30" fill="#ededed" />
+  </g>
+
+  <g fill="#0a0a0a" opacity="0.06">
+    <path d="M600 814h720c-40 40-180 70-360 70s-320-30-360-70z" />
+  </g>
+</svg>
