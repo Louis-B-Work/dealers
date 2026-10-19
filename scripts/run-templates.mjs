@@ -48,4 +48,8 @@ for (const template of templates) {
   }
 }
 
-console.log(command === 'build' ? '\nAll six previews built in dist/.' : '\nTemplate dependencies installed.')
+console.log(
+  command === 'build'
+    ? `\nAll ${templates.length} previews built in dist/.`
+    : '\nTemplate dependencies installed.',
+)

@@ -17,11 +17,11 @@ async function assertLocalAssets(html, filename) {
   }
 }
 
-test('gallery links to exactly the six published previews, with no localhost URLs', async () => {
+test('gallery links to exactly the published previews, with no localhost URLs', async () => {
   const filename = join(output, 'index.html')
   const html = await readFile(filename, 'utf8')
   const links = [...html.matchAll(/class="open-link" href="([^"]+)"/g)].map((match) => match[1])
-  assert.equal(links.length, 6)
+  assert.equal(links.length, templates.length)
   assert.deepEqual(
     links.sort(),
     templates.map(({ name }) => `./${name}/`).sort(),

@@ -35,4 +35,9 @@ export const templates = [
     staticPreview: 'index.html',
     staticAssets: ['styles.css', 'stock.mjs', 'app.mjs'],
   },
+  {
+    name: 'stock-marketplace',
+    port: 5180,
+    expectedTitle: 'Dealership Name | Find Your Next Car',
+  },
 ]
