@@ -1,6 +1,6 @@
 # Dealer designs
 
-Seven standalone dealer website previews behind one gallery:
+Eight standalone dealer website previews behind one gallery:
 **https://louis-b-work.github.io/dealers/**
 
 These are design demonstrations, not live dealerships. Stock, contact details
@@ -15,8 +15,9 @@ and finance examples are demo content.
 | [Bright Mosaic](./bright-mosaic/) | Bright, interlocking stock tiles |
 | [Evergreen Editorial](./standard-06/) | Warm paper, evergreen tones and a gallery-like showroom |
 | [Stock Marketplace](./stock-marketplace/) | Stock-first: filter sidebar, dense results grid and a cash or monthly price toggle |
+| [Noir Collection](./noir-collection/) | Dark and premium: a spotlight cycling through the stock, make and model search, a numbered catalogue and private viewings |
 
-Templates 1 to 5 and 7 are Vite + Vue 3 + TypeScript + Tailwind apps. Evergreen Editorial uses
+Templates 1 to 5, 7 and 8 are Vite + Vue 3 + TypeScript + Tailwind apps. Evergreen Editorial uses
 HTML, CSS and native JavaScript modules; it requires no install or compile step.
 
 ## Local development
@@ -32,8 +33,8 @@ Use Node.js 22 and npm:
 npm run setup         # installs each Vue app from its package-lock.json
 npm run dev           # starts previews and opens the gallery at localhost:4180
 npm run dev:standard-06 # starts only Evergreen Editorial at localhost:5179
-npm run check:finance # verifies the six Vue apps' shared finance calculations
-npm run build         # type-checks the Vue apps and assembles all seven in dist/
+npm run check:finance # verifies the seven Vue apps' shared finance calculations
+npm run build         # type-checks the Vue apps and assembles all eight in dist/
 npm test              # checks the built gallery, template links and local assets
 ```
 
@@ -64,9 +65,10 @@ sync with the UI builder repository.
 ## Images and design status
 
 Some imagery, videos and fonts are loaded from external providers and require
-an internet connection. Bright Mosaic's and Stock Marketplace's bundled images retain their
+an internet connection. Bright Mosaic's, Stock Marketplace's and Noir Collection's bundled images retain their
 photo credits and licences ([Bright Mosaic](./bright-mosaic/public/cars/CREDITS.md),
-[Stock Marketplace](./stock-marketplace/public/cars/CREDITS.md)), also
+[Stock Marketplace](./stock-marketplace/public/cars/CREDITS.md),
+[Noir Collection](./noir-collection/public/cars/CREDITS.md)), also
 linked from the published gallery. Replace demo stock photography and content
 before using any design for a real dealer.
 

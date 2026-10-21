@@ -1,0 +1,155 @@
+<template>
+  <header
+    class="fixed inset-x-0 top-0 z-50 transition-colors duration-500"
+    :class="solid ? 'border-b border-line bg-paper/90 backdrop-blur-md' : 'border-b border-transparent bg-gradient-to-b from-black/60 to-transparent'"
+  >
+    <nav class="u-gutter flex h-[var(--nav-h)] items-center justify-between gap-6" aria-label="Main">
+      <RouterLink to="/" class="group flex flex-col leading-none" aria-label="Dealership Name home">
+        <span class="whitespace-nowrap text-[0.8rem] font-medium uppercase tracking-[0.24em] sm:text-base sm:tracking-[0.34em]">Dealership Name</span>
+        <span class="mt-1.5 text-[0.58rem] uppercase tracking-[0.5em] text-accent">The Collection</span>
+      </RouterLink>
+
+      <ul class="hidden items-center gap-8 xl:flex">
+        <li v-for="link in links" :key="link.label">
+          <RouterLink :to="link.to" class="nav-link">{{ link.label }}</RouterLink>
+        </li>
+        <li ref="servicesRoot" class="relative">
+          <button
+            type="button"
+            class="nav-link inline-flex items-center gap-1.5"
+            :aria-expanded="servicesOpen"
+            aria-controls="services-menu"
+            @click="servicesOpen = !servicesOpen"
+          >
+            Aftercare
+            <AppIcon name="chevron" :size="13" class="transition" :class="servicesOpen && 'rotate-180'" />
+          </button>
+          <ul
+            v-if="servicesOpen"
+            id="services-menu"
+            class="absolute right-0 top-full mt-5 w-64 overflow-hidden rounded-panel border border-line bg-paper-soft py-2 shadow-lift"
+          >
+            <li v-for="service in servicePages" :key="service.slug">
+              <RouterLink :to="service.path" class="block px-5 py-3 text-sm text-ink-soft transition hover:bg-surface hover:text-ink">
+                {{ service.navLabel }}
+              </RouterLink>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="flex items-center gap-4">
+        <a :href="phoneHref" class="tabular hidden text-sm text-ink-soft transition hover:text-accent lg:inline">
+          {{ dealer.phone }}
+        </a>
+        <RouterLink :to="{ path: '/contact', query: { subject: 'Vehicle viewing' } }" class="btn-ghost hidden px-5 py-3 sm:inline-flex">
+          Book a viewing
+        </RouterLink>
+        <button
+          type="button"
+          class="flex h-11 w-11 items-center justify-center rounded-control border border-ink/25 transition hover:border-accent xl:hidden"
+          :aria-expanded="menuOpen"
+          aria-controls="mobile-menu"
+          @click="menuOpen = !menuOpen"
+        >
+          <AppIcon :name="menuOpen ? 'close' : 'menu'" :size="18" />
+          <span class="sr-only">{{ menuOpen ? 'Close menu' : 'Open menu' }}</span>
+        </button>
+      </div>
+    </nav>
+
+    <div
+      v-if="menuOpen"
+      id="mobile-menu"
+      class="h-[calc(100svh-var(--nav-h))] overflow-y-auto border-t border-line bg-paper xl:hidden"
+    >
+      <ul class="u-gutter py-6">
+        <li v-for="link in [...links, ...serviceLinks]" :key="link.label">
+          <RouterLink :to="link.to" class="block border-b border-line py-4 font-display text-2xl">
+            {{ link.label }}
+          </RouterLink>
+        </li>
+        <li class="pt-8">
+          <RouterLink :to="{ path: '/contact', query: { subject: 'Vehicle viewing' } }" class="btn-accent w-full">
+            Book a private viewing
+          </RouterLink>
+        </li>
+        <li class="pt-6 text-center">
+          <a :href="phoneHref" class="tabular text-ink-soft">{{ dealer.phone }}</a>
+        </li>
+      </ul>
+    </div>
+  </header>
+</template>
+
+<script setup lang="ts">
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { RouterLink, useRoute } from 'vue-router'
+import { servicePages } from '../../data/content'
+import { dealer } from '../../data/dealer'
+import AppIcon from '../shared/AppIcon.vue'
+
+const links = [
+  { label: 'The Collection', to: '/vehicles' },
+  { label: 'Finance', to: '/finance' },
+  { label: 'Sell your car', to: '/sell' },
+  { label: 'About', to: '/about' },
+  { label: 'Contact', to: '/contact' },
+]
+const serviceLinks = servicePages.map((service) => ({ label: service.navLabel, to: service.path }))
+const phoneHref = `tel:${dealer.phone.replace(/\s/g, '')}`
+
+const route = useRoute()
+const menuOpen = ref(false)
+const servicesOpen = ref(false)
+const servicesRoot = ref<HTMLElement | null>(null)
+const scrolled = ref(false)
+
+// Transparent only over the homepage spotlight; solid everywhere else.
+const solid = computed(() => route.name !== 'home' || scrolled.value || menuOpen.value)
+
+const onScroll = () => {
+  scrolled.value = window.scrollY > 40
+}
+const onPointerDown = (event: PointerEvent) => {
+  if (servicesOpen.value && !servicesRoot.value?.contains(event.target as Node)) servicesOpen.value = false
+}
+const onKeyDown = (event: KeyboardEvent) => {
+  if (event.key === 'Escape') {
+    servicesOpen.value = false
+    menuOpen.value = false
+  }
+}
+
+watch(
+  () => route.fullPath,
+  () => {
+    menuOpen.value = false
+    servicesOpen.value = false
+  },
+)
+watch(menuOpen, (open) => {
+  document.body.style.overflow = open ? 'hidden' : ''
+})
+
+onMounted(() => {
+  onScroll()
+  window.addEventListener('scroll', onScroll, { passive: true })
+  document.addEventListener('pointerdown', onPointerDown)
+  document.addEventListener('keydown', onKeyDown)
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', onScroll)
+  document.removeEventListener('pointerdown', onPointerDown)
+  document.removeEventListener('keydown', onKeyDown)
+})
+</script>
+
+<style scoped>
+.nav-link {
+  @apply text-[0.72rem] font-medium uppercase tracking-[0.2em] text-ink-soft transition hover:text-ink;
+}
+.nav-link.router-link-active {
+  @apply text-accent;
+}
+</style>

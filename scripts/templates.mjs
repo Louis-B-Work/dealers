@@ -40,4 +40,9 @@ export const templates = [
     port: 5180,
     expectedTitle: 'Dealership Name | Find Your Next Car',
   },
+  {
+    name: 'noir-collection',
+    port: 5181,
+    expectedTitle: 'Dealership Name | The Collection',
+  },
 ]

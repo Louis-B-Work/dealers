@@ -42,7 +42,9 @@ for (const template of templates) {
     assert.match(tag, /alt="[^"]+"/)
     assert.match(tag, /width="1440" height="900"/)
     const published = await readFile(join(output, 'previews', `${template.name}.jpg`))
-    assert.deepEqual(published, await readFile(join(designsRoot, 'previews', `${template.name}.jpg`)))
+    // Buffer.equals, not deepEqual: a byte-by-byte diff of two images exhausts memory.
+    const source = await readFile(join(designsRoot, 'previews', `${template.name}.jpg`))
+    assert.ok(published.equals(source), `dist/previews/${template.name}.jpg is stale; run npm run build`)
     assert.equal(published.readUInt16BE(0), 0xffd8, 'Preview must be a JPEG')
     assert.ok(published.length < 350_000, 'Preview must stay below 350 KB')
   })
