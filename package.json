@@ -5,8 +5,9 @@
   "scripts": {
     "setup": "node ./scripts/run-templates.mjs ci",
     "build": "node ./scripts/run-templates.mjs build",
-    "test": "node --test ./scripts/pages.test.mjs",
+    "test": "node --test ./scripts/pages.test.mjs ./scripts/standard-06.test.mjs",
     "dev": "node ./scripts/start-hub.mjs",
+    "dev:standard-06": "node ./scripts/start-hub.mjs standard-06",
     "check:finance": "node ./scripts/check-finance.mjs"
   }
 }

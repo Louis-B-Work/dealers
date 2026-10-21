@@ -17,11 +17,11 @@ async function assertLocalAssets(html, filename) {
   }
 }
 
-test('gallery links to exactly the six published previews, with no localhost URLs', async () => {
+test('gallery links to exactly the published previews, with no localhost URLs', async () => {
   const filename = join(output, 'index.html')
   const html = await readFile(filename, 'utf8')
   const links = [...html.matchAll(/class="open-link" href="([^"]+)"/g)].map((match) => match[1])
-  assert.equal(links.length, 6)
+  assert.equal(links.length, templates.length)
   assert.deepEqual(
     links.sort(),
     templates.map(({ name }) => `./${name}/`).sort(),
@@ -32,12 +32,36 @@ test('gallery links to exactly the six published previews, with no localhost URL
 })
 
 for (const template of templates) {
+  test(`${template.name} has a gallery screenshot with portable markup`, async () => {
+    const html = await readFile(join(output, 'index.html'), 'utf8')
+    const image = `./previews/${template.name}.jpg`
+    const tag = [...html.matchAll(/<img\b[^>]*class="card-preview"[^>]*>/g)]
+      .map(([markup]) => markup)
+      .find((markup) => markup.includes(`src="${image}"`))
+    assert.ok(tag, `Missing gallery image for ${template.name}`)
+    assert.match(tag, /alt="[^"]+"/)
+    assert.match(tag, /width="1440" height="900"/)
+    const published = await readFile(join(output, 'previews', `${template.name}.jpg`))
+    // Buffer.equals, not deepEqual: a byte-by-byte diff of two images exhausts memory.
+    const source = await readFile(join(designsRoot, 'previews', `${template.name}.jpg`))
+    assert.ok(published.equals(source), `dist/previews/${template.name}.jpg is stale; run npm run build`)
+    assert.equal(published.readUInt16BE(0), 0xffd8, 'Preview must be a JPEG')
+    assert.ok(published.length < 350_000, 'Preview must stay below 350 KB')
+  })
+
   test(`${template.name} has a published entry point and portable assets`, async () => {
     const filename = join(output, template.name, 'index.html')
     const html = await readFile(filename, 'utf8')
     assert.ok(html.includes(`<title>${template.expectedTitle}</title>`))
     if (template.staticPreview) {
       assert.equal(html, await readFile(join(designsRoot, template.name, template.staticPreview), 'utf8'))
+      for (const asset of template.staticAssets ?? []) {
+        assert.equal(
+          await readFile(join(output, template.name, asset), 'utf8'),
+          await readFile(join(designsRoot, template.name, asset), 'utf8'),
+          `${asset} must be published without changes`,
+        )
+      }
     } else {
       assert.match(html, /<script type="module"[^>]+src="\.\/assets\//)
     }

@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f5f1e8" />
-    <meta name="description" content="Northline Motor Co. — a considered collection of quality used cars." />
-    <title>Northline Motor Co. | Considered Cars</title>
+    <meta name="description" content="Dealership Name — a considered collection of quality used cars." />
+    <title>Dealership Name | Considered Cars</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
@@ -227,34 +227,6 @@
       @media (max-width: 480px) { .types { --cols: 1.7; } .type-card a { gap: 10px; padding: 14px 14px 10px; } .type-name { font-size: 19px; } }
       @media (max-width: 360px) { .types { --pad: 20px; } }
 
-      /* ── Wireframes: placeholder sections awaiting design ── */
-      .wf { --pad: clamp(40px,4.4vw,64px); --wf-ink: rgba(29,45,38,.14); --wf-edge: rgba(29,45,38,.28); padding: 80px var(--pad); border-top: 1px dashed var(--wf-edge); }
-      .wf:nth-of-type(even) { background: var(--paper-deep); }
-      .wf-tag { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin-bottom: 28px; }
-      .wf-tag strong { padding: 6px 10px; border: 1px dashed var(--wf-edge); border-radius: 6px; color: var(--ink); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
-      .wf-tag span { color: var(--muted); font-size: 12px; }
-      .wf-box { position: relative; border: 1.5px dashed var(--wf-edge); border-radius: 16px; background: repeating-linear-gradient(135deg,rgba(29,45,38,.04) 0 10px,transparent 10px 20px); }
-      .wf-img { min-height: 220px; background: linear-gradient(to top right,transparent calc(50% - 1px),var(--wf-ink) 50%,transparent calc(50% + 1px)),linear-gradient(to top left,transparent calc(50% - 1px),var(--wf-ink) 50%,transparent calc(50% + 1px)); }
-      .wf-img::after { content: attr(data-label); position: absolute; top: 50%; left: 50%; padding: 4px 10px; border-radius: 6px; background: var(--paper); color: var(--muted); font-size: 11px; transform: translate(-50%,-50%); white-space: nowrap; }
-      .wf-stack { display: grid; align-content: start; gap: 12px; }
-      .wf-h,.wf-l,.wf-btn,.wf-dot { display: block; border-radius: 8px; background: var(--wf-ink); }
-      .wf-h { width: 70%; height: 38px; background: rgba(29,45,38,.2); }
-      .wf-h.sm { width: 55%; height: 22px; }
-      .wf-l { width: 100%; height: 11px; border-radius: 6px; }
-      .wf-l.w80 { width: 80%; } .wf-l.w60 { width: 60%; } .wf-l.w40 { width: 40%; }
-      .wf-btn { width: 160px; height: 46px; margin-top: 10px; border-radius: 999px; background: rgba(29,45,38,.2); }
-      .wf-dot { width: 44px; height: 44px; border-radius: 50%; }
-      .wf-split { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 56px; }
-      .wf-split .wf-img { aspect-ratio: 4/3; }
-      .wf-row { display: grid; grid-template-columns: repeat(var(--n,3),minmax(0,1fr)); gap: 16px; }
-      .wf-card { display: grid; align-content: start; gap: 12px; padding: 24px; }
-      .wf-banner { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 32px; padding: clamp(28px,4vw,52px); }
-      @media (max-width: 875px) { .wf { --pad: 26px; padding-block: 60px; } }
-      @media (max-width: 767px) {
-        .wf-split,.wf-banner { grid-template-columns: 1fr; gap: 28px; }
-        .wf-row { grid-template-columns: 1fr; }
-      }
-      @media (max-width: 360px) { .wf { --pad: 20px; } }
       footer { padding: 44px 0 28px; background: #173a2c; color: #fffdf8; }
       .footer-main { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 42px; padding-bottom: 32px; }
       .footer-brand { font: 24px var(--serif); }
@@ -299,18 +271,21 @@
         *,*::before,*::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
       }
     </style>
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <nav class="nav">
       <div class="nav-inner">
-        <a class="brand" href="#" aria-label="Northline Motor Co. home"><span class="brand-mark">N</span><span class="brand-name">Northline Motor Co.</span></a>
-        <div class="nav-links"><a href="#collection">The collection</a><a href="#approach">Our approach</a><a href="#finance">Finance</a><a href="#contact">Visit us</a></div>
-        <a class="nav-cta" href="#collection">Explore the cars</a>
-        <button class="menu" aria-label="Open menu">☰</button>
+        <a class="brand" href="#/" aria-label="Dealership Name home"><span class="brand-mark">D</span><span class="brand-name">Dealership Name</span></a>
+        <div class="nav-links" id="main-menu"><a href="#/vehicles">The collection</a><a href="#/about">Our approach</a><a href="#/finance">Finance</a><a href="#/sell">Sell your car</a><a href="#/contact">Visit us</a></div>
+        <a class="nav-cta" href="#/vehicles">Explore the cars</a>
+        <button class="menu" aria-label="Open menu" aria-expanded="false" aria-controls="main-menu">☰</button>
       </div>
     </nav>
 
-    <main>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main id="main-content" tabindex="-1">
+      <div id="home-page">
       <section class="hero" aria-labelledby="hero-title">
         <img class="hero-bg" src="https://images.unsplash.com/photo-1574023240744-64c47c8c0676?w=2400&q=75&auto=format" alt="" fetchpriority="high" />
         <div class="hero-inner">
@@ -319,18 +294,18 @@
             <p class="hero-sub">A thoughtful collection of well-kept cars, chosen for the journeys still ahead. No hard sell.</p>
           </div>
 
-          <form class="hero-search" id="hero-search" action="/used-cars" method="get" role="search" aria-label="Search our cars">
+          <form class="hero-search" id="hero-search" role="search" aria-label="Search our cars">
             <div class="hs-field"><label for="hs-make">Make</label><select id="hs-make" name="make"><option value="">Any make</option></select></div>
             <div class="hs-field"><label for="hs-model">Model</label><select id="hs-model" name="model" disabled><option value="">Any model</option></select></div>
             <div class="hs-field"><label for="hs-price">Max price</label><select id="hs-price" name="maxPrice"><option value="">No max</option></select></div>
             <button class="hs-submit" type="submit">Search <span class="hs-count" data-hs-count>0</span> cars <span aria-hidden="true">→</span></button>
           </form>
           <p class="sr-only" aria-live="polite" data-hs-status></p>
-          <a class="hero-alt" href="#finance">or check what you could borrow&nbsp; ↗</a>
+          <a class="hero-alt" href="#/finance">or explore your finance options&nbsp; ↗</a>
 
           <div class="hero-rail-slot">
             <section class="hero-rail" aria-labelledby="rail-title">
-              <div class="rail-head"><span id="rail-title">Just arrived</span><span class="rail-count" data-rail-count>02 / 06</span><a href="#collection">All stock ↗</a></div>
+              <div class="rail-head"><span id="rail-title">Just arrived</span><span class="rail-count" data-rail-count>02 / 06</span><a href="#/vehicles">All stock ↗</a></div>
               <div class="rail-row">
                 <ul class="rail-track" id="rail-track" data-rail-track></ul>
                 <button class="rail-more" type="button" aria-expanded="false" aria-controls="rail-track" aria-label="Show 4 more cars">
@@ -356,7 +331,7 @@
           <div class="stock-controls">
             <button class="stock-arrow" type="button" aria-label="Previous cars" aria-controls="stock-panel" data-dir="-1">←</button>
             <button class="stock-arrow" type="button" aria-label="Next cars" aria-controls="stock-panel" data-dir="1">→</button>
-            <a class="text-link" href="#contact">See all stock&nbsp; ↗</a>
+            <a class="text-link" href="#/vehicles">See all stock&nbsp; ↗</a>
           </div>
         </div>
         <ul class="stock-row" id="stock-panel" role="tabpanel" aria-labelledby="stock-tab-new" tabindex="0" data-stock-row></ul>
@@ -365,73 +340,57 @@
       <section class="types" aria-labelledby="types-title">
         <div class="types-head">
           <h2 id="types-title">Shop by body type</h2>
-          <a class="text-link" href="#collection">See all stock&nbsp; ↗</a>
+          <a class="text-link" href="#/vehicles">See all stock&nbsp; ↗</a>
         </div>
         <ul class="types-row" data-types-row></ul>
       </section>
 
-      <section class="wf" id="approach" aria-label="About us (wireframe)">
-        <div class="wf-tag"><strong>About / our approach</strong><span>Dealer story, a showroom or team photo, 2–3 trust points and a link to the About page.</span></div>
-        <div class="wf-split">
-          <div class="wf-box wf-img" data-label="Showroom / team photo"></div>
-          <div class="wf-stack">
-            <span class="wf-h"></span>
-            <span class="wf-l"></span><span class="wf-l w80"></span><span class="wf-l w60"></span>
-            <div class="wf-row" style="--n:2; margin-top:16px">
-              <div class="wf-stack"><span class="wf-h sm"></span><span class="wf-l w80"></span></div>
-              <div class="wf-stack"><span class="wf-h sm"></span><span class="wf-l w80"></span></div>
-            </div>
-          </div>
+      <section class="section" id="approach" aria-labelledby="approach-title">
+        <div class="shell editorial-split">
+          <div class="editorial-photo"><img src="https://images.unsplash.com/photo-1563720223185-11003d516935?w=1000&amp;q=80&amp;auto=format&amp;fit=crop" alt="A Range Rover presented outside a contemporary building" loading="lazy" /><span class="photo-note">A little more thought. A much better journey.</span></div>
+          <div class="editorial-copy"><p class="eyebrow">A different kind of car people</p><h2 id="approach-title">Chosen with care.<br />Sold with a handshake.</h2><p>Buying a car should feel like the start of something good. Not a negotiation you need to win. We keep things simple: a considered collection, clear advice, and the time to find your fit.</p><p>From the first look to the drive home, you speak to people who care as much about the details as you do.</p><div class="trust-pair"><div><strong>Good cars, properly prepared.</strong><span>History, condition and the little things, checked before handover.</span></div><div><strong>Your pace. Always.</strong><span>Space to browse, a proper test drive and no pushy follow-ups.</span></div></div><a class="text-link" href="#/about">Get to know us&nbsp; ↗</a></div>
         </div>
       </section>
 
-      <section class="wf" id="finance" aria-label="Finance (wireframe)">
-        <div class="wf-tag"><strong>Finance</strong><span>Finance call to action with a representative example (APR) and an eligibility check link.</span></div>
-        <div class="wf-box wf-banner">
-          <div class="wf-stack"><span class="wf-h"></span><span class="wf-l w80"></span><span class="wf-l w60"></span><span class="wf-l w40" style="margin-top:8px"></span></div>
-          <span class="wf-btn"></span>
-        </div>
+      <section class="section finance-section" id="finance" aria-labelledby="finance-title">
+        <div class="shell finance-banner"><div><p class="eyebrow">Room for the things that matter</p><h2 id="finance-title">The right car.<br />A comfortable monthly payment.</h2><p>Explore a deposit and term that work for you. Our straightforward calculator gives you a starting point, without a credit check.</p><a class="button button-light" href="#/finance">Find your monthly payment&nbsp; ↗</a></div><div class="finance-note"><span class="eyebrow">Illustrative hire purchase</span><strong>11.9% <small>APR</small></strong><p>Borrow £12,000 over 60 months with no deposit. 60 payments of £262.69. Total payable £15,761.40. No fees in this illustration.</p><p class="fine-print">Demo illustration, not a finance offer. Finance subject to status and lender approval. Dealership Name is a fictional credit broker, not a lender.</p></div></div>
       </section>
 
-      <section class="wf" aria-label="Reviews (wireframe)">
-        <div class="wf-tag"><strong>Reviews</strong><span>Customer reviews with star rating, plus a link to the review platform.</span></div>
-        <div class="wf-row">
-          <div class="wf-box wf-card"><span class="wf-l w40"></span><span class="wf-l"></span><span class="wf-l w80"></span><span class="wf-l w60"></span><span class="wf-h sm" style="margin-top:8px"></span></div>
-          <div class="wf-box wf-card"><span class="wf-l w40"></span><span class="wf-l"></span><span class="wf-l w80"></span><span class="wf-l w60"></span><span class="wf-h sm" style="margin-top:8px"></span></div>
-          <div class="wf-box wf-card"><span class="wf-l w40"></span><span class="wf-l"></span><span class="wf-l w80"></span><span class="wf-l w60"></span><span class="wf-h sm" style="margin-top:8px"></span></div>
-        </div>
+      <section class="section reviews-section" id="reviews" aria-labelledby="reviews-title">
+        <div class="shell"><div class="section-heading"><div><p class="eyebrow">The drive home says it all</p><h2 id="reviews-title">Good words. Great journeys.</h2></div><p class="quiet">A flavour of the dealership experience.<br /><span class="fine-print">Illustrative reviews for this design preview.</span></p></div><div class="three-grid">
+          <figure class="review-card"><span class="stars" aria-label="5 out of 5 stars">★★★★★</span><blockquote>“Time to look, honest answers and absolutely no pressure. Exactly how buying a car should be.”</blockquote><figcaption><span class="initial">JT</span><span>James T.<small>Finding a first family car</small></span></figcaption></figure>
+          <figure class="review-card"><span class="stars" aria-label="5 out of 5 stars">★★★★★</span><blockquote>“Everything was explained clearly, including the finance. I drove away feeling confident, not confused.”</blockquote><figcaption><span class="initial">SP</span><span>Sarah P.<small>Making the next step</small></span></figcaption></figure>
+          <figure class="review-card"><span class="stars" aria-label="5 out of 5 stars">★★★★★</span><blockquote>“The little details made the difference. A beautifully prepared car and people who genuinely listened.”</blockquote><figcaption><span class="initial">MR</span><span>Michael R.<small>Something for the open road</small></span></figcaption></figure>
+        </div></div>
       </section>
 
-      <section class="wf" id="contact" aria-label="Visit us (wireframe)">
-        <div class="wf-tag"><strong>Visit us</strong><span>Address, phone, opening hours and a map.</span></div>
-        <div class="wf-split">
-          <div class="wf-stack">
-            <span class="wf-h"></span>
-            <span class="wf-l w80"></span><span class="wf-l w60"></span>
-            <span class="wf-l w40" style="margin-top:12px"></span><span class="wf-l w40"></span><span class="wf-l w40"></span>
-            <span class="wf-btn"></span>
-          </div>
-          <div class="wf-box wf-img" data-label="Map"></div>
-        </div>
+      <section class="section visit-section" id="contact" aria-labelledby="visit-title">
+        <div class="shell editorial-split"><div class="editorial-copy"><p class="eyebrow">Worth a little detour</p><h2 id="visit-title">Come for a look.<br />Stay for a coffee.</h2><p>Visit our imagined Leeds showroom, take your time with the collection and talk through what comes next. This is a design demonstration, not a trading dealership.</p><div class="visit-details"><div><strong>Find our demo showroom</strong><span>Dealership Name<br />Leeds, West Yorkshire</span></div><div><strong>Showroom hours</strong><span>Mon–Fri &nbsp; 9am–6pm<br />Saturday &nbsp; 9am–5pm<br />Sunday &nbsp; By appointment</span></div></div><a class="button" href="#/contact">Plan your visit&nbsp; ↗</a></div><div class="location-card"><span class="location-ring ring-one"></span><span class="location-ring ring-two"></span><span class="location-road"></span><div class="location-label"><span class="brand-mark">D</span><strong>Dealership Name</strong><span>Leeds, West Yorkshire</span><a href="https://www.openstreetmap.org/search?query=Leeds%2C%20West%20Yorkshire" target="_blank" rel="noopener noreferrer">Explore Leeds on the map ↗</a></div><span class="map-caption">Illustrated location · Demo showroom</span></div></div>
       </section>
+      <section class="service-strip"><div class="shell"><p class="eyebrow">Here for the miles ahead</p><div><a href="#/mot">MOT &amp; servicing ↗</a><a href="#/warranty">Warranty cover ↗</a><a href="#/body-shop">Body shop ↗</a><a href="#/breakdown">Roadside support ↗</a></div></div></section>
+      </div>
+      <div id="route-page" hidden></div>
     </main>
 
     <footer>
       <div class="shell">
         <div class="footer-main">
-          <div><div class="footer-brand">Northline Motor Co.</div><p class="footer-copy">A thoughtful collection of quality used cars in Leeds. Good cars, good people, and a better way to buy.</p></div>
-          <div><h3>Explore</h3><div class="footer-links"><a href="#collection">The collection</a><a href="#approach">Our approach</a><a href="#finance">Finance</a></div></div>
-          <div><h3>Find us</h3><div class="footer-links"><a href="#contact">Leeds, West Yorkshire</a><a href="tel:+441132450800">0113 245 0800</a><a href="mailto:hello@northlinemotor.co.uk">hello@northlinemotor.co.uk</a></div></div>
+          <div><div class="footer-brand">Dealership Name</div><p class="footer-copy">A thoughtful collection of quality used cars in Leeds. Good cars, good people, and a better way to buy.</p></div>
+          <div><h3>Explore</h3><div class="footer-links"><a href="#/vehicles">The collection</a><a href="#/about">Our approach</a><a href="#/finance">Finance</a><a href="#/sell">Sell or part-exchange</a><a href="#/contact">Contact &amp; visits</a></div></div>
+          <div><h3>Care &amp; support</h3><div class="footer-links"><a href="#/mot">MOT &amp; servicing</a><a href="#/warranty">Warranty</a><a href="#/body-shop">Body shop</a><a href="#/breakdown">Breakdown assistance</a><a href="#/privacy">Privacy</a></div></div>
         </div>
-        <div class="footer-bottom"><span>© 2026 Northline Motor Co. All rights reserved.</span><span>Northline Motor Co. is a credit broker, not a lender.</span></div>
+        <div class="footer-bottom"><span>© 2026 Dealership Name · A fictional dealership design preview.</span><span>Demo stock, imagery, reviews and finance. No enquiries are transmitted.</span></div>
       </div>
     </footer>
-    <script>
+    <script type="module">
+      import { STOCK, BODY_TYPES, photo, gbp } from './stock.mjs';
+      import { initPages } from './app.mjs';
       const nav = document.querySelector('.nav');
       const menuButton = document.querySelector('.menu');
       const menuLinks = document.querySelector('.nav-links');
-      const syncNav = () => nav.classList.toggle('is-solid', window.scrollY > 24 || menuLinks.classList.contains('is-open'));
+      const syncNav = () => nav.classList.toggle('is-solid', document.body.classList.contains('inner-page') || window.scrollY > 24 || menuLinks.classList.contains('is-open'));
       window.addEventListener('scroll', syncNav, { passive: true });
+      window.addEventListener('hashchange', syncNav);
       syncNav();
       menuButton.addEventListener('click', () => {
         const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
@@ -449,33 +408,7 @@
         }
       });
 
-      // Sample stock: the first six double as the hero's "Just arrived" rail; every pictured car feeds the stock row.
-      const photo = (src, w) => src.includes('pexels') ? `${src}?auto=compress&cs=tinysrgb&w=${w}` : `${src}?w=${w}&q=70&auto=format&fit=crop`;
-      const STOCK = [
-        { make: 'Land Rover', model: 'Range Rover Evoque', year: 2019, miles: 38400, gearbox: 'Automatic', price: 22950, img: 'https://images.pexels.com/photos/116675/pexels-photo-116675.jpeg' },
-        { make: 'Fiat', model: '500', year: 2021, miles: 14200, gearbox: 'Manual', price: 10495, img: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2' },
-        { make: 'Volkswagen', model: 'Polo', year: 2020, miles: 26800, gearbox: 'Manual', price: 11990, img: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d' },
-        { make: 'BMW', model: '4 Series', year: 2021, miles: 22100, gearbox: 'Automatic', price: 25750, img: 'https://images.unsplash.com/photo-1502877338535-766e1452684a' },
-        { make: 'Mercedes-Benz', model: 'SLK', year: 2016, miles: 41800, gearbox: 'Automatic', price: 15750, img: 'https://images.pexels.com/photos/1335077/pexels-photo-1335077.jpeg' },
-        { make: 'BMW', model: '3 Series', year: 2020, miles: 34900, gearbox: 'Automatic', price: 18995, img: 'https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg' },
-        { make: 'Ford', model: 'Focus', year: 2021, miles: 21400, gearbox: 'Manual', price: 14995, img: 'https://images.pexels.com/photos/27138933/pexels-photo-27138933/free-photo-of-silver-ford-focus-car-parked-on-the-road.jpeg' },
-        { make: 'Volkswagen', model: 'Golf', year: 2020, miles: 30200, gearbox: 'Manual', price: 16250, img: 'https://images.unsplash.com/photo-1776075508451-fba29bea6fae' },
-        { make: 'Toyota', model: 'Yaris', year: 2021, miles: 18700, gearbox: 'Automatic', price: 13995, img: 'https://images.pexels.com/photos/20595070/pexels-photo-20595070/free-photo-of-black-toyota-yaris.jpeg' },
-        { make: 'Kia', model: 'EV6', year: 2022, miles: 15300, gearbox: 'Automatic', price: 29995, img: 'https://images.pexels.com/photos/13592325/pexels-photo-13592325.jpeg' },
-        { make: 'Audi', model: 'A3', year: 2021, price: 17490 }, { make: 'Audi', model: 'A4', year: 2021, price: 21490 }, { make: 'Audi', model: 'Q3', year: 2022, price: 26250 },
-        { make: 'BMW', model: '1 Series', year: 2019, price: 14250 }, { make: 'BMW', model: 'X1', year: 2021, price: 22995 },
-        { make: 'Fiat', model: '500', year: 2019, price: 7995 }, { make: 'Fiat', model: 'Tipo', year: 2020, price: 9495 },
-        { make: 'Ford', model: 'Fiesta', year: 2019, price: 9250 }, { make: 'Ford', model: 'Puma', year: 2022, price: 18750 }, { make: 'Ford', model: 'Kuga', year: 2020, price: 17250 },
-        { make: 'Kia', model: 'Sportage', year: 2022, price: 21995 }, { make: 'Kia', model: 'Niro', year: 2021, price: 17995 },
-        { make: 'Mercedes-Benz', model: 'A-Class', year: 2020, price: 18495 }, { make: 'Mercedes-Benz', model: 'C-Class', year: 2021, price: 24995 },
-        { make: 'Toyota', model: 'C-HR', year: 2020, price: 17495 },
-        { make: 'Vauxhall', model: 'Corsa', year: 2021, price: 10995 }, { make: 'Vauxhall', model: 'Mokka', year: 2022, price: 16495 },
-        { make: 'Volkswagen', model: 'Tiguan', year: 2021, price: 23995 },
-        { make: 'Volvo', model: 'XC60', year: 2020, price: 26995 },
-        { make: 'Volkswagen', model: 'Golf Estate', year: 2019, miles: 36100, gearbox: 'Manual', price: 13495, img: 'https://images.unsplash.com/photo-1777907159946-9170caa0dab5', focus: '45% 62%' },
-      ];
       const PRICE_STEPS = [8000, 10000, 12500, 15000, 20000, 25000, 30000];
-      const gbp = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0 });
 
       const form = document.getElementById('hero-search');
       const makeSel = form.elements.make;
@@ -508,11 +441,9 @@
       modelSel.addEventListener('change', renderCount);
       priceSel.addEventListener('change', () => { renderMakes(); renderModels(); renderCount(); });
       form.addEventListener('submit', (event) => {
-        // Live templates post to /used-cars; the static preview just records the query and jumps to stock.
         event.preventDefault();
         const params = new URLSearchParams([...new FormData(form)].filter(([, v]) => v));
-        history.replaceState(null, '', `${params.size ? `?${params}` : location.pathname}#collection`);
-        document.getElementById('collection').scrollIntoView({ behavior: 'smooth' });
+        location.hash = `/vehicles${params.size ? `?${params}` : ''}`;
       });
       renderPrices(); renderMakes(); renderModels(); renderCount();
 
@@ -523,7 +454,7 @@
       const railCount = rail.querySelector('[data-rail-count]');
       track.innerHTML = STOCK.slice(0, 6).map((car, i) => `
         <li class="rail-card${i > 1 ? ' is-extra' : ''}" style="--i:${i - 2}"${i > 1 ? ' inert' : ''}>
-          <a href="#collection" aria-label="${car.year} ${car.make} ${car.model}, ${gbp.format(car.price)}">
+          <a href="#/vehicles/${car.id}" aria-label="${car.year} ${car.make} ${car.model}, ${gbp.format(car.price)}">
             <img src="${photo(car.img, 420)}" alt="" loading="${i > 1 ? 'lazy' : 'eager'}" />
             <span class="rc-body"><span class="rc-make">${car.make}</span><strong>${car.model}</strong><small>${car.year} · <b>${gbp.format(car.price)}</b></small></span>
           </a>
@@ -576,8 +507,7 @@
       const stockTabs = [...document.querySelectorAll('.stock-tab')];
       const stockArrows = [...document.querySelectorAll('.stock-arrow')];
       const STOCK_ROW_SIZE = 10;
-      // Placeholder: both tabs use the API's default "most recent" order until a featured rule is agreed.
-      const stockFor = () => STOCK.filter((car) => car.img).slice(0, STOCK_ROW_SIZE);
+      const stockFor = (tab) => STOCK.filter((car) => tab !== 'featured' || car.featured).slice(0, STOCK_ROW_SIZE);
       const syncArrows = () => {
         const end = stockRow.scrollWidth - stockRow.clientWidth - 2;
         stockArrows[0].disabled = stockRow.scrollLeft <= 2;
@@ -587,7 +517,7 @@
         const badge = tab === 'featured' ? 'Featured' : 'New in';
         stockRow.innerHTML = stockFor(tab).map((car, i) => `
           <li class="stock-card" style="--i:${Math.min(i, 5)}">
-            <a href="#collection" aria-label="${car.year} ${car.make} ${car.model}, ${gbp.format(car.price)}">
+            <a href="#/vehicles/${car.id}" aria-label="${car.year} ${car.make} ${car.model}, ${gbp.format(car.price)}">
               <span class="stock-media"><img src="${photo(car.img, 720)}" alt="" loading="${i < 5 ? 'eager' : 'lazy'}" /><span class="stock-badge">${badge}</span></span>
               <span class="stock-body">
                 <span class="stock-make">${car.make}</span>
@@ -634,29 +564,15 @@
       renderStock('new');
 
       // ── Body types ──
-      const BODY_BY_MODEL = {
-        'Range Rover Evoque': 'SUV', XC40: 'SUV', XC60: 'SUV', EV6: 'SUV', Q3: 'SUV', X1: 'SUV', Puma: 'SUV', Kuga: 'SUV', Sportage: 'SUV', Niro: 'SUV', 'C-HR': 'SUV', Mokka: 'SUV', Tiguan: 'SUV',
-        500: 'Hatchback', Polo: 'Hatchback', Focus: 'Hatchback', Golf: 'Hatchback', Yaris: 'Hatchback', A3: 'Hatchback', '1 Series': 'Hatchback', Tipo: 'Hatchback', Fiesta: 'Hatchback', 'A-Class': 'Hatchback', Corsa: 'Hatchback',
-        '3 Series': 'Saloon', A4: 'Saloon', 'C-Class': 'Saloon', 'Golf Estate': 'Estate', '4 Series': 'Coupe', SLK: 'Convertible',
-      };
-      const BODY_TYPES = [
-        { name: 'SUV', plural: 'SUVs' },
-        { name: 'Hatchback', plural: 'hatchbacks' },
-        { name: 'Saloon', plural: 'saloons' },
-        { name: 'Estate', plural: 'estates' },
-        { name: 'Coupe', plural: 'coupes' },
-        { name: 'Convertible', plural: 'convertibles' },
-      ];
       const typesRow = document.querySelector('[data-types-row]');
       typesRow.innerHTML = BODY_TYPES.map(({ name, plural }) => {
-        const cars = STOCK.filter((car) => BODY_BY_MODEL[car.model] === name).sort((a, b) => a.price - b.price);
+        const cars = STOCK.filter((car) => car.bodyType === name).sort((a, b) => a.price - b.price);
         if (!cars.length) return '';
         const cheapest = cars[0];
-        // Live stock always has a photo; the preview's unpictured sample cars borrow the cheapest pictured one.
         const pictured = cheapest.img ? cheapest : cars.find((car) => car.img);
         return `
           <li class="type-card">
-            <a href="?bodyType=${encodeURIComponent(name)}#collection" aria-label="Shop ${plural}: ${cars.length} ${cars.length === 1 ? 'car' : 'cars'} from ${gbp.format(cheapest.price)}">
+            <a href="#/vehicles?bodyType=${encodeURIComponent(name)}" aria-label="Shop ${plural}: ${cars.length} ${cars.length === 1 ? 'car' : 'cars'} from ${gbp.format(cheapest.price)}">
               <span class="type-meta">
                 <span class="type-name">${name === 'SUV' ? 'SUVs' : `${name}s`}</span>
                 <span class="type-from">From <b>${gbp.format(cheapest.price)}</b></span>
@@ -666,6 +582,7 @@
             </a>
           </li>`;
       }).join('');
+      initPages(syncNav);
     </script>
   </body>
 </html>

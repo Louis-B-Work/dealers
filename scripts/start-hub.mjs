@@ -27,7 +27,8 @@ async function startHubServer() {
         return
       }
 
-      if (!['/', '/index.html'].includes(pathname)) {
+      const preview = templates.find((template) => pathname === `/previews/${template.name}.jpg`)
+      if (!['/', '/index.html'].includes(pathname) && !preview) {
         response.writeHead(404).end('Not found')
         return
       }
@@ -37,13 +38,22 @@ async function startHubServer() {
         return
       }
 
-      response.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' })
+      response.writeHead(200, { 'Content-Type': preview ? 'image/jpeg' : 'text/html; charset=utf-8' })
       if (request.method === 'HEAD') {
         response.end()
         return
       }
 
-      response.end(index)
+      if (preview) {
+        const image = createReadStream(join(designsRoot, 'previews', `${preview.name}.jpg`))
+        image.on('error', (error) => {
+          console.error(`Unable to serve preview image for ${preview.name}: ${error.message}`)
+          response.destroy(error)
+        })
+        image.pipe(response)
+      } else {
+        response.end(index)
+      }
     })
 
     hubServer.once('error', reject)
@@ -94,6 +104,7 @@ async function startTemplate(template) {
   if (template.staticPreview) {
     const previewPath = join(projectPath, template.staticPreview)
     await access(previewPath)
+    for (const asset of template.staticAssets ?? []) await access(join(projectPath, asset))
     if (await isTemplateAvailable(template)) {
       console.log(`${template.name} is already running at http://${host}:${template.port}/`)
       return
@@ -105,13 +116,24 @@ async function startTemplate(template) {
         return
       }
 
-      response.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' })
+      const pathname = new URL(request.url ?? '/', `http://${host}:${template.port}/`).pathname
+      const filename = ['/', '/index.html'].includes(pathname)
+        ? template.staticPreview
+        : (template.staticAssets ?? []).find((asset) => pathname === `/${asset}`)
+      if (!filename) {
+        response.writeHead(404).end('Not found')
+        return
+      }
+      const contentType = filename.endsWith('.css')
+        ? 'text/css; charset=utf-8'
+        : filename.endsWith('.mjs') ? 'text/javascript; charset=utf-8' : 'text/html; charset=utf-8'
+      response.writeHead(200, { 'Content-Type': contentType })
       if (request.method === 'HEAD') {
         response.end()
         return
       }
 
-      const page = createReadStream(previewPath)
+      const page = createReadStream(join(projectPath, filename))
       page.on('error', (error) => {
         console.error(`Unable to serve ${template.name}: ${error.message}`)
         if (!response.headersSent) response.writeHead(500)
@@ -213,6 +235,16 @@ function shutdown(exitCode = 0) {
 }
 
 async function main() {
+  const selectedName = process.argv[2]
+  if (selectedName) {
+    const selected = templates.find((template) => template.name === selectedName)
+    if (!selected) throw new Error(`Unknown template: ${selectedName}`)
+    await startTemplate(selected)
+    process.once('SIGINT', () => void shutdown(130))
+    process.once('SIGTERM', () => void shutdown(143))
+    return
+  }
+
   await startHubServer()
   console.log(`Template hub is serving at ${hubUrl}`)
 

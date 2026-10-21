@@ -31,7 +31,18 @@ export const templates = [
   {
     name: 'standard-06',
     port: 5179,
-    expectedTitle: 'Northline Motor Co. | Considered Cars',
+    expectedTitle: 'Dealership Name | Considered Cars',
     staticPreview: 'index.html',
+    staticAssets: ['styles.css', 'stock.mjs', 'app.mjs'],
+  },
+  {
+    name: 'stock-marketplace',
+    port: 5180,
+    expectedTitle: 'Dealership Name | Find Your Next Car',
+  },
+  {
+    name: 'noir-collection',
+    port: 5181,
+    expectedTitle: 'Dealership Name | The Collection',
   },
 ]

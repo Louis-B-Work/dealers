@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#f3f2ee" />
     <meta
       name="description"
-      content="Explore six dealer website designs, from cinematic video to warm, budget-led layouts."
+      content="Explore eight dealer website designs, from cinematic video to a stock-first marketplace and a dark, premium collection."
     />
     <title>Louis' Dealer Designs</title>
     <style>
@@ -146,6 +146,18 @@
         box-shadow: 0 12px 30px rgb(29 39 29 / 7%);
       }
 
+      .card-preview {
+        display: block;
+        width: calc(100% + 44px);
+        height: auto;
+        aspect-ratio: 8 / 5;
+        margin: -22px -22px 22px;
+        border-bottom: 1px solid #deded7;
+        border-radius: 13px 13px 0 0;
+        background: #eeeee8;
+        object-fit: cover;
+      }
+
       .card-top {
         display: flex;
         align-items: center;
@@ -269,7 +281,7 @@
       <aside class="guide" aria-label="How to open a preview">
         <span class="guide-mark" aria-hidden="true"></span>
         <span>
-          <strong>Six designs. One place to explore.</strong>
+          <strong>Eight designs. One place to explore.</strong>
           Choose a template below to explore its preview in a new tab. These are design
           demonstrations, not live dealerships.
         </span>
@@ -278,11 +290,12 @@
       <section aria-labelledby="templates-heading">
         <div class="section-heading">
           <h2 id="templates-heading">Templates</h2>
-          <span class="count">6 templates</span>
+          <span class="count">8 templates</span>
         </div>
 
         <div class="designs">
           <article class="card">
+            <img class="card-preview" src="./previews/light-video.jpg" alt="Light Video homepage with a full-bleed hero and vehicle search" width="1440" height="900" decoding="async" />
             <div class="card-top">
               <span class="number">01</span>
               <span class="badge">Light · Video</span>
@@ -298,6 +311,7 @@
           </article>
 
           <article class="card">
+            <img class="card-preview" src="./previews/dark-sidebar.jpg" alt="Dark Sidebar homepage with cinematic imagery and side navigation" width="1440" height="900" decoding="async" />
             <div class="card-top">
               <span class="number">02</span>
               <span class="badge">Dark · Sidebar</span>
@@ -313,6 +327,7 @@
           </article>
 
           <article class="card">
+            <img class="card-preview" src="./previews/minimal-editorial.jpg" alt="Minimal Editorial homepage with centred branding and a guided search" width="1440" height="900" loading="lazy" decoding="async" />
             <div class="card-top">
               <span class="number">03</span>
               <span class="badge">Minimal · Editorial</span>
@@ -328,6 +343,7 @@
           </article>
 
           <article class="card">
+            <img class="card-preview" src="./previews/warm-budget.jpg" alt="Warm Budget homepage with cream and teal styling and budget-led search" width="1440" height="900" loading="lazy" decoding="async" />
             <div class="card-top">
               <span class="number">04</span>
               <span class="badge">Warm · Friendly</span>
@@ -343,6 +359,7 @@
           </article>
 
           <article class="card">
+            <img class="card-preview" src="./previews/bright-mosaic.jpg" alt="Bright Mosaic homepage with colourful interlocking vehicle tiles" width="1440" height="900" loading="lazy" decoding="async" />
             <div class="card-top">
               <span class="number">05</span>
               <span class="badge">Bright · Mosaic</span>
@@ -358,11 +375,12 @@
           </article>
 
           <article class="card">
+            <img class="card-preview" src="./previews/standard-06.jpg" alt="Evergreen Editorial homepage with warm paper tones and an evergreen vehicle search" width="1440" height="900" loading="lazy" decoding="async" />
             <div class="card-top">
               <span class="number">06</span>
               <span class="badge">Evergreen · Editorial</span>
             </div>
-            <h3>Northline</h3>
+            <h3>Evergreen Editorial</h3>
             <p class="description">A considered collection of cars, framed by warm paper, evergreen tones and a gallery-like showroom.</p>
             <div class="card-bottom">
               <span class="port">standard-06</span>
@@ -371,11 +389,45 @@
               </a>
             </div>
           </article>
+
+          <article class="card">
+            <img class="card-preview" src="./previews/stock-marketplace.jpg" alt="Stock Marketplace homepage with a filter sidebar beside a grid of cars and their prices" width="1440" height="900" loading="lazy" decoding="async" />
+            <div class="card-top">
+              <span class="number">07</span>
+              <span class="badge">Marketplace · Stock-first</span>
+            </div>
+            <h3>Stock Marketplace</h3>
+            <p class="description">A stock-first design where the homepage is the stock: a filter sidebar, a dense results grid and a cash or per-month price toggle.</p>
+            <div class="card-bottom">
+              <span class="port">stock-marketplace</span>
+              <a class="open-link" href="./stock-marketplace/" target="_blank" rel="noreferrer">
+                Open preview <span class="arrow" aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </article>
+
+          <article class="card">
+            <img class="card-preview" src="./previews/noir-collection.jpg" alt="Noir Collection homepage with a make and model search above an Aston Martin DB11 framed beside its details on a dark, champagne-accented layout" width="1440" height="900" loading="lazy" decoding="async" />
+            <div class="card-top">
+              <span class="number">08</span>
+              <span class="badge">Dark · Premium</span>
+            </div>
+            <h3>Noir Collection</h3>
+            <p class="description">A dark, premium showroom with champagne accents: a spotlight that cycles through the stock, a make and model search, a numbered catalogue and private viewing requests.</p>
+            <div class="card-bottom">
+              <span class="port">noir-collection</span>
+              <a class="open-link" href="./noir-collection/" target="_blank" rel="noreferrer">
+                Open preview <span class="arrow" aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </article>
         </div>
       </section>
       <footer class="intro">
         Demo imagery includes third-party photography.
-        <a href="./bright-mosaic/cars/CREDITS.md">Bright Mosaic photo credits and licences</a>.
+        <a href="./bright-mosaic/cars/CREDITS.md">Bright Mosaic photo credits and licences</a>,
+        <a href="./stock-marketplace/cars/CREDITS.md">Stock Marketplace photo credits and licences</a>,
+        <a href="./noir-collection/cars/CREDITS.md">Noir Collection photo credits and licences</a>.
       </footer>
     </main>
   </body>

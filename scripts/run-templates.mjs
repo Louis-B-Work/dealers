@@ -1,5 +1,5 @@
 import { spawnSync } from 'node:child_process'
-import { copyFile, mkdir, rm, writeFile } from 'node:fs/promises'
+import { copyFile, cp, mkdir, rm, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { designsRoot, templates } from './templates.mjs'
 
@@ -16,6 +16,7 @@ if (command === 'build') {
   await rm(output, { recursive: true, force: true })
   await mkdir(output, { recursive: true })
   await copyFile(join(designsRoot, 'index.html'), join(output, 'index.html'))
+  await cp(join(designsRoot, 'previews'), join(output, 'previews'), { recursive: true })
   await writeFile(join(output, '.nojekyll'), '')
 }
 
@@ -26,6 +27,9 @@ for (const template of templates) {
       const destination = join(output, template.name)
       await mkdir(destination, { recursive: true })
       await copyFile(join(project, template.staticPreview), join(destination, 'index.html'))
+      for (const asset of template.staticAssets ?? []) {
+        await copyFile(join(project, asset), join(destination, asset))
+      }
     }
     continue
   }
@@ -44,4 +48,8 @@ for (const template of templates) {
   }
 }
 
-console.log(command === 'build' ? '\nAll six previews built in dist/.' : '\nTemplate dependencies installed.')
+console.log(
+  command === 'build'
+    ? `\nAll ${templates.length} previews built in dist/.`
+    : '\nTemplate dependencies installed.',
+)

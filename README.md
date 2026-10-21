@@ -1,6 +1,6 @@
 # Dealer designs
 
-Six standalone dealer website previews behind one gallery:
+Eight standalone dealer website previews behind one gallery:
 **https://louis-b-work.github.io/dealers/**
 
 These are design demonstrations, not live dealerships. Stock, contact details
@@ -13,10 +13,12 @@ and finance examples are demo content.
 | [Minimal Editorial](./minimal-editorial/) | Minimal, centred branding and guided search |
 | [Warm Budget](./warm-budget/) | Approachable, budget-led cream and teal |
 | [Bright Mosaic](./bright-mosaic/) | Bright, interlocking stock tiles |
-| [Northline](./standard-06/) | Warm paper, evergreen tones and a gallery-like showroom |
+| [Evergreen Editorial](./standard-06/) | Warm paper, evergreen tones and a gallery-like showroom |
+| [Stock Marketplace](./stock-marketplace/) | Stock-first: filter sidebar, dense results grid and a cash or monthly price toggle |
+| [Noir Collection](./noir-collection/) | Dark and premium: a spotlight cycling through the stock, make and model search, a numbered catalogue and private viewings |
 
-The first five are Vite + Vue 3 + TypeScript + Tailwind apps. Northline is a
-self-contained HTML preview; it does not require an install or compile step.
+Templates 1 to 5, 7 and 8 are Vite + Vue 3 + TypeScript + Tailwind apps. Evergreen Editorial uses
+HTML, CSS and native JavaScript modules; it requires no install or compile step.
 
 ## Local development
 
@@ -30,8 +32,9 @@ Use Node.js 22 and npm:
 ```sh
 npm run setup         # installs each Vue app from its package-lock.json
 npm run dev           # starts previews and opens the gallery at localhost:4180
-npm run check:finance # verifies the five Vue apps' shared finance calculations
-npm run build         # type-checks the Vue apps and assembles all six in dist/
+npm run dev:standard-06 # starts only Evergreen Editorial at localhost:5179
+npm run check:finance # verifies the seven Vue apps' shared finance calculations
+npm run build         # type-checks the Vue apps and assembles all eight in dist/
 npm test              # checks the built gallery, template links and local assets
 ```
 
@@ -50,6 +53,10 @@ Production Vue previews use hash routes (for example,
 `light-video/#/vehicles`), so bookmarked inner pages and refreshes work without
 server-side rewrites. Local Vite development keeps its existing clean URLs.
 The gallery opens previews in new tabs, keeping the original index available.
+Each gallery card includes a locally bundled homepage screenshot from
+`previews/`. These 1440 x 900 JPEGs are copied into the published gallery;
+recapture the matching homepage at that viewport after significant design
+changes to keep its thumbnail current.
 
 Edit templates in this repository to update the published previews. These are
 independent copies of the original `louis-designs` drafts, not an automatic
@@ -58,11 +65,26 @@ sync with the UI builder repository.
 ## Images and design status
 
 Some imagery, videos and fonts are loaded from external providers and require
-an internet connection. Bright Mosaic's bundled images retain their
-[photo credits and licences](./bright-mosaic/public/cars/CREDITS.md), also
+an internet connection. Bright Mosaic's, Stock Marketplace's and Noir Collection's bundled images retain their
+photo credits and licences ([Bright Mosaic](./bright-mosaic/public/cars/CREDITS.md),
+[Stock Marketplace](./stock-marketplace/public/cars/CREDITS.md),
+[Noir Collection](./noir-collection/public/cars/CREDITS.md)), also
 linked from the published gallery. Replace demo stock photography and content
 before using any design for a real dealer.
 
-Northline is currently a static design draft; publishing does not add missing
-production functionality. Finance validation covers the five Vue templates,
-not the standalone Northline page.
+Evergreen Editorial includes a complete homepage, filterable stock, vehicle details,
+finance calculator, sell/part-exchange, about, contact, MOT/servicing, warranty,
+body shop, breakdown and privacy pages. Hash routes (for example,
+`standard-06/#/vehicles`) work on GitHub Pages without server rewrites.
+Its eleven fully specified demo vehicles are shared by the homepage, filters,
+detail pages and finance calculator; the earlier unpictured sample records
+have been removed so counts and available vehicles agree.
+
+Evergreen Editorial remains a non-operational design preview. Forms validate locally and
+explicitly confirm that nothing is sent or saved; no live enquiries, valuations,
+bookings, credit checks or purchases are made. Reviews, locations and stock
+are illustrative, and photographs may not match the exact vehicle specification.
+Finance uses an effective monthly rate equivalent to 11.9% APR, with totals
+based on penny-rounded instalments and no fees or balloon payment. `npm test`
+also checks Evergreen Editorial stock filtering, routes, finance arithmetic and published
+assets. Run `node --test scripts/standard-06.test.mjs` for its focused logic tests.

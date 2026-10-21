@@ -1,0 +1,174 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ *
+ * Design tokens: warm ivory on a deep, slightly warm black, with one
+ * champagne accent. The accent marks actions and prices only, so it is
+ * the single value a dealer changes to re-brand the template.
+ * ------------------------------------------------------------------ */
+:root {
+  /* Space-separated RGB channels so Tailwind's opacity syntax works. */
+  --c-ink: 240 235 226; /* ivory text */
+  --c-ink-soft: 196 189 177;
+  --c-ink-muted: 146 139 128;
+
+  --c-paper: 11 10 9; /* page background */
+  --c-paper-soft: 19 18 16; /* alternate band */
+  --c-paper-sink: 7 7 6; /* deepest well, behind photography */
+  --c-surface: 24 22 20; /* raised panels and inputs */
+
+  --c-line: 52 48 43; /* hairlines */
+
+  --c-accent: 201 169 110; /* champagne */
+  --c-accent-hover: 222 196 146;
+  --c-accent-soft: 46 39 28; /* accent wash behind text */
+  --c-accent-ink: 20 17 12; /* text on accent */
+
+  --nav-h: 80px;
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + 16px);
+  background-color: rgb(var(--c-paper));
+}
+
+body {
+  margin: 0;
+  background-color: rgb(var(--c-paper));
+  color: rgb(var(--c-ink));
+  font-family: Manrope, system-ui, sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgb(var(--c-accent));
+  color: rgb(var(--c-accent-ink));
+}
+
+:where(a, button, input, select, textarea, summary):focus-visible {
+  outline: 1px solid rgb(var(--c-accent));
+  outline-offset: 3px;
+}
+
+/* Native controls follow the dark scheme; option lists need an explicit surface. */
+select option {
+  background-color: rgb(var(--c-surface));
+  color: rgb(var(--c-ink));
+}
+
+/* Display type is light and tightly set by default; a component can still
+   choose another weight or tracking with a utility, which wins over the base layer. */
+@layer base {
+  .font-display {
+    font-weight: 300;
+    letter-spacing: -0.025em;
+  }
+}
+
+@layer components {
+  .u-gutter {
+    @apply mx-auto w-full max-w-[1520px] px-5 sm:px-8 lg:px-12;
+  }
+
+  .u-eyebrow {
+    @apply text-[0.7rem] font-medium uppercase tracking-micro text-accent;
+  }
+
+  .u-h1 {
+    @apply font-display text-4xl leading-[1] sm:text-5xl lg:text-6xl;
+  }
+
+  .u-h2 {
+    @apply font-display text-3xl leading-[1.08] sm:text-4xl;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-3 rounded-control px-7 py-3.5 text-[0.72rem] font-semibold uppercase tracking-[0.2em] transition duration-300 ease-premium;
+  }
+
+  /* Kept for components shared with sibling templates; on a dark page it reads as the solid button. */
+  .btn-primary {
+    @apply btn bg-ink text-paper hover:bg-ink-soft;
+  }
+
+  .btn-accent {
+    @apply btn bg-accent text-accent-ink hover:bg-accent-hover;
+  }
+
+  .btn-ghost {
+    @apply btn border border-ink/25 text-ink hover:border-accent hover:text-accent;
+  }
+
+  .field {
+    @apply w-full rounded-control border border-line bg-surface px-4 py-3 text-sm text-ink transition placeholder:text-ink-muted focus:border-accent focus:outline-none;
+  }
+
+  .field-label {
+    @apply mb-2 block text-[0.68rem] font-medium uppercase tracking-[0.2em] text-ink-muted;
+  }
+
+  .panel {
+    @apply rounded-panel border border-line bg-paper-soft;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  /* Thin rule with a short champagne lead, used to open sections. */
+  .u-rule {
+    @apply relative h-px w-full bg-line;
+  }
+  .u-rule::before {
+    content: '';
+    @apply absolute left-0 top-0 h-px w-16 bg-accent;
+  }
+}
+
+/* Scroll reveal: content rises gently into view (see composables/reveal.ts). */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Used by the spotlight hero and the testimonial switcher. */
+@keyframes spotlight-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
