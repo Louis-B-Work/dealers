@@ -3,7 +3,6 @@
     <PageHeader
       title="Finance, arranged quietly"
       current="Finance"
-      eyebrow="Finance"
       subtitle="Model your payments before you speak to anyone. There is no credit check and no obligation."
       :image="headerImage"
     />
@@ -13,8 +12,7 @@
 
       <section class="grid gap-12 lg:grid-cols-[1fr_1.4fr]" aria-labelledby="options-title">
         <div>
-          <p class="u-eyebrow">The options</p>
-          <h2 id="options-title" class="u-h2 mt-5">Two common ways to own</h2>
+          <h2 id="options-title" class="u-h2">Two common ways to own</h2>
           <p class="mt-5 max-w-md leading-relaxed text-ink-soft">
             A real finance specialist would explain which suits you, along with the lender’s terms, fees and any
             commission, before you decide.
@@ -29,8 +27,7 @@
       </section>
 
       <section class="rounded-panel border border-line p-8 sm:p-12" aria-labelledby="example-title">
-        <p class="u-eyebrow">Representative example</p>
-        <h2 id="example-title" class="mt-4 font-display text-3xl">The figures behind the numbers</h2>
+        <h2 id="example-title" class="font-display text-3xl">The figures behind the numbers</h2>
         <p class="mt-5 max-w-3xl leading-relaxed text-ink-soft">{{ representativeExample }}</p>
         <p class="mt-4 text-sm text-ink-muted">{{ brokerDisclosure }} Finance is subject to status, age and affordability checks.</p>
       </section>

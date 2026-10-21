@@ -1,8 +1,7 @@
 <template>
   <section class="grid gap-10 lg:grid-cols-[1fr_1.6fr] lg:gap-20" aria-labelledby="faq-title">
     <div>
-      <p class="u-eyebrow">Questions</p>
-      <h2 id="faq-title" class="u-h2 mt-5">Answered plainly</h2>
+      <h2 id="faq-title" class="u-h2">Answered plainly</h2>
     </div>
     <div class="divide-y divide-line border-y border-line">
       <details v-for="faq in faqs" :key="faq.question" class="group">

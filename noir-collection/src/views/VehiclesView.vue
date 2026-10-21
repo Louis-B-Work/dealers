@@ -3,7 +3,6 @@
     <PageHeader
       title="The Collection"
       current="The Collection"
-      eyebrow="Currently showing"
       :subtitle="`${vehicles.length} exceptional cars, each inspected and presented. Viewings are by appointment.`"
       :image="headerImage"
     />
@@ -114,8 +113,7 @@
         </template>
 
         <div v-else class="rounded-panel border border-line px-6 py-20 text-center">
-          <p class="u-eyebrow">Nothing to show</p>
-          <h2 class="u-h2 mt-5">No cars match those refinements.</h2>
+          <h2 class="u-h2">No cars match those refinements.</h2>
           <p class="mx-auto mt-5 max-w-md text-ink-soft">
             Widen the search, or tell us what you are looking for and we will keep an eye out.
           </p>

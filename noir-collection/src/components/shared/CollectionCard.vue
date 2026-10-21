@@ -18,7 +18,7 @@
     <div class="flex items-end justify-between gap-4 border-b border-line py-5">
       <div class="min-w-0">
         <p class="text-[0.65rem] uppercase tracking-[0.24em] text-ink-muted">{{ car.make }}</p>
-        <h3 class="truncate font-display text-2xl leading-tight">
+        <h3 class="font-display text-2xl leading-snug">
           <RouterLink :to="{ name: 'vehicle', params: { id: car.id } }" class="after:absolute after:inset-0 after:content-[''] group-hover:text-accent">
             {{ car.model }}
           </RouterLink>

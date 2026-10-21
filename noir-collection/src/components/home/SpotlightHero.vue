@@ -1,7 +1,7 @@
 <template>
   <section
     ref="root"
-    class="bg-paper pt-[var(--nav-h)]"
+    class="flex flex-col bg-paper pt-[var(--header-h)] lg:h-[min(100svh,1040px)] lg:min-h-[600px]"
     aria-roledescription="carousel"
     aria-label="Spotlight on the collection"
     @mouseenter="hovering = true"
@@ -9,91 +9,43 @@
     @focusin="focused = true"
     @focusout="onFocusOut"
   >
-    <div class="u-gutter pb-12 pt-6 lg:pb-16 lg:pt-8">
-      <div>
-        <h2 class="u-eyebrow mb-3">Search the collection</h2>
-        <HeroSearch />
-      </div>
-
-      <div class="mt-10 grid items-center gap-8 lg:mt-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
-        <!-- The photograph sits in a frame beside the text rather than behind it. Photos
-             cross-fade; only the active one is exposed to assistive tech, and only cars already
-             shown, plus the next one, are rendered so the stock is not downloaded up front. -->
-        <figure class="relative overflow-hidden rounded-panel border border-line bg-paper-sink lg:order-2">
-          <div class="relative aspect-[16/10]">
-            <template v-for="(car, index) in cars" :key="car.id">
-              <img
-                v-if="rendered.has(index)"
-                :src="car.image"
-                :alt="index === active ? `${car.year} ${car.make} ${car.model} in ${car.colour}` : ''"
-                :aria-hidden="index !== active"
-                class="absolute inset-0 h-full w-full object-cover transition-[opacity,transform] duration-[1400ms] ease-premium"
-                :class="index === active ? 'scale-100 opacity-100' : 'scale-[1.03] opacity-0'"
-                :style="{ objectPosition: FOCUS[car.id] ?? '50% 50%' }"
-                :fetchpriority="index === 0 ? 'high' : 'auto'"
-                decoding="async"
-                width="1600"
-                height="1000"
-              />
-            </template>
-          </div>
-          <figcaption class="absolute bottom-3 right-3 rounded-control bg-paper/85 px-4 py-2 text-[0.6rem] uppercase tracking-[0.24em] text-ink-soft backdrop-blur-sm">
-            {{ current.colour }}
-          </figcaption>
-        </figure>
-
+    <!-- Full-bleed band above a solid strip of details. The whole photograph is always shown
+         (never cropped by the band's shape); a blurred, darkened copy fills the rest of the width.
+         Photos cross-fade; only the active one is exposed to assistive tech, and only cars already
+         shown, plus the next one, are rendered so the stock is not downloaded up front. -->
+    <div class="relative aspect-[4/3] overflow-hidden bg-paper-sink sm:aspect-[16/9] lg:aspect-auto lg:min-h-[260px] lg:flex-1">
+      <template v-for="(car, index) in cars" :key="car.id">
         <div
-          id="spot-panel"
-          :key="current.id"
-          role="tabpanel"
-          :aria-labelledby="`spot-tab-${active}`"
-          :aria-live="running ? 'off' : 'polite'"
-          class="min-w-0 motion-safe:animate-[spotlight-in_1s_cubic-bezier(0.22,1,0.36,1)_both]"
+          v-if="rendered.has(index)"
+          class="absolute inset-0 transition-opacity duration-[1200ms] ease-premium"
+          :class="index === active ? 'opacity-100' : 'opacity-0'"
+          :aria-hidden="index !== active"
         >
-          <p class="u-eyebrow">
-            <span class="tabular">{{ pad(active + 1) }}</span>
-            <span class="mx-3 text-ink-muted">/</span>
-            {{ current.badge ?? 'In the collection' }}
-          </p>
-          <h1 class="mt-5 font-display">
-            <span class="block text-sm font-medium uppercase tracking-[0.32em] text-ink-soft sm:text-base">{{ current.make }}</span>
-            <span class="mt-3 block text-5xl font-extralight leading-[0.95] tracking-[-0.04em] sm:text-6xl xl:text-7xl">{{ current.model }}</span>
-          </h1>
-          <p class="mt-5 text-sm text-ink-soft sm:text-base">
-            {{ current.variant }}
-            <span class="mx-2 text-ink-muted">·</span>
-            <span class="tabular">{{ current.year }}</span>
-            <span class="mx-2 text-ink-muted">·</span>
-            <span class="tabular">{{ formatMileage(current.mileage) }}</span>
-            <span class="hidden sm:inline">
-              <span class="mx-2 text-ink-muted">·</span>
-              {{ current.power }}
-            </span>
-          </p>
-          <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-5">
-            <p>
-              <span class="tabular block font-display text-3xl text-accent sm:text-4xl">{{ formatCurrency(current.price) }}</span>
-              <span class="tabular text-xs uppercase tracking-[0.2em] text-ink-muted">or {{ formatCurrency(current.monthlyFrom) }} a month*</span>
-            </p>
-            <div class="flex flex-wrap gap-3">
-              <RouterLink :to="{ name: 'vehicle', params: { id: current.id } }" class="btn-accent">
-                View this car
-                <AppIcon name="arrow" :size="15" />
-              </RouterLink>
-              <RouterLink
-                :to="{ path: '/contact', query: { subject: 'Vehicle viewing', vehicle: current.id } }"
-                class="btn-ghost bg-black/20 backdrop-blur-sm"
-              >
-                Arrange a viewing
-              </RouterLink>
-            </div>
-          </div>
+          <img
+            :src="car.image"
+            alt=""
+            class="absolute inset-0 h-full w-full scale-110 object-cover opacity-50 blur-2xl"
+            decoding="async"
+          />
+          <img
+            :src="car.image"
+            :alt="index === active ? `${car.year} ${car.make} ${car.model} in ${car.colour}` : ''"
+            class="absolute inset-0 h-full w-full object-contain"
+            :fetchpriority="index === 0 ? 'high' : 'auto'"
+            decoding="async"
+            width="1600"
+            height="1000"
+          />
         </div>
+      </template>
+      <p class="absolute right-5 top-4 max-w-[60%] truncate rounded-control bg-paper/80 px-4 py-2 text-[0.6rem] uppercase tracking-[0.24em] text-ink-soft backdrop-blur-sm sm:right-8 lg:right-12">
+        {{ current.colour }}
+      </p>
+    </div>
 
-      </div>
-
-      <div class="mt-10 border-t border-line pt-5">
-        <div class="flex items-center gap-4 sm:gap-6">
+    <div class="border-t border-line bg-paper">
+      <div class="u-bleed">
+        <div class="flex items-center gap-4 border-b border-line py-3 sm:gap-6">
           <p class="tabular shrink-0 text-xs text-ink-muted" aria-hidden="true">
             <span class="text-ink">{{ pad(active + 1) }}</span> / {{ pad(cars.length) }}
           </p>
@@ -141,15 +93,55 @@
             </button>
           </div>
         </div>
-        <p class="mt-1 hidden text-xs uppercase tracking-[0.16em] text-ink-muted sm:block" aria-hidden="true">
-          Next: <span class="text-ink-soft">{{ upcoming.make }} {{ upcoming.model }}</span>
-        </p>
-      </div>
 
-      <p class="mt-6 text-[0.65rem] text-ink-muted">
-        *Representative {{ REPRESENTATIVE_APR }}% APR over {{ QUOTE_TERM_MONTHS }} months with no deposit. Subject to status.
-        Photography is illustrative.
-      </p>
+        <div
+          id="spot-panel"
+          :key="current.id"
+          role="tabpanel"
+          :aria-labelledby="`spot-tab-${active}`"
+          :aria-live="running ? 'off' : 'polite'"
+          class="grid gap-x-10 gap-y-5 py-6 motion-safe:animate-[spotlight-in_0.8s_cubic-bezier(0.22,1,0.36,1)_both] lg:grid-cols-[minmax(0,1fr)_auto_auto] lg:items-end"
+        >
+          <div class="min-w-0">
+            <h1 class="font-display">
+              <span class="block text-xs font-medium uppercase tracking-[0.32em] text-ink-soft sm:text-sm">{{ current.make }}</span>
+              <span class="mt-2 block text-4xl font-extralight !leading-[1.1] tracking-[-0.04em] sm:text-5xl xl:text-6xl">{{ current.model }}</span>
+            </h1>
+          </div>
+          <div>
+            <p class="text-sm text-ink-soft">
+              {{ current.variant }}
+              <span class="mx-2 text-ink-muted">·</span>
+              <span class="tabular">{{ current.year }}</span>
+              <span class="mx-2 text-ink-muted">·</span>
+              <span class="tabular">{{ formatMileage(current.mileage) }}</span>
+            </p>
+            <p class="mt-2">
+              <span class="tabular font-display text-3xl text-accent">{{ formatCurrency(current.price) }}</span>
+              <span class="tabular block text-xs uppercase tracking-[0.2em] text-ink-muted sm:ml-3 sm:inline">or {{ formatCurrency(current.monthlyFrom) }} a month*</span>
+            </p>
+          </div>
+          <div class="grid gap-3 sm:flex sm:flex-wrap">
+            <RouterLink :to="{ name: 'vehicle', params: { id: current.id } }" class="btn-accent">
+              View this car
+              <AppIcon name="arrow" :size="15" />
+            </RouterLink>
+            <RouterLink :to="{ path: '/contact', query: { subject: 'Vehicle viewing', vehicle: current.id } }" class="btn-ghost">
+              Arrange a viewing
+            </RouterLink>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-t border-line py-3 text-[0.65rem] text-ink-muted">
+          <p>
+            *Representative {{ REPRESENTATIVE_APR }}% APR over {{ QUOTE_TERM_MONTHS }} months with no deposit. Subject to status.
+            Photography is illustrative.
+          </p>
+          <p class="hidden uppercase tracking-[0.16em] sm:block" aria-hidden="true">
+            Next: <span class="text-ink-soft">{{ upcoming.make }} {{ upcoming.model }}</span>
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -161,14 +153,11 @@ import { formatCurrency, formatMileage, sortVehicles } from '../../composables/u
 import { QUOTE_TERM_MONTHS, REPRESENTATIVE_APR } from '../../data/dealer'
 import { vehicles } from '../../data/vehicles'
 import AppIcon from '../shared/AppIcon.vue'
-import HeroSearch from './HeroSearch.vue'
 
 const INTERVAL = 7000
 // The spotlight cycles through the whole stock. The strongest, calmest photographs lead;
 // the rest follow in curated order.
 const LEAD = ['aston-db11-2022', 'bentley-continental-2020', 'porsche-911-2021', 'range-rover-2023', 'mercedes-amg-gt-2022']
-// Crop focus per photo, so the front of each car stays in frame at wide ratios.
-const FOCUS: Record<string, string> = { 'aston-db11-2022': '85% 55%', 'range-rover-2023': '40% 60%' }
 const rank = (id: string) => (LEAD.includes(id) ? LEAD.indexOf(id) : LEAD.length)
 const cars = sortVehicles(vehicles, 'featured').sort((a, b) => rank(a.id) - rank(b.id))
 

@@ -2,8 +2,7 @@
   <div class="grid overflow-hidden rounded-panel border border-line lg:grid-cols-[1.1fr_1fr]">
     <form class="grid content-start gap-6 p-6 sm:p-10" novalidate @submit.prevent>
       <div>
-        <p class="u-eyebrow">Payment calculator</p>
-        <h2 class="u-h2 mt-4">Shape your ownership</h2>
+        <h2 class="u-h2">Shape your ownership</h2>
       </div>
 
       <div>
@@ -50,8 +49,7 @@
 
     <div class="flex flex-col border-t border-line bg-paper-soft p-6 sm:p-10 lg:border-l lg:border-t-0" aria-live="polite">
       <template v-if="!error">
-        <p class="u-eyebrow">Estimated monthly payment</p>
-        <p class="tabular mt-5 font-display text-6xl leading-none text-accent">{{ formatCurrency(monthly) }}</p>
+        <p class="tabular font-display text-6xl leading-none text-accent">{{ formatCurrency(monthly) }}</p>
         <p class="mt-3 text-sm text-ink-soft">per month for {{ term }} months at {{ REPRESENTATIVE_APR }}% APR</p>
         <dl class="mt-10 divide-y divide-line border-y border-line text-sm">
           <div class="flex justify-between py-4"><dt class="text-ink-muted">Cash price</dt><dd class="tabular">{{ formatCurrency(price) }}</dd></div>
@@ -64,8 +62,7 @@
         </RouterLink>
       </template>
       <template v-else>
-        <p class="u-eyebrow">Check your figures</p>
-        <p class="mt-5 font-display text-3xl" role="alert">{{ error }}</p>
+        <p class="font-display text-3xl" role="alert">{{ error }}</p>
       </template>
       <p class="mt-auto pt-8 text-xs leading-relaxed text-ink-muted">{{ brokerDisclosure }} Finance is subject to status.</p>
     </div>

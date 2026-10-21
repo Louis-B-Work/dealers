@@ -1,6 +1,6 @@
 <template>
   <div v-if="page">
-    <PageHeader :title="page.title" :current="page.title" :eyebrow="page.eyebrow" :subtitle="page.intro" />
+    <PageHeader :title="page.title" :current="page.title" :subtitle="page.intro" />
 
     <div class="u-gutter space-y-24 py-16 lg:py-20">
       <section class="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20" aria-labelledby="lead-title">
@@ -24,9 +24,8 @@
       <section aria-labelledby="steps-title">
         <h2 id="steps-title" class="font-display text-4xl">What to expect</h2>
         <ol class="mt-8 grid gap-px overflow-hidden rounded-panel border border-line bg-line md:grid-cols-3">
-          <li v-for="(step, index) in page.steps" :key="step.title" class="bg-paper p-8">
-            <span class="tabular font-display text-5xl text-accent">0{{ index + 1 }}</span>
-            <h3 class="mt-6 font-display text-2xl">{{ step.title }}</h3>
+          <li v-for="step in page.steps" :key="step.title" class="bg-paper p-8">
+            <h3 class="font-display text-2xl">{{ step.title }}</h3>
             <p class="mt-3 leading-relaxed text-ink-soft">{{ step.text }}</p>
           </li>
         </ol>

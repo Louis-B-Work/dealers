@@ -11,7 +11,7 @@
         height="1067"
       />
       <div class="absolute inset-0 -z-10 bg-gradient-to-t from-paper via-paper/30 to-black/50"></div>
-      <div class="u-gutter pb-10 pt-[calc(var(--nav-h)+2rem)]">
+      <div class="u-gutter pb-10 pt-[calc(var(--header-h)+2rem)]">
         <nav aria-label="Breadcrumb" class="mb-6 flex flex-wrap items-center gap-3 text-[0.68rem] uppercase tracking-[0.2em] text-ink-soft">
           <RouterLink to="/" class="hover:text-ink">Home</RouterLink>
           <span aria-hidden="true">/</span>
@@ -19,10 +19,9 @@
           <span aria-hidden="true">/</span>
           <span aria-current="page">{{ vehicle.make }} {{ vehicle.model }}</span>
         </nav>
-        <p v-if="vehicle.badge" class="u-eyebrow mb-4">{{ vehicle.badge }}</p>
         <h1 class="font-display">
           <span class="block text-sm font-medium uppercase tracking-[0.32em] text-ink-soft sm:text-base">{{ vehicle.make }}</span>
-          <span class="mt-3 block text-5xl font-extralight leading-[0.95] tracking-[-0.04em] sm:text-7xl">{{ vehicle.model }}</span>
+          <span class="mt-3 block text-5xl font-extralight !leading-[1.1] tracking-[-0.04em] sm:text-7xl">{{ vehicle.model }}</span>
         </h1>
         <p class="tabular mt-5 text-sm text-ink-soft sm:text-base">
           {{ vehicle.variant }} · {{ vehicle.year }} · {{ formatMileage(vehicle.mileage) }} · {{ vehicle.colour }}
@@ -40,8 +39,7 @@
         </dl>
 
         <section class="mt-16" aria-labelledby="about-title">
-          <p class="u-eyebrow">The car</p>
-          <h2 id="about-title" class="u-h2 mt-4">About this {{ vehicle.model }}</h2>
+          <h2 id="about-title" class="u-h2">About this {{ vehicle.model }}</h2>
           <p class="mt-6 max-w-prose text-lg leading-relaxed text-ink-soft">{{ vehicle.description }}</p>
           <p class="mt-4 max-w-prose text-sm leading-relaxed text-ink-muted">
             Illustrative photography of this model. The exact car, its history and condition would be presented in
@@ -70,7 +68,7 @@
         </section>
       </div>
 
-      <aside class="lg:sticky lg:top-[calc(var(--nav-h)+2rem)] lg:self-start" aria-label="Price and finance">
+      <aside class="lg:sticky lg:top-[calc(var(--header-h)+2rem)] lg:self-start" aria-label="Price and finance">
         <div class="rounded-panel border border-line bg-paper-soft p-7 sm:p-8">
           <p class="text-[0.65rem] uppercase tracking-[0.22em] text-ink-muted">Price</p>
           <p class="tabular mt-2 font-display text-4xl">{{ formatCurrency(vehicle.price) }}</p>
@@ -125,8 +123,7 @@
     <section id="viewing" class="border-y border-line bg-paper-soft" aria-labelledby="viewing-title">
       <div class="u-gutter grid gap-12 py-20 lg:grid-cols-[1fr_1.3fr] lg:gap-20">
         <div>
-          <p class="u-eyebrow">By appointment</p>
-          <h2 id="viewing-title" class="u-h2 mt-5">Request a private viewing</h2>
+          <h2 id="viewing-title" class="u-h2">Request a private viewing</h2>
           <p class="mt-5 max-w-md leading-relaxed text-ink-soft">
             Choose a preferred date and time. The car would be prepared under the lights, with time set aside for a
             test drive and any questions about its history.

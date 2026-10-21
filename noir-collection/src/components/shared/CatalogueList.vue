@@ -1,10 +1,10 @@
 <template>
   <div class="relative" @pointermove="onMove" @pointerleave="hovered = null">
     <ol class="border-t border-line">
-      <li v-for="(car, index) in cars" :key="car.id" class="border-b border-line">
+      <li v-for="car in cars" :key="car.id" class="border-b border-line">
         <RouterLink
           :to="{ name: 'vehicle', params: { id: car.id } }"
-          class="group grid grid-cols-[4.5rem_minmax(0,1fr)_auto] rounded-control items-center gap-x-4 gap-y-1 py-5 transition-colors duration-300 hover:bg-paper-soft focus-visible:bg-paper-soft sm:px-3 md:grid-cols-[3rem_minmax(0,1fr)_7rem_9rem_10rem_2rem] md:gap-x-6 md:py-6"
+          class="group grid grid-cols-[4.5rem_minmax(0,1fr)_auto] rounded-control items-center gap-x-4 gap-y-1 py-5 transition-colors duration-300 hover:bg-paper-soft focus-visible:bg-paper-soft sm:px-3 md:grid-cols-[minmax(0,1fr)_7rem_9rem_10rem_2rem] md:gap-x-6 md:py-6"
           @pointerenter="onEnter($event, car)"
           @focus="hovered = null"
         >
@@ -17,11 +17,10 @@
             width="160"
             height="120"
           />
-          <span class="tabular hidden text-xs text-ink-muted md:block">{{ String(start + index).padStart(2, '0') }}</span>
 
           <span class="min-w-0">
             <span class="block text-[0.65rem] uppercase tracking-[0.24em] text-ink-muted">{{ car.make }}</span>
-            <span class="block truncate font-display text-xl leading-tight transition-colors group-hover:text-accent sm:text-2xl md:text-3xl">
+            <span class="block font-display text-xl leading-snug transition-colors group-hover:text-accent sm:text-2xl md:text-3xl">
               {{ car.model }}
               <span class="ml-2 hidden align-middle font-sans text-xs tracking-normal text-ink-muted lg:inline">{{ car.variant }}</span>
             </span>
@@ -61,7 +60,7 @@ import { formatCurrency, formatMileage } from '../../composables/useCollectionSe
 import type { Vehicle } from '../../data/vehicles'
 import AppIcon from '../shared/AppIcon.vue'
 
-withDefaults(defineProps<{ cars: Vehicle[]; start?: number }>(), { start: 1 })
+defineProps<{ cars: Vehicle[] }>()
 
 const hovered = ref<Vehicle | null>(null)
 const pos = reactive({ x: 0, y: 0 })

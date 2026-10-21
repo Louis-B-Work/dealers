@@ -15,7 +15,6 @@ export interface ServicePage {
   path: string
   navLabel: string
   icon: string
-  eyebrow: string
   title: string
   intro: string
   leadTitle: string
@@ -34,7 +33,6 @@ export const servicePages: ServicePage[] = [
     path: '/mot',
     navLabel: 'MOT & servicing',
     icon: 'file',
-    eyebrow: 'MOT & servicing',
     title: 'MOT and servicing',
     intro:
       'From the annual MOT to the next service, planned care helps keep every journey straightforward.',
@@ -86,7 +84,6 @@ export const servicePages: ServicePage[] = [
     path: '/warranty',
     navLabel: 'Warranty',
     icon: 'shield',
-    eyebrow: 'Warranty & aftercare',
     title: 'Warranty cover',
     intro:
       'Know what to check in a warranty and where to turn if something does not feel right after you drive away.',
@@ -138,7 +135,6 @@ export const servicePages: ServicePage[] = [
     path: '/body-shop',
     navLabel: 'Body shop',
     icon: 'wrench',
-    eyebrow: 'Repairs & refinishing',
     title: 'Body shop',
     intro:
       'From an everyday scuff to a larger paint and panel repair, a careful assessment is the first step.',
@@ -190,7 +186,6 @@ export const servicePages: ServicePage[] = [
     path: '/breakdown',
     navLabel: 'Breakdown',
     icon: 'lifebuoy',
-    eyebrow: 'Roadside support',
     title: 'Breakdown assistance',
     intro:
       'Know who to call and what to check before you need roadside help. A calm next step matters when a journey is interrupted.',
