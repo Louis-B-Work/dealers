@@ -3,7 +3,7 @@
     <div class="u-gutter-wide flex flex-col gap-10">
       <SectionHeading title="Prefer to talk it through?" />
 
-      <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <a :href="`tel:${dealer.phone.replace(/\s/g, '')}`" class="card card-hover flex items-center gap-4 p-6">
           <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent-wash text-accent">
             <AppIcon name="phone" :size="20" />

@@ -3,7 +3,7 @@
   <div class="inline-flex items-center gap-3 text-sm font-semibold">
     <button
       type="button"
-      class="transition-colors duration-150"
+      class="hit-area transition-colors duration-150"
       :class="!isMonthly ? 'text-ink' : 'text-ink-muted hover:text-ink'"
       @click="priceMode = 'total'"
     >
@@ -15,7 +15,7 @@
       role="switch"
       :aria-checked="isMonthly"
       aria-label="Show monthly cost instead of total cost"
-      class="relative h-7 w-12 shrink-0 rounded-full border shadow-card transition-colors duration-150"
+      class="hit-area relative h-7 w-12 shrink-0 rounded-full border shadow-card transition-colors duration-150"
       :class="isMonthly ? 'border-accent bg-accent' : 'border-line bg-paper-soft'"
       @click="priceMode = isMonthly ? 'total' : 'monthly'"
     >
@@ -27,7 +27,7 @@
 
     <button
       type="button"
-      class="transition-colors duration-150"
+      class="hit-area transition-colors duration-150"
       :class="isMonthly ? 'text-ink' : 'text-ink-muted hover:text-ink'"
       @click="priceMode = 'monthly'"
     >

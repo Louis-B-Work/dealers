@@ -7,7 +7,7 @@
       </RouterLink>
     </div>
 
-    <div class="u-gutter grid w-full items-start gap-6 pt-5 lg:grid-cols-[1.6fr_1fr] lg:gap-8">
+    <div class="u-gutter grid w-full grid-cols-1 items-start gap-6 pt-5 lg:grid-cols-[1.6fr_1fr] lg:gap-8">
       <div>
         <!-- Gallery -->
         <div class="card overflow-hidden">

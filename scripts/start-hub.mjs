@@ -14,11 +14,18 @@ const previewServers = []
 let hubServer
 let shutdownPromise
 
-async function startHubServer() {
+// Read on every request, so edits to index.html (for example the page checklist) show on a reload
+// without restarting the hub.
+async function loadIndex() {
   let index = await readFile(join(designsRoot, 'index.html'), 'utf8')
   for (const template of templates) {
     index = index.replaceAll(`href="./${template.name}/`, `href="http://${host}:${template.port}/`)
   }
+  return index
+}
+
+async function startHubServer() {
+  await loadIndex() // fail at startup, not on the first visit, if the file is missing
   return new Promise((resolve, reject) => {
     hubServer = createServer((request, response) => {
       const pathname = new URL(request.url ?? '/', hubUrl).pathname
@@ -52,7 +59,13 @@ async function startHubServer() {
         })
         image.pipe(response)
       } else {
-        response.end(index)
+        loadIndex().then(
+          (html) => response.end(html),
+          (error) => {
+            console.error(`Unable to serve the gallery index: ${error.message}`)
+            response.destroy(error)
+          },
+        )
       }
     })
 
