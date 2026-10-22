@@ -197,3 +197,28 @@ body {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* Mobile polish: iOS-safe inputs, readable micro text, and 44px touch areas that
+   do not change the layout (the hit area grows through a pseudo-element). */
+@media (max-width: 767px) {
+  input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='hidden']),
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+  [class*='text-[0.55rem]'], [class*='text-[0.56rem]'], [class*='text-[0.58rem]'], [class*='text-[0.6rem]'],
+  [class*='text-[0.62rem]'], [class*='text-[0.625rem]'], [class*='text-[0.65rem]'], [class*='text-[0.66rem]'],
+  [class*='text-[0.68rem]'], [class*='text-[0.6875rem]'], [class*='text-[0.7rem]'], [class*='text-[0.72rem]'] {
+    font-size: 0.75rem !important;
+  }
+  footer a:where(:not(.absolute):not(.fixed)),
+  .hit-area {
+    position: relative;
+  }
+  footer a::after,
+  .hit-area::after {
+    content: '';
+    position: absolute;
+    inset: -12px -6px;
+  }
+}

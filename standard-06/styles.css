@@ -428,3 +428,12 @@ footer h3 { font: 800 15px var(--head); letter-spacing: .02em; text-transform: n
 .hero-switch .price-switch-track span { background: #fffdf8; }
 .hero-switch[data-mode="monthly"] .price-switch-track { background: #fffdf8; }
 .hero-switch[data-mode="monthly"] .price-switch-track span { background: var(--green); }
+
+/* Mobile polish: iOS-safe inputs, readable micro text, 44px touch areas that do not shift the layout. */
+@media (max-width: 767px) {
+  input:not([type='checkbox']):not([type='radio']):not([type='range']), select, textarea { font-size: 16px !important; }
+  .eyebrow, .fine-print, .finance-note .fine-print, .review-card figcaption small, .initial, .location-label a,
+  .map-caption, .breadcrumbs, .image-caption, .demo-label { font-size: 12px; }
+  footer a, .hit-area, .price-switch button, .quiet-button { position: relative; }
+  footer a::after, .hit-area::after, .price-switch button::after, .quiet-button::after { content: ''; position: absolute; inset: -12px -6px; }
+}
