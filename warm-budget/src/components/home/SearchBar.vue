@@ -4,19 +4,7 @@
          The toggle sits above the row rather than inside it, so the row stays
          a row and the first control is always the budget. -->
     <div class="flex items-center justify-between gap-3">
-      <div class="inline-flex rounded-control bg-paper-sink p-1" role="group" aria-label="Budget type">
-        <button
-          v-for="mode in modes"
-          :key="mode.value"
-          type="button"
-          class="mode-btn"
-          :class="{ 'is-active': priceMode === mode.value }"
-          :aria-pressed="priceMode === mode.value"
-          @click="setMode(mode.value)"
-        >
-          {{ mode.label }}
-        </button>
-      </div>
+      <PriceModeToggle />
 
       <RouterLink to="/sell" class="hidden text-sm font-semibold text-accent hover:underline sm:inline">
         or sell us your car
@@ -67,32 +55,26 @@ import {
   countVehicles,
   monthlyBands,
   totalPriceBands,
-  type PriceMode,
 } from '../../composables/useVehicleFilters'
+import { usePriceMode } from '../../composables/usePriceMode'
 import { vehicles } from '../../data/vehicles'
 import AppIcon from '../shared/AppIcon.vue'
+import PriceModeToggle from '../shared/PriceModeToggle.vue'
 import SelectMenu from '../shared/SelectMenu.vue'
 import type { SelectOption } from '../shared/SelectMenu.vue'
 
 const router = useRouter()
 const modelId = useId()
 
-const modes: { value: PriceMode; label: string }[] = [
-  { value: 'total', label: 'Total price' },
-  { value: 'monthly', label: 'Monthly budget' },
-]
-
-const priceMode = ref<PriceMode>('total')
+const { priceMode } = usePriceMode()
 const budget = ref('')
 const make = ref('')
 const query = ref('')
 
 // Switching currency invalidates the answer: £10,000 is not £10,000 a month.
-function setMode(mode: PriceMode) {
-  if (priceMode.value === mode) return
-  priceMode.value = mode
+watch(priceMode, () => {
   budget.value = ''
-}
+})
 
 const budgetOptions = computed<SelectOption[]>(() => {
   const bands = priceMode.value === 'monthly' ? monthlyBands : totalPriceBands

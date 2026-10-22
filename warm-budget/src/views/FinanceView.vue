@@ -1,6 +1,7 @@
 <template>
   <div class="bg-paper">
     <PageHeader
+      wide
       title="Finance your vehicle"
       subtitle="See your monthly payment, compare HP and PCP, and check your eligibility in minutes."
     >
@@ -17,7 +18,7 @@
 
     <!-- finance disclosure -->
     <section class="pb-12">
-      <div class="u-gutter">
+      <div class="u-gutter-wide">
         <p class="u-legal mx-auto max-w-prose text-center">
           {{ representativeExample }} {{ brokerDisclosure }}
         </p>
@@ -29,7 +30,7 @@
 
     <!-- faq -->
     <section class="pb-4 sm:pb-8">
-      <div class="u-gutter flex flex-col gap-10">
+      <div class="u-gutter-wide flex flex-col gap-10">
         <SectionHeading title="Finance questions answered" center />
         <div class="mx-auto w-full max-w-3xl">
           <FaqList :faqs="faqs" />

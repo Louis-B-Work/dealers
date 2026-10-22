@@ -1,9 +1,9 @@
 <template>
   <section class="u-section">
-    <div class="u-gutter flex flex-col gap-10">
-      <SectionHeading title="Prefer to talk it through?" center />
+    <div class="u-gutter-wide flex flex-col gap-10">
+      <SectionHeading title="Prefer to talk it through?" />
 
-      <div class="grid gap-4 lg:grid-cols-3">
+      <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <a :href="`tel:${dealer.phone.replace(/\s/g, '')}`" class="card card-hover flex items-center gap-4 p-6">
           <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent-wash text-accent">
             <AppIcon name="phone" :size="20" />
@@ -34,9 +34,8 @@
             <p class="text-sm text-ink-soft">{{ dealer.address.city }}, {{ dealer.address.postcode }}</p>
           </div>
         </div>
-      </div>
 
-      <div class="card mx-auto w-full max-w-xl p-6">
+        <div class="card p-6">
         <div class="mb-3 flex items-center gap-2.5">
           <AppIcon name="clock" :size="18" class="text-accent" />
           <p class="font-display text-sm font-semibold">Opening hours</p>
@@ -47,6 +46,7 @@
             <span class="font-medium text-ink">{{ oh.hours }}</span>
           </li>
         </ul>
+        </div>
       </div>
     </div>
   </section>

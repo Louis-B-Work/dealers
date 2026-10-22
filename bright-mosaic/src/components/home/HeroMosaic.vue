@@ -37,22 +37,25 @@
           on the card, so there are no surprises.
         </p>
 
-        <div data-intro="plain" style="--intro-delay: 360ms">
+        <div class="flex flex-col gap-3" data-intro="plain" style="--intro-delay: 360ms">
+          <PriceModeToggle />
           <SearchBar />
         </div>
 
-        <nav class="flex flex-wrap items-center gap-2" aria-label="Shop by budget" data-intro style="--intro-delay: 400ms">
-          <span class="mr-1 text-sm font-semibold text-ink-soft">Shop by budget</span>
-          <RouterLink
-            v-for="band in budgetChips"
-            :key="band.max"
-            :to="{ name: 'vehicles', query: { maxPrice: String(band.max) } }"
-            class="budget-chip"
-          >
-            Under {{ formatCurrency(band.max) }}
-            <span class="budget-count">{{ band.count }}</span>
-          </RouterLink>
-        </nav>
+        <div data-intro style="--intro-delay: 400ms">
+          <nav class="flex flex-wrap items-center gap-2" aria-label="Shop by budget">
+            <span class="mr-1 text-sm font-semibold text-ink-soft">Shop by budget</span>
+            <RouterLink
+              v-for="band in budgetChips"
+              :key="band.max"
+              :to="{ name: 'vehicles', query: { [isMonthly ? 'maxMonthly' : 'maxPrice']: String(band.max) } }"
+              class="budget-chip"
+            >
+              Under {{ formatCurrency(band.max) }}{{ isMonthly ? '/mo' : '' }}
+              <span class="budget-count">{{ band.count }}</span>
+            </RouterLink>
+          </nav>
+        </div>
 
         <div class="flex flex-wrap gap-3" data-intro style="--intro-delay: 480ms">
           <RouterLink to="/vehicles" class="btn-primary">
@@ -98,6 +101,8 @@ import AppIcon from '../shared/AppIcon.vue'
 import MosaicCard from '../shared/MosaicCard.vue'
 import SearchBar from './SearchBar.vue'
 import { BUDGET_BANDS, formatCurrency } from '../../composables/useVehicleFilters'
+import { MONTHLY_BANDS, usePriceMode } from '../../composables/usePriceMode'
+import PriceModeToggle from '../shared/PriceModeToggle.vue'
 
 // The wall is the whole stock list, which is what the headline promises.
 // Ratios alternate square/wide/landscape down each column so neighbouring tiles
@@ -177,11 +182,19 @@ const topPrice = Math.max(...vehicles.map((v) => v.price))
 // The headline promise ("all under £X") is the smallest band that covers the whole stock.
 const priceCeiling = BUDGET_BANDS.find((b) => b >= topPrice) ?? topPrice
 
-// Bands that cover everything add nothing, so only narrower ones get a chip.
-const budgetChips = BUDGET_BANDS.map((max) => ({
-  max,
-  count: vehicles.filter((v) => v.price <= max).length,
-})).filter((b) => b.count > 0 && b.count < stockCount)
+// Bands that cover everything add nothing, so only narrower ones get a chip. The ceilings
+// follow the price mode: cash prices in total mode, monthly payments in monthly mode.
+const { priceMode } = usePriceMode()
+const isMonthly = computed(() => priceMode.value === 'monthly')
+
+const budgetChips = computed(() =>
+  (isMonthly.value ? MONTHLY_BANDS : BUDGET_BANDS)
+    .map((max) => ({
+      max,
+      count: vehicles.filter((v) => (isMonthly.value ? v.monthlyFrom : v.price) <= max).length,
+    }))
+    .filter((b) => b.count > 0 && b.count < stockCount),
+)
 </script>
 
 <style scoped>

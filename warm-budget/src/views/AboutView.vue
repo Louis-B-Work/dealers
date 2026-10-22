@@ -1,13 +1,14 @@
 <template>
   <div class="bg-paper">
     <PageHeader
+      wide
       :title="`About ${dealer.name}`"
       subtitle="A family-run forecourt selling honest used cars to the same town for over twenty-five years."
     />
 
     <!-- figures: four soft cards that overlap the foot of the dark slab -->
     <section class="relative z-10 -mt-10">
-      <div class="u-gutter">
+      <div class="u-gutter-wide">
         <dl class="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
           <div v-for="stat in stats" :key="stat.label" class="card flex flex-col items-center gap-1 px-4 py-6 text-center">
             <dd class="font-display text-3xl font-semibold text-accent sm:text-4xl">{{ stat.value }}</dd>
@@ -19,7 +20,7 @@
 
     <!-- story -->
     <section class="u-section">
-      <div class="u-gutter grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+      <div class="u-gutter-wide grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <div class="aspect-[4/3] overflow-hidden rounded-block bg-paper-sink shadow-card">
           <VehiclePlaceholder label="Dealership Name forecourt" :image="forecourtImage" class="h-full w-full" />
         </div>
@@ -50,7 +51,7 @@
 
     <!-- values -->
     <section class="u-section border-y border-line bg-paper-sink/50">
-      <div class="u-gutter flex flex-col gap-10">
+      <div class="u-gutter-wide flex flex-col gap-10">
         <SectionHeading title="What you can expect from us" center />
 
         <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -67,14 +68,16 @@
 
     <!-- invitation -->
     <section class="u-section">
-      <div class="u-gutter">
-        <div class="rounded-block bg-paper-dark px-6 py-14 text-center text-ink-inverse sm:px-12 md:py-20">
-          <div class="mx-auto flex max-w-2xl flex-col items-center gap-6">
+      <div class="u-gutter-wide">
+        <div class="rounded-block bg-paper-dark px-6 py-12 text-ink-inverse sm:px-12 md:py-16">
+          <div class="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
+            <div>
             <h2 class="u-display text-[1.65rem] !text-ink-inverse sm:text-[2rem] md:text-[2.35rem]">Come and say hello</h2>
-            <p class="text-ink-inverse/75">
+            <p class="mt-3 max-w-xl text-ink-inverse/75">
               Browse the cars online, or pop into the showroom and talk it through with the team.
             </p>
-            <div class="flex flex-wrap justify-center gap-3">
+            </div>
+            <div class="flex flex-wrap gap-3">
               <RouterLink to="/vehicles" class="btn-primary">View all stock</RouterLink>
               <RouterLink to="/contact" class="btn-on-dark">Contact us</RouterLink>
             </div>
@@ -94,7 +97,7 @@ import VehiclePlaceholder from '../components/shared/VehiclePlaceholder.vue'
 import AppIcon from '../components/shared/AppIcon.vue'
 
 const forecourtImage =
-  'https://images.pexels.com/photos/2127733/pexels-photo-2127733.jpeg?auto=compress&cs=tinysrgb&w=1200'
+  'https://images.pexels.com/photos/39993004/pexels-photo-39993004.jpeg?auto=compress&cs=tinysrgb&w=1200'
 
 // Derived so the headline figure can't drift from the dealer record.
 const yearsTrading = computed(() => new Date().getFullYear() - Number(dealer.established))

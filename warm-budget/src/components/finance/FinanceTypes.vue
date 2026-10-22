@@ -1,6 +1,6 @@
 <template>
   <section class="u-section border-y border-line bg-paper-sink/50">
-    <div class="u-gutter flex flex-col gap-10">
+    <div class="u-gutter-wide flex flex-col gap-10">
       <SectionHeading
         title="HP or PCP: which suits you?"
         subtitle="Two common ways to pay for a car. Choose one to see how it works."
@@ -22,7 +22,7 @@
         </button>
       </div>
 
-      <div class="mx-auto w-full max-w-4xl">
+      <div class="w-full">
         <article :key="selected.value" class="card grid gap-8 p-6 md:p-10 lg:grid-cols-[1fr_1.2fr] lg:gap-12">
           <div>
             <h3 class="font-display text-3xl font-semibold text-ink">{{ selected.title }}</h3>

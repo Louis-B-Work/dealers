@@ -44,10 +44,21 @@
             <input v-model="filters.query" type="search" class="field" placeholder="Make, model…" />
           </label>
 
+          <div class="filter-field">
+            <span class="filter-label">Show prices as</span>
+            <PriceModeToggle />
+          </div>
+
           <label class="filter-field">
-            <span class="filter-label">Budget</span>
+            <span class="filter-label">{{ isMonthly ? 'Monthly budget' : 'Budget' }}</span>
             <div class="relative">
-              <select v-model="filters.maxPrice" class="field appearance-none pr-9">
+              <select v-if="isMonthly" v-model="filters.maxMonthly" class="field appearance-none pr-9">
+                <option value="">Any monthly cost</option>
+                <option v-for="b in MONTHLY_BANDS" :key="b" :value="String(b)">
+                  Under {{ formatCurrency(b) }}/mo
+                </option>
+              </select>
+              <select v-else v-model="filters.maxPrice" class="field appearance-none pr-9">
                 <option value="">Any price</option>
                 <option v-for="b in BUDGET_BANDS" :key="b" :value="String(b)">
                   Under {{ formatCurrency(b) }}
@@ -143,6 +154,8 @@
         </div>
       </div>
     </div>
+
+    <RepresentativeStrip class="mt-16" />
   </div>
 </template>
 
@@ -150,10 +163,19 @@
 import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { BUDGET_BANDS, formatCurrency, useVehicleFilters } from '../composables/useVehicleFilters'
+import { MONTHLY_BANDS, usePriceMode } from '../composables/usePriceMode'
 import MosaicCard from '../components/shared/MosaicCard.vue'
+import PriceModeToggle from '../components/shared/PriceModeToggle.vue'
+import RepresentativeStrip from '../components/shared/RepresentativeStrip.vue'
 import AppIcon from '../components/shared/AppIcon.vue'
 
 const route = useRoute()
+const { priceMode } = usePriceMode()
+
+// A link from the homepage chips carries the mode it was made in.
+if (route.query.maxMonthly) priceMode.value = 'monthly'
+else if (route.query.maxPrice) priceMode.value = 'total'
+const isMonthly = computed(() => priceMode.value === 'monthly')
 
 const {
   filters,
@@ -167,6 +189,13 @@ const {
 } = useVehicleFilters({
   make: (route.query.make as string) ?? '',
   maxPrice: (route.query.maxPrice as string) ?? '',
+  maxMonthly: (route.query.maxMonthly as string) ?? '',
+})
+
+// The two budget scales are not interchangeable, so switching mode clears the old ceiling.
+watch(priceMode, () => {
+  filters.value.maxPrice = ''
+  filters.value.maxMonthly = ''
 })
 
 const filtersOpen = ref(false)

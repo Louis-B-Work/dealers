@@ -1,6 +1,7 @@
 <template>
   <div class="bg-paper">
     <PageHeader
+      wide
       title="Body Shop"
       subtitle="From minor scuffs to accident repairs, we’ll help restore your car’s finish."
     >
@@ -18,7 +19,7 @@
 
     <!-- intro -->
     <section class="u-section">
-      <div class="u-gutter grid items-center gap-6 lg:grid-cols-[1fr_1.5fr] lg:gap-14">
+      <div class="u-gutter-wide grid items-center gap-6 lg:grid-cols-[1fr_1.5fr] lg:gap-14">
         <h2 class="u-display text-[1.65rem] sm:text-[2rem] md:text-[2.35rem]">Restore your car to its best</h2>
         <p class="u-lead max-w-prose">
           Everyday driving brings scratches, scuffs and dents, even for the most careful owners. Tell us what’s
@@ -29,7 +30,7 @@
 
     <!-- repairs -->
     <section class="pb-4 sm:pb-8">
-      <div class="u-gutter flex flex-col gap-10">
+      <div class="u-gutter-wide flex flex-col gap-10">
         <SectionHeading title="Repairs we can help with" center />
 
         <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -48,7 +49,7 @@
 
     <!-- how it works: a row of soft pills, no numbers -->
     <section class="u-section">
-      <div class="u-gutter">
+      <div class="u-gutter-wide">
         <div class="rounded-block bg-paper-sink/70 px-6 py-12 md:px-12 md:py-14">
           <SectionHeading title="How it works" center />
 
@@ -64,7 +65,7 @@
 
     <!-- enquiry -->
     <section id="enquire" class="pb-4 sm:pb-8">
-      <div class="u-gutter flex flex-col gap-10">
+      <div class="u-gutter-wide flex flex-col gap-10">
         <SectionHeading
           title="Enquire about a body shop repair"
           subtitle="Tell us about your car and the damage, and we’ll get back to you."

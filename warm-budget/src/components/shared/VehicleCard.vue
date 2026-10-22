@@ -43,14 +43,20 @@
 
       <div class="mt-auto pt-4">
         <div class="flex items-end justify-between gap-3 border-t border-line pt-3">
-          <p class="card-price font-display font-semibold leading-none text-ink">
+          <!-- The shopper chooses which figure leads: the total price, or the monthly cost.
+               The other is kept alongside, so both are always on show. -->
+          <p v-if="leadsMonthly" class="card-price font-display font-semibold leading-none text-accent">
+            {{ formatCurrency(vehicle.monthlyFrom) }}<span class="text-xs font-medium text-ink-muted"> a month</span>
+          </p>
+          <p v-else class="card-price font-display font-semibold leading-none text-ink">
             {{ priceLabel }}
           </p>
 
-          <!-- The monthly figure is the one thing on the card set in the
-               accent — on a budget forecourt it is what most shoppers are
-               actually comparing. -->
-          <p v-if="showsMonthly" class="text-right leading-none">
+          <p v-if="showsMonthly && leadsMonthly" class="text-right leading-none">
+            <span class="card-monthly font-display font-semibold text-ink">{{ priceLabel }}</span>
+            <span class="text-xs font-medium text-ink-muted"> total</span>
+          </p>
+          <p v-else-if="showsMonthly" class="text-right leading-none">
             <span class="card-monthly font-display font-semibold text-accent">
               {{ formatCurrency(vehicle.monthlyFrom) }}
             </span>
@@ -79,6 +85,7 @@ import type { Vehicle } from '../../data/vehicles'
 import { photoCount } from '../../data/vehicles'
 import { formatCurrency, formatMileage } from '../../composables/useVehicleFilters'
 import { brokerDisclosure, REPRESENTATIVE_APR } from '../../data/dealer'
+import { usePriceMode } from '../../composables/usePriceMode'
 import AppIcon from './AppIcon.vue'
 import VehiclePlaceholder from './VehiclePlaceholder.vue'
 
@@ -91,6 +98,9 @@ const priceLabel = computed(() =>
 
 // Finance is only quoted where there is a price to finance against.
 const showsMonthly = computed(() => props.vehicle.price > 0 && props.vehicle.monthlyFrom > 0)
+
+const { priceMode } = usePriceMode()
+const leadsMonthly = computed(() => priceMode.value === 'monthly' && showsMonthly.value)
 
 const photos = computed(() => photoCount(props.vehicle.id))
 

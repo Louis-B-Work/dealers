@@ -104,13 +104,16 @@
 
           <div class="flex items-end justify-between border-y border-line py-5">
             <div>
-              <p class="text-xs text-ink-muted">Our price</p>
-              <p class="font-display text-3xl text-ink">{{ formatCurrency(vehicle.price) }}</p>
+              <p class="text-xs text-ink-muted">{{ isMonthly && vehicle.monthlyFrom > 0 ? 'Finance from' : 'Our price' }}</p>
+              <p class="font-display text-3xl text-ink">
+                {{ isMonthly && vehicle.monthlyFrom > 0 ? formatCurrency(vehicle.monthlyFrom) : formatCurrency(vehicle.price) }}<span v-if="isMonthly && vehicle.monthlyFrom > 0" class="text-base text-ink-muted">/mo</span>
+              </p>
             </div>
             <div class="text-right">
-              <p class="text-xs text-ink-muted">Finance from</p>
+              <p class="text-xs text-ink-muted">{{ isMonthly && vehicle.monthlyFrom > 0 ? 'Our price' : 'Finance from' }}</p>
               <p class="font-display text-xl text-ink">
-                {{ formatCurrency(vehicle.monthlyFrom) }}<span class="text-sm text-ink-muted">/mo</span>
+                <template v-if="isMonthly && vehicle.monthlyFrom > 0">{{ formatCurrency(vehicle.price) }}</template>
+                <template v-else>{{ formatCurrency(vehicle.monthlyFrom) }}<span class="text-sm text-ink-muted">/mo</span></template>
               </p>
             </div>
           </div>
@@ -185,12 +188,15 @@ import {
   REPRESENTATIVE_APR,
 } from '../data/dealer'
 import { formatCurrency, formatMileage } from '../composables/useVehicleFilters'
+import { usePriceMode } from '../composables/usePriceMode'
 import VehiclePlaceholder from '../components/shared/VehiclePlaceholder.vue'
 import MosaicCard from '../components/shared/MosaicCard.vue'
 import EnquiryForm from '../components/shared/EnquiryForm.vue'
 import AppIcon from '../components/shared/AppIcon.vue'
 
 const route = useRoute()
+const { priceMode } = usePriceMode()
+const isMonthly = computed(() => priceMode.value === 'monthly')
 const views = ['Exterior', 'Interior', 'Rear', 'Detail']
 const activeView = ref(0)
 const enquiryEl = ref<HTMLElement | null>(null)

@@ -1,6 +1,7 @@
 <template>
   <div class="bg-paper">
     <PageHeader
+      wide
       title="MOT & Service"
       subtitle="Keep your car road-legal and running well, with a friendly workshop team on hand."
     >
@@ -18,7 +19,7 @@
 
     <!-- intro -->
     <section class="u-section">
-      <div class="u-gutter grid items-center gap-8 lg:grid-cols-[1.2fr_1fr] lg:gap-14">
+      <div class="u-gutter-wide grid items-center gap-8 lg:grid-cols-[1.2fr_1fr] lg:gap-14">
         <div>
           <h2 class="u-display text-[1.65rem] sm:text-[2rem] md:text-[2.35rem]">Great value car servicing</h2>
           <p class="u-lead mt-4 max-w-prose">
@@ -40,10 +41,10 @@
 
     <!-- the two services -->
     <section class="u-section border-y border-line bg-paper-sink/50">
-      <div class="u-gutter flex flex-col gap-10">
+      <div class="u-gutter-wide flex flex-col gap-10">
         <SectionHeading title="Choose your service" center />
 
-        <div class="mx-auto grid w-full max-w-5xl gap-4 md:grid-cols-2">
+        <div class="grid w-full gap-4 md:grid-cols-2 lg:grid-cols-3">
           <article v-for="service in services" :key="service.title" class="card flex flex-col gap-5 p-6 md:p-8">
             <div class="flex items-center gap-4">
               <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-accent-wash text-accent">
@@ -63,13 +64,24 @@
               </li>
             </ul>
           </article>
+
+          <a :href="telHref" class="card card-hover flex flex-col justify-between gap-8 bg-paper-dark p-6 text-ink-inverse md:p-8">
+            <span class="flex h-14 w-14 items-center justify-center rounded-full bg-white/10 text-accent-soft">
+              <AppIcon name="phone" :size="24" />
+            </span>
+            <div>
+              <p class="font-display text-xl font-semibold">Need it sooner?</p>
+              <p class="mt-1 text-sm text-ink-inverse/75">Call the workshop and we will fit you in where we can.</p>
+              <p class="mt-4 font-display text-2xl font-semibold text-accent-soft">{{ dealer.phone }}</p>
+            </div>
+          </a>
         </div>
       </div>
     </section>
 
     <!-- booking -->
     <section id="book" class="u-section">
-      <div class="u-gutter flex flex-col gap-10">
+      <div class="u-gutter-wide flex flex-col gap-10">
         <SectionHeading
           title="Book your MOT, service or repair"
           subtitle="Send us your details and we’ll get back to you to arrange a date."
@@ -87,7 +99,7 @@
 
     <!-- faq -->
     <section class="pb-4 sm:pb-8">
-      <div class="u-gutter flex flex-col gap-10">
+      <div class="u-gutter-wide flex flex-col gap-10">
         <SectionHeading title="MOT questions answered" center />
         <div class="mx-auto w-full max-w-3xl">
           <FaqList :faqs="faqs" />

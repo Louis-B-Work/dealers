@@ -1,6 +1,7 @@
 <template>
   <div class="bg-paper">
     <PageHeader
+      wide
       title="Breakdown"
       subtitle="Help when you need it most. If you’ve broken down, talk to our team about your next steps."
     >
@@ -15,8 +16,8 @@
 
     <!-- safety note: the template's warm highlight, never the accent teal -->
     <section class="pt-10 sm:pt-12">
-      <div class="u-gutter">
-        <div class="mx-auto flex max-w-4xl items-start gap-4 rounded-panel bg-highlight-wash p-5 md:p-6" role="note">
+      <div class="u-gutter-wide">
+        <div class="flex items-start gap-4 rounded-panel bg-highlight-wash p-5 md:p-6" role="note">
           <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/70 text-highlight-ink">
             <AppIcon name="shield" :size="22" />
           </span>
@@ -30,7 +31,7 @@
 
     <!-- intro -->
     <section class="u-section">
-      <div class="u-gutter grid items-center gap-6 lg:grid-cols-[1fr_1.5fr] lg:gap-14">
+      <div class="u-gutter-wide grid items-center gap-6 lg:grid-cols-[1fr_1.5fr] lg:gap-14">
         <h2 class="u-display text-[1.65rem] sm:text-[2rem] md:text-[2.35rem]">Broken down? We’re here to help</h2>
         <p class="u-lead max-w-prose">
           You don’t have to work out your next steps alone. If your car has a fault or won’t start, our team will
@@ -41,7 +42,7 @@
 
     <!-- on the road -->
     <section class="pb-4 sm:pb-8">
-      <div class="u-gutter flex flex-col gap-10">
+      <div class="u-gutter-wide flex flex-col gap-10">
         <SectionHeading
           title="If you break down on the road"
           subtitle="Where it’s safe to do so, follow these steps before you contact us."
@@ -62,7 +63,7 @@
 
     <!-- what happens next -->
     <section class="u-section">
-      <div class="u-gutter">
+      <div class="u-gutter-wide">
         <div class="rounded-block bg-paper-sink/70 px-6 py-12 md:px-12 md:py-14">
           <SectionHeading
             title="What happens next"
@@ -82,14 +83,16 @@
 
     <!-- invitation -->
     <section class="pb-4 sm:pb-8">
-      <div class="u-gutter">
-        <div class="rounded-block bg-paper-dark px-6 py-14 text-center text-ink-inverse sm:px-12 md:py-16">
-          <div class="mx-auto flex max-w-2xl flex-col items-center gap-6">
+      <div class="u-gutter-wide">
+        <div class="rounded-block bg-paper-dark px-6 py-12 text-ink-inverse sm:px-12 md:py-16">
+          <div class="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
+            <div>
             <h2 class="u-display text-[1.65rem] !text-ink-inverse sm:text-[2rem] md:text-[2.35rem]">Need a hand?</h2>
-            <p class="text-ink-inverse/75">
+            <p class="mt-3 max-w-xl text-ink-inverse/75">
               Call us during opening hours, or send a message and we’ll get back to you.
             </p>
-            <div class="flex flex-wrap justify-center gap-3">
+            </div>
+            <div class="flex flex-wrap gap-3">
               <a :href="telHref" class="btn-primary">
                 <AppIcon name="phone" :size="16" />
                 Call {{ dealer.phone }}

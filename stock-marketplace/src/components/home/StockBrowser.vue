@@ -57,21 +57,9 @@
           >
         </button>
 
-        <div class="inline-flex rounded-control border border-line bg-surface p-0.5" role="group" aria-label="Price shown">
-          <button
-            v-for="option in modes"
-            :key="option.value"
-            type="button"
-            class="rounded px-3 py-1.5 text-sm font-semibold transition"
-            :class="
-              search.mode.value === option.value ? 'bg-ink text-paper' : 'text-ink-soft hover:text-ink'
-            "
-            :aria-pressed="search.mode.value === option.value"
-            @click="search.setMode(option.value)"
-          >
-            {{ option.label }}
-          </button>
-        </div>
+        <!-- On desktop the switch sits above the search box in the filter panel; here it is
+             for small screens, where that panel is a drawer. -->
+        <PriceModeToggle :search="search" class="lg:hidden" />
 
         <div class="flex items-center gap-2">
           <label class="text-sm text-ink-muted" for="sort">Sort</label>
@@ -168,10 +156,11 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { SORT_OPTIONS, useStockSearch } from '../../composables/useStockSearch'
-import type { PriceMode, SortKey, ViewMode } from '../../composables/useStockSearch'
+import type { SortKey, ViewMode } from '../../composables/useStockSearch'
 import { vehicles } from '../../data/vehicles'
 import { QUOTE_TERM_MONTHS, REPRESENTATIVE_APR, brokerDisclosure } from '../../data/dealer'
 import AppIcon from '../shared/AppIcon.vue'
+import PriceModeToggle from '../shared/PriceModeToggle.vue'
 import VehicleCard from '../shared/VehicleCard.vue'
 import StockFilters from './StockFilters.vue'
 
@@ -179,10 +168,6 @@ const search = useStockSearch()
 const totalCount = vehicles.length
 const drawerId = 'stock-filters-drawer'
 
-const modes: { value: PriceMode; label: string }[] = [
-  { value: 'cash', label: 'Cash price' },
-  { value: 'monthly', label: 'Per month' },
-]
 const layouts: { value: ViewMode; label: string; icon: string }[] = [
   { value: 'grid', label: 'Grid view', icon: 'grid' },
   { value: 'list', label: 'List view', icon: 'list' },
