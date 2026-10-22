@@ -5,13 +5,6 @@ import type { RouteRecordRaw } from 'vue-router'
 // fully navigable without eight near-identical files.
 const stubs: { path: string; name: string; heading: string; intro: string }[] = [
   {
-    path: '/finance',
-    name: 'finance',
-    heading: 'Finance that fits your budget',
-    intro:
-      'Tell us what you can afford each month and we will find a deal to match. All credit histories considered, and a decision usually within the hour.',
-  },
-  {
     path: '/sell',
     name: 'sell',
     heading: 'We will buy your car',
@@ -92,6 +85,12 @@ const routes: RouteRecordRaw[] = [
     name: 'contact',
     component: () => import('./views/ContactView.vue'),
     meta: { title: 'Contact Us | Dealership Name' },
+  },
+  {
+    path: '/finance',
+    name: 'finance',
+    component: () => import('./views/FinanceView.vue'),
+    meta: { title: 'Car Finance | Dealership Name' },
   },
   ...stubRoutes,
   {

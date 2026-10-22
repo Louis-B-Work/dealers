@@ -1,6 +1,6 @@
 <template>
   <PageHero
-    title="Car finance, made simple"
+    title="Finance your vehicle"
     intro="See your monthly payment, compare HP and PCP, and check your eligibility in minutes."
   >
     <div class="flex flex-wrap justify-center gap-4" data-intro>

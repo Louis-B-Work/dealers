@@ -3,7 +3,7 @@
     <div class="grid w-full items-start gap-14 lg:grid-cols-[1fr_1fr] lg:gap-20">
       <div class="flex flex-col">
         <SectionHeading
-          eyebrow="Finance made simple"
+          eyebrow="Finance your vehicle"
           :title="headline"
           subtitle="Representative finance tailored to you, with a decision in principle in minutes. Adjust your deposit and term to see a monthly figure that fits."
         />

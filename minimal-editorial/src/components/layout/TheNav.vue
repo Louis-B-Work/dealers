@@ -16,13 +16,14 @@
           v-for="(link, i) in leftLinks"
           :key="link.label"
           :to="link.to"
+          active-class="is-current"
           class="nav-link group"
           data-intro-nav
           :style="{ '--intro-delay': `${140 + i * 70}ms` }"
         >
           {{ link.label }}
           <span
-            class="absolute -bottom-2 left-0 h-px w-0 bg-ink transition-all duration-300 ease-premium group-hover:w-full"
+            class="absolute -bottom-2 left-0 h-px w-0 bg-ink transition-all duration-300 ease-premium group-hover:w-full group-[.is-current]:h-[2px] group-[.is-current]:w-full"
           ></span>
         </RouterLink>
       </nav>
@@ -65,13 +66,14 @@
             <RouterLink
               v-else
               :to="link.to!"
-              class="nav-link group"
+              active-class="is-current"
+          class="nav-link group"
               data-intro-nav
               :style="{ '--intro-delay': `${140 + (leftLinks.length + i) * 70}ms` }"
             >
               {{ link.label }}
               <span
-                class="absolute -bottom-2 left-0 h-px w-0 bg-ink transition-all duration-300 ease-premium group-hover:w-full"
+                class="absolute -bottom-2 left-0 h-px w-0 bg-ink transition-all duration-300 ease-premium group-hover:w-full group-[.is-current]:h-[2px] group-[.is-current]:w-full"
               ></span>
             </RouterLink>
           </template>
@@ -211,11 +213,21 @@ watch(() => route.fullPath, closeMenu)
   @apply relative flex items-center whitespace-nowrap text-[0.66rem] font-medium uppercase tracking-micro text-ink-soft transition-colors duration-300 ease-premium hover:text-ink;
 }
 
-.nav-link.router-link-active {
-  @apply text-ink;
+/* The current page: darker, heavier, and a drawn 2px rule (see the span in the template). */
+.nav-link.is-current {
+  @apply font-semibold text-ink;
 }
 
 .drawer-link {
-  @apply py-4 text-[0.7rem] font-medium uppercase tracking-micro text-ink transition-colors duration-200;
+  @apply relative py-4 text-[0.7rem] font-medium uppercase tracking-micro text-ink-muted transition-colors duration-200;
+}
+
+.drawer-link.router-link-exact-active {
+  @apply pl-4 font-semibold text-ink;
+}
+
+.drawer-link.router-link-exact-active::before {
+  content: '';
+  @apply absolute bottom-3 left-0 top-3 w-0.5 bg-ink;
 }
 </style>

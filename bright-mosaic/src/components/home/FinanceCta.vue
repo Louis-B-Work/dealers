@@ -9,7 +9,7 @@
     <div class="container relative grid items-center gap-12 lg:grid-cols-2">
       <div class="flex flex-col gap-6">
         <span class="u-eyebrow !text-deal" data-reveal>
-          Finance made simple
+          Finance your vehicle
         </span>
         <h2 class="u-display text-3xl text-white sm:text-4xl md:text-5xl" data-reveal data-reveal-delay="80">
           Drive away from

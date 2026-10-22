@@ -8,7 +8,7 @@
     <title>Dealership Name | Considered Cars</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&family=Nunito:wght@700;800;900&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
     <style>
       :root {
         color-scheme: light;
@@ -319,6 +319,50 @@
         </div>
       </section>
 
+      <div class="ticker" aria-label="Why buy with us">
+        <div class="ticker-track" aria-hidden="true">
+          <span>14-day money back guarantee</span><span>Free delivery within 30 miles</span><span>Every car prepared and checked</span><span>Part-exchange welcome</span><span>Finance options available</span>
+          <span>14-day money back guarantee</span><span>Free delivery within 30 miles</span><span>Every car prepared and checked</span><span>Part-exchange welcome</span><span>Finance options available</span>
+        </div>
+        <ul class="sr-only"><li>14-day money back guarantee</li><li>Free delivery within 30 miles</li><li>Every car prepared and checked</li><li>Part-exchange welcome</li><li>Finance options available</li></ul>
+      </div>
+
+      <section class="actions" aria-label="Quick actions">
+        <div class="shell actions-grid">
+          <article class="action-card">
+            <div class="action-media"><img src="https://images.unsplash.com/photo-1563720223185-11003d516935?w=900&amp;q=75&amp;auto=format&amp;fit=crop" alt="" loading="lazy" /></div>
+            <div class="action-body">
+              <h3>Sell your car</h3>
+              <p>Value it, book it, sell it. A free valuation in minutes, with no obligation.</p>
+              <form class="reg-form" data-go="/sell">
+                <label class="sr-only" for="reg-sell">Your registration</label>
+                <div class="reg-plate"><span class="reg-uk" aria-hidden="true">UK</span><input id="reg-sell" name="reg" placeholder="YOUR REG" maxlength="8" autocomplete="off" /></div>
+                <button class="button" type="submit">Value my car</button>
+              </form>
+            </div>
+          </article>
+          <article class="action-card">
+            <div class="action-media"><img src="https://images.unsplash.com/photo-1574023240744-64c47c8c0676?w=900&amp;q=75&amp;auto=format&amp;fit=crop" alt="" loading="lazy" /></div>
+            <div class="action-body">
+              <h3>Book a service</h3>
+              <p>Enter your reg to book a service, MOT or repair with our workshop team.</p>
+              <form class="reg-form" data-go="/mot">
+                <label class="sr-only" for="reg-service">Your registration</label>
+                <div class="reg-plate"><span class="reg-uk" aria-hidden="true">UK</span><input id="reg-service" name="reg" placeholder="YOUR REG" maxlength="8" autocomplete="off" /></div>
+                <button class="button" type="submit">Book now</button>
+              </form>
+            </div>
+          </article>
+          <article class="action-card action-card-solid">
+            <div class="action-body">
+              <h3>Visit us</h3>
+              <p>Take your time with the collection and talk through what comes next. Showroom open Monday to Saturday.</p>
+              <div class="action-links"><a class="button button-light" href="#/contact">Plan your visit</a><a class="chip chip-light" href="#/finance">Finance</a><a class="chip chip-light" href="#/sell">Part-exchange</a></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
       <section class="stock" id="collection" aria-labelledby="stock-title">
         <div class="stock-head">
           <div class="stock-title">
@@ -348,16 +392,16 @@
       <section class="section" id="approach" aria-labelledby="approach-title">
         <div class="shell editorial-split">
           <div class="editorial-photo"><img src="https://images.unsplash.com/photo-1563720223185-11003d516935?w=1000&amp;q=80&amp;auto=format&amp;fit=crop" alt="A Range Rover presented outside a contemporary building" loading="lazy" /><span class="photo-note">A little more thought. A much better journey.</span></div>
-          <div class="editorial-copy"><p class="eyebrow">A different kind of car people</p><h2 id="approach-title">Chosen with care.<br />Sold with a handshake.</h2><p>Buying a car should feel like the start of something good. Not a negotiation you need to win. We keep things simple: a considered collection, clear advice, and the time to find your fit.</p><p>From the first look to the drive home, you speak to people who care as much about the details as you do.</p><div class="trust-pair"><div><strong>Good cars, properly prepared.</strong><span>History, condition and the little things, checked before handover.</span></div><div><strong>Your pace. Always.</strong><span>Space to browse, a proper test drive and no pushy follow-ups.</span></div></div><a class="text-link" href="#/about">Get to know us&nbsp; ↗</a></div>
+          <div class="editorial-copy"><h2 id="approach-title">Chosen with care.<br />Sold with a handshake.</h2><p>Buying a car should feel like the start of something good. Not a negotiation you need to win. We keep things simple: a considered collection, clear advice, and the time to find your fit.</p><p>From the first look to the drive home, you speak to people who care as much about the details as you do.</p><ul class="benefit-grid"><li><b aria-hidden="true">✓</b><strong>Properly prepared</strong><span>History, condition and the little things, checked before handover.</span></li><li><b aria-hidden="true">✓</b><strong>Your pace. Always.</strong><span>Space to browse, a proper test drive and no pushy follow-ups.</span></li><li><b aria-hidden="true">✓</b><strong>Clear pricing</strong><span>The price you see is the price you pay, with finance explained plainly.</span></li><li><b aria-hidden="true">✓</b><strong>Here after the sale</strong><span>Servicing, MOT, warranty and breakdown support on our doorstep.</span></li></ul><a class="button" href="#/about">Get to know us</a></div>
         </div>
       </section>
 
       <section class="section finance-section" id="finance" aria-labelledby="finance-title">
-        <div class="shell finance-banner"><div><p class="eyebrow">Room for the things that matter</p><h2 id="finance-title">The right car.<br />A comfortable monthly payment.</h2><p>Explore a deposit and term that work for you. Our straightforward calculator gives you a starting point, without a credit check.</p><a class="button button-light" href="#/finance">Find your monthly payment&nbsp; ↗</a></div><div class="finance-note"><span class="eyebrow">Illustrative hire purchase</span><strong>11.9% <small>APR</small></strong><p>Borrow £12,000 over 60 months with no deposit. 60 payments of £262.69. Total payable £15,761.40. No fees in this illustration.</p><p class="fine-print">Demo illustration, not a finance offer. Finance subject to status and lender approval. Dealership Name is a fictional credit broker, not a lender.</p></div></div>
+        <div class="shell finance-banner"><div><h2 id="finance-title">The right car.<br />A comfortable monthly payment.</h2><p>Explore a deposit and term that work for you. Our straightforward calculator gives you a starting point, without a credit check.</p><a class="button button-light" href="#/finance">Find your monthly payment&nbsp; ↗</a></div><div class="finance-note"><span class="chip chip-light">Illustrative hire purchase</span><strong>11.9% <small>APR</small></strong><p>Borrow £12,000 over 60 months with no deposit. 60 payments of £262.69. Total payable £15,761.40. No fees in this illustration.</p><p class="fine-print">Demo illustration, not a finance offer. Finance subject to status and lender approval. Dealership Name is a fictional credit broker, not a lender.</p></div></div>
       </section>
 
       <section class="section reviews-section" id="reviews" aria-labelledby="reviews-title">
-        <div class="shell"><div class="section-heading"><div><p class="eyebrow">The drive home says it all</p><h2 id="reviews-title">Good words. Great journeys.</h2></div><p class="quiet">A flavour of the dealership experience.<br /><span class="fine-print">Illustrative reviews for this design preview.</span></p></div><div class="three-grid">
+        <div class="shell"><div class="section-heading"><div><h2 id="reviews-title">Good words. Great journeys.</h2></div><p class="quiet">A flavour of the dealership experience.<br /><span class="fine-print">Illustrative reviews for this design preview.</span></p></div><div class="three-grid">
           <figure class="review-card"><span class="stars" aria-label="5 out of 5 stars">★★★★★</span><blockquote>“Time to look, honest answers and absolutely no pressure. Exactly how buying a car should be.”</blockquote><figcaption><span class="initial">JT</span><span>James T.<small>Finding a first family car</small></span></figcaption></figure>
           <figure class="review-card"><span class="stars" aria-label="5 out of 5 stars">★★★★★</span><blockquote>“Everything was explained clearly, including the finance. I drove away feeling confident, not confused.”</blockquote><figcaption><span class="initial">SP</span><span>Sarah P.<small>Making the next step</small></span></figcaption></figure>
           <figure class="review-card"><span class="stars" aria-label="5 out of 5 stars">★★★★★</span><blockquote>“The little details made the difference. A beautifully prepared car and people who genuinely listened.”</blockquote><figcaption><span class="initial">MR</span><span>Michael R.<small>Something for the open road</small></span></figcaption></figure>
@@ -365,9 +409,9 @@
       </section>
 
       <section class="section visit-section" id="contact" aria-labelledby="visit-title">
-        <div class="shell editorial-split"><div class="editorial-copy"><p class="eyebrow">Worth a little detour</p><h2 id="visit-title">Come for a look.<br />Stay for a coffee.</h2><p>Visit our imagined Leeds showroom, take your time with the collection and talk through what comes next. This is a design demonstration, not a trading dealership.</p><div class="visit-details"><div><strong>Find our demo showroom</strong><span>Dealership Name<br />Leeds, West Yorkshire</span></div><div><strong>Showroom hours</strong><span>Mon–Fri &nbsp; 9am–6pm<br />Saturday &nbsp; 9am–5pm<br />Sunday &nbsp; By appointment</span></div></div><a class="button" href="#/contact">Plan your visit&nbsp; ↗</a></div><div class="location-card"><span class="location-ring ring-one"></span><span class="location-ring ring-two"></span><span class="location-road"></span><div class="location-label"><span class="brand-mark">D</span><strong>Dealership Name</strong><span>Leeds, West Yorkshire</span><a href="https://www.openstreetmap.org/search?query=Leeds%2C%20West%20Yorkshire" target="_blank" rel="noopener noreferrer">Explore Leeds on the map ↗</a></div><span class="map-caption">Illustrated location · Demo showroom</span></div></div>
+        <div class="shell editorial-split"><div class="editorial-copy"><h2 id="visit-title">Come for a look.<br />Stay for a coffee.</h2><p>Visit our imagined Leeds showroom, take your time with the collection and talk through what comes next. This is a design demonstration, not a trading dealership.</p><div class="visit-details"><div><strong>Find our demo showroom</strong><span>Dealership Name<br />Leeds, West Yorkshire</span></div><div><strong>Showroom hours</strong><span>Mon–Fri &nbsp; 9am–6pm<br />Saturday &nbsp; 9am–5pm<br />Sunday &nbsp; By appointment</span></div></div><a class="button" href="#/contact">Plan your visit&nbsp; ↗</a></div><div class="location-card"><span class="location-ring ring-one"></span><span class="location-ring ring-two"></span><span class="location-road"></span><div class="location-label"><span class="brand-mark">D</span><strong>Dealership Name</strong><span>Leeds, West Yorkshire</span><a href="https://www.openstreetmap.org/search?query=Leeds%2C%20West%20Yorkshire" target="_blank" rel="noopener noreferrer">Explore Leeds on the map ↗</a></div></div></div>
       </section>
-      <section class="service-strip"><div class="shell"><p class="eyebrow">Here for the miles ahead</p><div><a href="#/mot">MOT &amp; servicing ↗</a><a href="#/warranty">Warranty cover ↗</a><a href="#/body-shop">Body shop ↗</a><a href="#/breakdown">Roadside support ↗</a></div></div></section>
+      <section class="service-strip" aria-label="Aftercare"><div class="shell"><h2>Here for the miles ahead</h2><div><a class="chip" href="#/mot">MOT &amp; servicing</a><a class="chip" href="#/warranty">Warranty cover</a><a class="chip" href="#/body-shop">Body shop</a><a class="chip" href="#/breakdown">Roadside support</a></div></div></section>
       </div>
       <div id="route-page" hidden></div>
     </main>
@@ -379,11 +423,11 @@
           <div><h3>Explore</h3><div class="footer-links"><a href="#/vehicles">The collection</a><a href="#/about">Our approach</a><a href="#/finance">Finance</a><a href="#/sell">Sell or part-exchange</a><a href="#/contact">Contact &amp; visits</a></div></div>
           <div><h3>Care &amp; support</h3><div class="footer-links"><a href="#/mot">MOT &amp; servicing</a><a href="#/warranty">Warranty</a><a href="#/body-shop">Body shop</a><a href="#/breakdown">Breakdown assistance</a><a href="#/privacy">Privacy</a></div></div>
         </div>
-        <div class="footer-bottom"><span>© 2026 Dealership Name · A fictional dealership design preview.</span><span>Demo stock, imagery, reviews and finance. No enquiries are transmitted.</span></div>
+        <div class="footer-bottom"><span>© 2026 Dealership Name</span></div>
       </div>
     </footer>
     <script type="module">
-      import { STOCK, BODY_TYPES, photo, gbp } from './stock.mjs';
+      import { STOCK, BODY_TYPES, photo, gbp, money, financeQuote } from './stock.mjs';
       import { initPages } from './app.mjs';
       const nav = document.querySelector('.nav');
       const menuButton = document.querySelector('.menu');
@@ -524,6 +568,7 @@
                 <strong class="stock-model">${car.model}</strong>
                 <span class="stock-spec">${[car.year, car.miles && `${car.miles.toLocaleString('en-GB')} miles`, car.gearbox].filter(Boolean).join(' · ')}</span>
                 <span class="stock-foot"><span class="stock-price">${gbp.format(car.price)}</span><span class="stock-go" aria-hidden="true">↗</span></span>
+                <span class="stock-monthly">or ${money.format(financeQuote(car.price, 0, 60).monthly)} a month</span>
               </span>
             </a>
           </li>`).join('');
@@ -582,6 +627,14 @@
             </a>
           </li>`;
       }).join('');
+      // Quick-action reg forms hand the reg on to the destination page.
+      document.querySelectorAll('.reg-form[data-go]').forEach((regForm) => {
+        regForm.addEventListener('submit', (event) => {
+          event.preventDefault();
+          const reg = regForm.elements.reg.value.trim().toUpperCase();
+          location.hash = `${regForm.dataset.go}${reg ? `?reg=${encodeURIComponent(reg)}` : ''}`;
+        });
+      });
       initPages(syncNav);
     </script>
   </body>

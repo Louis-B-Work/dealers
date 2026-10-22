@@ -1,11 +1,12 @@
 <template>
   <div class="bg-paper pb-20">
     <PageHeader
+      wide
       title="Cars in stock"
       :subtitle="`${vehicles.length} quality used cars, all prepared and ready to drive away.`"
     />
 
-    <div class="u-gutter w-full pt-8 lg:pt-10">
+    <div class="u-gutter-wide pt-8 lg:pt-10">
       <div class="grid gap-6 lg:grid-cols-[280px_1fr] lg:gap-8">
         <!-- Filter rail. Sticky below `lg`; above it, it collapses into a
              disclosure so the grid gets the full width on a phone. -->
@@ -130,7 +131,7 @@
             </div>
           </div>
 
-          <ul v-if="results.length" class="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          <ul v-if="results.length" class="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
             <li v-for="vehicle in results" :key="vehicle.id">
               <VehicleCard :vehicle="vehicle" />
             </li>

@@ -19,7 +19,7 @@
       />
       <span
         class="absolute -bottom-2 left-0 h-px bg-ink transition-all duration-300 ease-premium"
-        :class="open || childActive ? 'w-full' : 'w-0 group-hover:w-full'"
+        :class="[open || childActive ? 'w-full' : 'w-0 group-hover:w-full', childActive ? '!h-[2px]' : '']"
       ></span>
     </button>
 
@@ -186,7 +186,7 @@ onBeforeUnmount(() => {
 }
 
 .nav-link.is-current {
-  @apply text-ink;
+  @apply font-semibold text-ink;
 }
 
 .nav-menu-item {
@@ -194,7 +194,7 @@ onBeforeUnmount(() => {
 }
 
 .nav-menu-item.router-link-active {
-  @apply text-ink;
+  @apply border-l-2 border-ink pl-[0.875rem] font-semibold text-ink;
 }
 
 /* Listed last so the highlight wins over the current-route colour. */

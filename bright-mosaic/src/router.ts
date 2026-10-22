@@ -7,7 +7,7 @@ const stubs: { path: string; name: string; eyebrow: string; heading: string; int
   {
     path: '/finance',
     name: 'finance',
-    eyebrow: 'Finance made simple',
+    eyebrow: 'Finance your vehicle',
     heading: 'Finance built around you',
     intro:
       'Representative finance on any car in stock, with a decision in principle in minutes.',
