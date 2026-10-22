@@ -38,14 +38,15 @@
           <RouterLink
             v-else
             :to="link.to!"
-            class="group relative text-sm font-medium transition-colors"
+            active-class="is-current"
+            class="group relative text-sm font-medium transition-colors [&.is-current]:text-accent"
             :class="onDark ? 'text-white/85 hover:text-white' : 'text-ink-soft hover:text-ink'"
             data-intro-nav
             :style="{ '--intro-delay': `${120 + i * 70}ms` }"
           >
             {{ link.label }}
             <span
-              class="absolute -bottom-1.5 left-0 h-px w-0 bg-accent transition-all duration-300 ease-premium group-hover:w-full"
+              class="absolute -bottom-1.5 left-0 h-px w-0 bg-accent transition-all duration-300 ease-premium group-hover:w-full group-[.is-current]:w-full"
             ></span>
           </RouterLink>
         </template>
@@ -68,7 +69,7 @@
           data-intro-nav
           style="--intro-delay: 560ms"
         >
-          Browse
+          Browse all cars
         </RouterLink>
         <button
           type="button"
@@ -126,14 +127,15 @@
             <RouterLink
               v-else
               :to="link.to!"
-              class="rounded-control px-3 py-3 text-base font-medium text-ink-soft transition hover:bg-paper-soft hover:text-ink"
+              active-class="is-current"
+              class="rounded-control px-3 py-3 text-base font-medium text-ink-soft transition hover:bg-paper-soft hover:text-ink [&.is-current]:text-accent"
               @click="closeMenu"
             >
               {{ link.label }}
             </RouterLink>
           </template>
           <RouterLink to="/vehicles" class="btn-accent mt-2 md:hidden" @click="closeMenu">
-            Browse
+            Browse all cars
           </RouterLink>
           <a
             :href="`tel:${dealer.phone.replace(/\s/g, '')}`"

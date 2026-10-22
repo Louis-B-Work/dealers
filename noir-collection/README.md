@@ -1,8 +1,10 @@
 # noir-collection: dark, premium dealer template
 
 A dark, premium dealer website template in warm black and ivory with a single champagne accent.
-It opens with a make and model search, then a **spotlight** that cycles through every car in stock,
-text on black beside a framed photograph. It then presents the stock as a **numbered catalogue**, like a collector's lot list, with a photo that follows the pointer on
+A thin make and model search sits in the header on every page. The homepage opens on a full-bleed
+**spotlight** band that cycles through every car in stock. Each photograph is shown whole, never
+cropped, over a blurred copy of itself, with the car's details on a black strip beneath. The hero
+fits the screen height so the name and buttons are always in the first view. It then presents the stock as a **numbered catalogue**, like a collector's lot list, with a photo that follows the pointer on
 desktop.
 
 Built as a standalone **Vite + Vue 3 + TypeScript + Tailwind CSS** app. The stock data and finance
@@ -24,8 +26,9 @@ npm run build    # type-check (vue-tsc) + production build
   tab) and previous, pause and next buttons. It advances every seven seconds, pauses on hover,
   focus, the pause button or when scrolled out of view, and stays still for reduced motion. Photos
   load as they come up rather than all at once.
-- **Hero search** (`components/home/HeroSearch.vue`): sits at the top of the homepage so it is always in
-  the first screen. Make, then model, with a live count; it opens the collection filtered to that choice.
+- **Header search** (`components/layout/NavSearch.vue`): a thin bar fixed under the menu on every page.
+  Make, then model, with a live count; it opens the collection filtered to that choice and mirrors the
+  collection's filters while you are on it.
 - **Catalogue list** (`components/shared/CatalogueList.vue`): numbered rows with a pointer-following
   preview on hover-capable screens and thumbnails on phones. The collection page can switch to a
   two-column gallery of large cards.

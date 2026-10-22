@@ -3,7 +3,6 @@
     <PageHeader
       title="Fewer cars. Chosen better."
       current="About"
-      eyebrow="About the house"
       :subtitle="`${dealer.name} is a fictional independent dealership template. The idea is a small, carefully chosen collection, presented properly and shown in private.`"
       :image="headerImage"
     />
@@ -11,8 +10,7 @@
     <div class="u-gutter space-y-24 py-16 lg:py-20">
       <section class="grid gap-12 lg:grid-cols-2 lg:gap-20" aria-labelledby="approach-title">
         <div v-reveal>
-          <p class="u-eyebrow">Our approach</p>
-          <h2 id="approach-title" class="u-h2 mt-5">A collection, not a forecourt.</h2>
+          <h2 id="approach-title" class="u-h2">A collection, not a forecourt.</h2>
         </div>
         <div v-reveal="120" class="space-y-5 text-lg leading-relaxed text-ink-soft">
           <p>
@@ -28,8 +26,7 @@
 
       <ul class="grid gap-px overflow-hidden rounded-panel border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
         <li v-for="(value, index) in values" :key="value.title" v-reveal="index * 100" class="bg-paper p-8">
-          <span class="tabular font-display text-4xl text-accent">0{{ index + 1 }}</span>
-          <h3 class="mt-6 font-display text-2xl">{{ value.title }}</h3>
+          <h3 class="font-display text-2xl">{{ value.title }}</h3>
           <p class="mt-3 text-sm leading-relaxed text-ink-soft">{{ value.text }}</p>
         </li>
       </ul>

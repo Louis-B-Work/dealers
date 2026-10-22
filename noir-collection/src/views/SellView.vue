@@ -3,24 +3,21 @@
     <PageHeader
       title="Sell or part-exchange"
       current="Sell your car"
-      eyebrow="Valuations"
       subtitle="We buy exceptional cars outright and take them in part-exchange. Tell us about yours to begin."
       :image="headerImage"
     />
 
     <div class="u-gutter space-y-24 py-16 lg:py-20">
       <ol class="grid gap-px overflow-hidden rounded-panel border border-line bg-line md:grid-cols-3">
-        <li v-for="(step, index) in steps" :key="step.title" class="bg-paper p-8">
-          <span class="tabular font-display text-5xl text-accent">0{{ index + 1 }}</span>
-          <h2 class="mt-6 font-display text-2xl">{{ step.title }}</h2>
+        <li v-for="step in steps" :key="step.title" class="bg-paper p-8">
+          <h2 class="font-display text-2xl">{{ step.title }}</h2>
           <p class="mt-3 leading-relaxed text-ink-soft">{{ step.text }}</p>
         </li>
       </ol>
 
       <section class="grid gap-14 lg:grid-cols-[1fr_1.3fr] lg:gap-20" aria-labelledby="form-title">
         <div>
-          <p class="u-eyebrow">Before you begin</p>
-          <h2 id="form-title" class="u-h2 mt-5">Tell us about your car</h2>
+          <h2 id="form-title" class="u-h2">Tell us about your car</h2>
           <ul class="mt-8 border-t border-line">
             <li v-for="tip in tips" :key="tip" class="flex items-center gap-4 border-b border-line py-4 text-ink-soft">
               <span class="h-px w-5 shrink-0 bg-accent" aria-hidden="true"></span>

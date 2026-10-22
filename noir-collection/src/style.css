@@ -26,12 +26,14 @@
   --c-accent-ink: 20 17 12; /* text on accent */
 
   --nav-h: 80px;
+  --search-h: 52px; /* thin search bar fixed under the menu */
+  --header-h: calc(var(--nav-h) + var(--search-h) + 2px); /* plus the two hairlines */
   color-scheme: dark;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--nav-h) + 16px);
+  scroll-padding-top: calc(var(--header-h) + 16px);
   background-color: rgb(var(--c-paper));
 }
 
@@ -71,8 +73,14 @@ select option {
 }
 
 @layer components {
+  /* Content sections: centred and capped so long lines stay readable on wide screens. */
   .u-gutter {
     @apply mx-auto w-full max-w-[1520px] px-5 sm:px-8 lg:px-12;
+  }
+
+  /* Page chrome (header, search bar, hero strip): runs the full viewport width. */
+  .u-bleed {
+    @apply w-full px-5 sm:px-8 lg:px-12 2xl:px-16;
   }
 
   .u-eyebrow {
@@ -80,7 +88,7 @@ select option {
   }
 
   .u-h1 {
-    @apply font-display text-4xl leading-[1] sm:text-5xl lg:text-6xl;
+    @apply font-display text-4xl !leading-[1.1] sm:text-5xl lg:text-6xl;
   }
 
   .u-h2 {

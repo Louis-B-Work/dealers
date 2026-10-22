@@ -1,74 +1,6 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 
-// Scaffolded pages share one view and differ only by route meta, so the nav is
-// fully navigable without seven near-identical files.
-const stubs: { path: string; name: string; eyebrow: string; heading: string; intro: string }[] = [
-  {
-    path: '/finance',
-    name: 'finance',
-    eyebrow: 'Finance made simple',
-    heading: 'Finance built around you',
-    intro:
-      'Representative finance on any vehicle in our collection, with a decision in principle in minutes.',
-  },
-  {
-    path: '/sell',
-    name: 'sell',
-    eyebrow: 'Sell or part-exchange',
-    heading: 'Sell us your car',
-    intro:
-      'A fair, transparent valuation in minutes. Sell outright or put the value straight towards your next car.',
-  },
-  {
-    path: '/about',
-    name: 'about',
-    eyebrow: 'Our story',
-    heading: 'About us',
-    intro:
-      'Years of handpicking, preparing and presenting premium vehicles to an exacting standard.',
-  },
-  {
-    path: '/mot',
-    name: 'mot',
-    eyebrow: 'Servicing',
-    heading: 'MOT testing',
-    intro:
-      'Class 4 MOT testing by our in-house technicians, with free retests and while-you-wait appointments.',
-  },
-  {
-    path: '/warranty',
-    name: 'warranty',
-    eyebrow: 'Peace of mind',
-    heading: 'Warranty cover',
-    intro:
-      'Every car leaves us with comprehensive warranty cover, with extended plans available at any point.',
-  },
-  {
-    path: '/body-shop',
-    name: 'body-shop',
-    eyebrow: 'Repairs & refinishing',
-    heading: 'Body shop',
-    intro:
-      'Manufacturer-grade paint and panel work, from stone-chip touch-ups to full accident repair.',
-  },
-  {
-    path: '/breakdown',
-    name: 'breakdown',
-    eyebrow: 'On the road',
-    heading: 'Breakdown assistance',
-    intro:
-      'Nationwide recovery and roadside assistance, included for twelve months with every vehicle.',
-  },
-]
-
-const stubRoutes: RouteRecordRaw[] = stubs.map(({ path, name, eyebrow, heading, intro }) => ({
-  path,
-  name,
-  component: () => import('./views/StubView.vue'),
-  meta: { title: `${heading} | Dealership Name`, eyebrow, heading, intro },
-}))
-
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
@@ -94,7 +26,48 @@ const routes: RouteRecordRaw[] = [
     component: () => import('./views/ContactView.vue'),
     meta: { title: 'Contact Us | Dealership Name' },
   },
-  ...stubRoutes,
+  {
+    path: '/finance',
+    name: 'finance',
+    component: () => import('./views/FinanceView.vue'),
+    meta: { title: 'Car Finance | Dealership Name' },
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: () => import('./views/AboutView.vue'),
+    meta: { title: 'About Us | Dealership Name' },
+  },
+  {
+    path: '/mot',
+    name: 'mot',
+    component: () => import('./views/MotView.vue'),
+    meta: { title: 'MOT & Service | Dealership Name' },
+  },
+  {
+    path: '/warranty',
+    name: 'warranty',
+    component: () => import('./views/WarrantyView.vue'),
+    meta: { title: 'Warranty | Dealership Name' },
+  },
+  {
+    path: '/sell',
+    name: 'sell',
+    component: () => import('./views/SellView.vue'),
+    meta: { title: 'Sell Your Car | Dealership Name' },
+  },
+  {
+    path: '/body-shop',
+    name: 'body-shop',
+    component: () => import('./views/BodyShopView.vue'),
+    meta: { title: 'Body Shop | Dealership Name' },
+  },
+  {
+    path: '/breakdown',
+    name: 'breakdown',
+    component: () => import('./views/BreakdownView.vue'),
+    meta: { title: 'Breakdown | Dealership Name' },
+  },
   {
     path: '/card-lab',
     name: 'card-lab',

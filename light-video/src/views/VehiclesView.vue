@@ -3,9 +3,6 @@
     <!-- page header -->
     <div class="border-b border-line bg-paper-soft">
       <div class="container flex flex-col gap-3 py-10 md:py-14">
-        <span class="u-eyebrow">
-          The Forecourt
-        </span>
         <h1 class="u-display text-3xl sm:text-4xl md:text-5xl">Browse our vehicles</h1>
         <p class="max-w-prose text-ink-soft">
           {{ results.length }} handpicked {{ results.length === 1 ? 'vehicle' : 'vehicles' }}

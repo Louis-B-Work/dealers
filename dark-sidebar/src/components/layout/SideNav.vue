@@ -40,53 +40,62 @@
     ></div>
   </transition>
 
+  <!-- Reopen button: only present while the rail is hidden on large screens. -->
+  <transition
+    enter-active-class="transition-opacity duration-300 ease-premium"
+    enter-from-class="opacity-0"
+    leave-active-class="transition-opacity duration-150 ease-premium"
+    leave-to-class="opacity-0"
+  >
+    <button
+      v-if="collapsed"
+      type="button"
+      class="fixed left-4 top-4 z-30 hidden h-11 w-11 items-center justify-center border border-line bg-paper-soft text-ink transition-colors duration-300 hover:border-accent hover:text-accent lg:flex"
+      aria-label="Show navigation"
+      :aria-expanded="false"
+      @click="toggle"
+    >
+      <AppIcon name="menu" :size="20" />
+    </button>
+  </transition>
+
   <!-- The column itself. Fixed at every size; only its transform changes, so
        there is a single markup path for desktop and the mobile drawer. -->
   <aside
-    class="group fixed inset-y-0 left-0 z-50 w-[var(--nav-w)] max-w-[86vw] overflow-hidden bg-paper-soft transition-[transform,width] duration-500 ease-premium lg:z-30 lg:w-[var(--nav-w-collapsed)] lg:translate-x-0 lg:hover:w-[var(--nav-w)] lg:hover:shadow-lift lg:focus-within:w-[var(--nav-w)] lg:focus-within:shadow-lift"
-    :class="open ? 'translate-x-0' : '-translate-x-full'"
+    class="group fixed inset-y-0 left-0 z-50 w-[var(--nav-w)] max-w-[86vw] overflow-hidden bg-paper-soft transition-transform duration-500 ease-premium lg:z-30"
+    :class="[
+      open ? 'translate-x-0' : '-translate-x-full',
+      collapsed ? 'lg:-translate-x-full' : 'lg:translate-x-0',
+    ]"
   >
-    <!-- Collapsed-state affordance: on large screens, at rest the sidebar is
-         just this edge tab with a bright arrow, hinting there is more to
-         reveal. Fades out on expand. -->
-    <div
-      class="pointer-events-none absolute inset-y-0 right-0 hidden w-8 items-center justify-center opacity-100 transition-opacity duration-300 ease-premium lg:flex lg:group-hover:opacity-0 lg:group-focus-within:opacity-0"
-    >
-      <AppIcon
-        name="chevron"
-        :size="14"
-        class="-rotate-90 text-white drop-shadow-[0_0_6px_rgba(255,255,255,0.85)]"
-      />
-    </div>
-
     <!-- Outer edge hairline: a track for the rail's border plus a scroll-
-         position fill, so at rest it doubles as a page-progress cue. Once
-         the rail is hovered/focused open, a second full-height glow layer
-         fades in over it — while browsing the open nav the line reads as a
-         constant "active" indicator rather than tracking scroll, then
-         reverts to the scroll cue when the rail closes again. -->
+         position fill, so it doubles as a page-progress cue. -->
     <div class="pointer-events-none absolute inset-y-0 right-0 w-px bg-line">
       <div
         class="absolute inset-x-0 top-0 bg-white/50 transition-[height] duration-300 ease-premium"
         :style="{ height: `${scrollProgress * 100}%` }"
       ></div>
-      <div
-        class="absolute inset-0 bg-white opacity-0 shadow-[0_0_10px_1px_rgba(255,255,255,0.7)] transition-opacity duration-300 ease-premium lg:group-hover:opacity-100 lg:group-focus-within:opacity-100"
-      ></div>
     </div>
 
-    <!-- Fixed-width inner column: content never reflows or wraps as the
-         aside itself widens/narrows on hover. At rest on large screens it is
-         hidden (the aside is clipped down to the edge tab above), then
-         fades in as the rail expands to reveal it. -->
-    <div
-      class="flex h-full w-[var(--nav-w)] flex-col opacity-100 transition-opacity duration-300 ease-premium lg:opacity-0 lg:group-hover:opacity-100 lg:group-focus-within:opacity-100"
-    >
+    <!-- The rail is always open on large screens, so the Browse CTA is always
+         in reach. -->
+    <div class="flex h-full w-full flex-col">
     <!-- Brand -->
-    <div class="border-b border-line px-6 py-6">
-      <RouterLink to="/" class="flex items-center gap-3" data-intro-nav @click="close">
+    <div class="flex items-center justify-between gap-2 border-b border-line py-6 pl-6 pr-3">
+      <RouterLink to="/" class="flex min-w-0 items-center gap-3" data-intro-nav @click="close">
         <BrandMark />
       </RouterLink>
+      <!-- Desktop only: on small screens the top bar's menu button already
+           opens and closes the drawer. -->
+      <button
+        type="button"
+        class="hidden h-8 w-8 shrink-0 items-center justify-center text-ink-muted transition-colors duration-300 hover:text-accent lg:flex"
+        aria-label="Hide navigation"
+        :aria-expanded="!collapsed"
+        @click="toggle"
+      >
+        <AppIcon name="chevron" :size="16" class="rotate-90" />
+      </button>
     </div>
 
     <!-- Primary navigation -->
@@ -159,7 +168,7 @@
 
     <!-- Footer of the column: the stock CTA, then how to reach us. -->
     <div class="flex flex-col gap-5 border-t border-line px-6 py-6" data-intro-nav style="--intro-delay: 520ms">
-      <RouterLink to="/vehicles" class="btn-primary w-full" @click="close">
+      <RouterLink to="/vehicles" class="btn-primary w-full whitespace-nowrap !px-3" @click="close">
         <AppIcon name="search" :size="16" />
         Browse stock
       </RouterLink>
@@ -186,8 +195,11 @@
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { dealer } from '../../data/dealer'
+import { useSidebar } from '../../composables/useSidebar'
 import AppIcon from '../shared/AppIcon.vue'
 import BrandMark from './BrandMark.vue'
+
+const { collapsed, toggle } = useSidebar()
 
 interface NavLink {
   label: string

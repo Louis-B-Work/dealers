@@ -4,7 +4,6 @@
       <div class="flex flex-col items-center gap-4 text-center">
         <SectionHeading
           center
-          eyebrow="What our customers say"
           title="Trusted by hundreds of drivers"
         />
         <div class="flex items-center gap-3" data-reveal>

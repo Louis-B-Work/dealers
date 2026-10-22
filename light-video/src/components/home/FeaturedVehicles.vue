@@ -5,7 +5,6 @@
     <div class="u-gutter w-full">
       <div class="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
         <SectionHeading
-          eyebrow="The Forecourt"
           title="Featured vehicles"
           subtitle="A rotating selection from our current stock, featuring the cars our team can't stop talking about."
         />
@@ -50,6 +49,6 @@ import AppIcon from '../shared/AppIcon.vue'
 const total = vehicles.length
 // Eight fills the 2- and 4-column layouts exactly, so no row is left short.
 const featured = computed(() =>
-  [...vehicles].sort((a, b) => Number(b.featured) - Number(a.featured)).slice(0, 8),
+  [...vehicles].sort((a, b) => Number(b.featured) - Number(a.featured)).slice(0, 4),
 )
 </script>

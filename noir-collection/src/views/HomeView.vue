@@ -5,8 +5,7 @@
     <!-- Statement -->
     <section class="u-gutter grid gap-12 py-24 lg:grid-cols-[1.3fr_1fr] lg:items-end lg:py-32" aria-labelledby="intro-title">
       <div v-reveal>
-        <p class="u-eyebrow">The house</p>
-        <h2 id="intro-title" class="mt-6 font-display text-3xl leading-[1.15] sm:text-4xl lg:text-5xl">
+        <h2 id="intro-title" class="font-display text-3xl !leading-[1.15] sm:text-4xl lg:text-5xl">
           A private collection of exceptional cars, <em class="not-italic text-accent">each one chosen</em>, inspected and shown by
           appointment.
         </h2>
@@ -23,8 +22,7 @@
     <section class="u-gutter pb-24 lg:pb-32" aria-labelledby="collection-title">
       <div v-reveal class="mb-10 flex flex-wrap items-end justify-between gap-6">
         <div>
-          <p class="u-eyebrow">Currently showing</p>
-          <h2 id="collection-title" class="u-h2 mt-4">The Collection</h2>
+          <h2 id="collection-title" class="u-h2">The Collection</h2>
         </div>
         <RouterLink to="/vehicles" class="btn-ghost">
           View all {{ vehicles.length }} cars
@@ -44,11 +42,9 @@
           </p>
         </div>
         <div>
-          <p v-reveal class="u-eyebrow">The experience</p>
-          <h2 v-reveal id="experience-title" class="u-h2 mt-5">Buying a car this special should feel unhurried.</h2>
+          <h2 v-reveal id="experience-title" class="u-h2">Buying a car this special should feel unhurried.</h2>
           <ol class="mt-12 grid gap-10">
-            <li v-for="(pillar, index) in pillars" :key="pillar.title" v-reveal="index * 120" class="grid grid-cols-[3.5rem_1fr] gap-5 border-t border-line pt-8">
-              <span class="tabular font-display text-4xl text-accent">0{{ index + 1 }}</span>
+            <li v-for="(pillar, index) in pillars" :key="pillar.title" v-reveal="index * 120" class="border-t border-line pt-8">
               <div>
                 <h3 class="font-display text-2xl">{{ pillar.title }}</h3>
                 <p class="mt-2 leading-relaxed text-ink-soft">{{ pillar.text }}</p>
@@ -63,8 +59,7 @@
     <section class="u-gutter py-px" aria-label="Finance and selling your car">
       <div class="grid gap-px overflow-hidden rounded-panel border border-line bg-line lg:grid-cols-2">
       <div v-reveal class="flex flex-col bg-paper p-8 sm:p-12 lg:p-16">
-        <p class="u-eyebrow">Finance</p>
-        <h2 class="u-h2 mt-5">Ownership, arranged quietly.</h2>
+        <h2 class="u-h2">Ownership, arranged quietly.</h2>
         <p class="mt-5 max-w-md leading-relaxed text-ink-soft">
           Hire purchase and balanced payment options, explained in plain English and arranged discreetly. Model your
           own figures before you speak to anyone.
@@ -83,8 +78,7 @@
       <div v-reveal="120" class="relative isolate flex min-h-[28rem] flex-col justify-end overflow-hidden bg-paper p-8 sm:p-12 lg:p-16">
         <img :src="sellCar.image" alt="" class="absolute inset-0 -z-10 h-full w-full object-cover opacity-40" loading="lazy" />
         <div class="absolute inset-0 -z-10 bg-gradient-to-t from-paper via-paper/70 to-transparent"></div>
-        <p class="u-eyebrow">Sell or part-exchange</p>
-        <h2 class="u-h2 mt-5">Moving a car on?</h2>
+        <h2 class="u-h2">Moving a car on?</h2>
         <p class="mt-5 max-w-md leading-relaxed text-ink-soft">
           We buy exceptional cars outright, or take them in part-exchange. A real valuation needs an inspection, so
           there are no instant online prices here.
@@ -98,8 +92,7 @@
     </section>
 
     <!-- Testimonial -->
-    <section class="u-gutter py-24 text-center lg:py-32" aria-labelledby="words-title">
-      <p v-reveal id="words-title" class="u-eyebrow">In their words</p>
+    <section class="u-gutter py-24 text-center lg:py-32" aria-label="What customers say">
       <figure v-reveal class="mx-auto mt-10 max-w-4xl">
         <blockquote :key="quote" class="font-display text-2xl leading-snug sm:text-3xl lg:text-4xl motion-safe:animate-[spotlight-in_0.8s_ease_both]">
           “{{ reviews[quote].text }}”
@@ -130,8 +123,7 @@
     <section class="border-t border-line bg-paper-sink" aria-labelledby="visit-title">
       <div class="u-gutter grid gap-12 py-24 lg:grid-cols-[1.2fr_1fr] lg:py-28">
         <div v-reveal>
-          <p class="u-eyebrow">The showroom</p>
-          <h2 id="visit-title" class="u-h2 mt-5">Viewings by appointment.</h2>
+          <h2 id="visit-title" class="u-h2">Viewings by appointment.</h2>
           <p class="mt-5 max-w-lg leading-relaxed text-ink-soft">
             Every car is prepared and waiting when you arrive, with time set aside to look, sit and drive. Evening and
             weekend appointments on request.

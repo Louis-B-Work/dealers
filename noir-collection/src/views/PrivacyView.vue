@@ -3,11 +3,10 @@
     <PageHeader
       title="Your details stay yours"
       current="Privacy"
-      eyebrow="Legal"
       subtitle="What this design preview does, and does not do, with the information you enter."
     />
 
-    <article class="u-gutter max-w-4xl space-y-12 py-16 lg:py-20">
+    <article class="u-gutter space-y-12 py-16 lg:py-20 [&>*]:max-w-4xl">
       <p class="field-label">Preview information · Updated October 2026</p>
       <section v-for="section in sections" :key="section.title">
         <h2 class="font-display text-3xl">{{ section.title }}</h2>

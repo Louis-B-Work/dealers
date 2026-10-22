@@ -27,13 +27,9 @@
   --c-accent-soft: 214 217 222;
   --c-accent-ink: 10 11 13; /* text on accent */
 
-  /* Sidebar column width; the page content is offset by exactly this. */
-  --nav-w: 17rem;
-  /* Resting (unhovered) rail width on large screens — just enough for the
-     edge tab/arrow that invites a hover. The page offset in App.vue is
-     pinned to this, not `--nav-w`, so the sidebar can expand over the
-     content on hover without shifting the page. */
-  --nav-w-collapsed: 2rem;
+  /* Sidebar column width; the rail is always open and the page content is
+     offset by exactly this. */
+  --nav-w: 14rem;
   /* Mobile top bar height, used where the sidebar collapses. */
   --nav-h: 64px;
 

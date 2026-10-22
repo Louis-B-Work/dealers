@@ -6,7 +6,7 @@
       class="group relative flex items-center gap-1.5 text-sm font-medium transition-colors"
       :class="[
         onDark ? 'text-white/85 hover:text-white' : 'text-ink-soft hover:text-ink',
-        childActive && (onDark ? 'text-white' : 'text-ink'),
+        childActive && 'text-accent',
       ]"
       aria-haspopup="true"
       :aria-expanded="open"

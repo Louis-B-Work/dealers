@@ -3,9 +3,6 @@
     <!-- header -->
     <div class="border-b border-line bg-paper-soft">
       <div class="container flex flex-col gap-3 py-12 md:py-16">
-        <span class="u-eyebrow">
-          Get in touch
-        </span>
         <h1 class="u-display text-3xl sm:text-4xl md:text-5xl">We’d love to help</h1>
         <p class="max-w-prose text-ink-soft">
           Whether you’re enquiring about a specific car, arranging a viewing or just have a
