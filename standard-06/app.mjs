@@ -1,4 +1,4 @@
-import { STOCK, BODY_TYPES, APR, gbp, money, photo, filterStock, financeQuote, parseRoute, escapeHtml as esc } from './stock.mjs';
+import { STOCK, BODY_TYPES, APR, MONTHLY_STEPS, gbp, money, photo, filterStock, financeQuote, getPriceMode, setPriceMode, parseRoute, escapeHtml as esc } from './stock.mjs';
 
 const homeTitle = 'Dealership Name | Considered Cars';
 const showroomImage = 'https://images.unsplash.com/photo-1563720223185-11003d516935';
@@ -31,12 +31,38 @@ function steps(items) {
 
 function vehicleCard(car) {
   const quote = financeQuote(car.price, 0, 60);
-  return `<li class="stock-card"><a href="#/vehicles/${car.id}" aria-label="${esc(`${car.year} ${car.make} ${car.model}, ${gbp.format(car.price)}`)}"><span class="stock-media"><img src="${photo(car.img, 900)}" alt="${esc(`${car.make} ${car.model} illustrative stock photograph`)}" loading="lazy"${car.focus ? ` style="object-position:${car.focus}"` : ''} /><span class="stock-badge">${car.featured ? 'Our pick' : 'In the collection'}</span></span><span class="stock-body"><span class="stock-make">${esc(car.make)}</span><strong class="stock-model">${esc(car.model)}</strong><span class="stock-spec">${esc(car.trim)}</span><span class="stock-spec">${car.year} &middot; ${car.miles.toLocaleString('en-GB')} miles &middot; ${car.gearbox}</span><span class="stock-spec">${car.fuel} &middot; ${car.bodyType}</span><span class="stock-foot"><span class="stock-price">${gbp.format(car.price)}</span><span class="stock-go" aria-hidden="true">&nearr;</span></span><span class="stock-monthly">${money.format(quote.monthly)}/mo illustration &middot; ${APR}% APR</span></span></a></li>`;
+  return `<li class="stock-card"><a href="#/vehicles/${car.id}" aria-label="${esc(`${car.year} ${car.make} ${car.model}, ${gbp.format(car.price)}`)}"><span class="stock-media"><img src="${photo(car.img, 900)}" alt="${esc(`${car.make} ${car.model} illustrative stock photograph`)}" loading="lazy"${car.focus ? ` style="object-position:${car.focus}"` : ''} /><span class="stock-badge">${car.featured ? 'Our pick' : 'In the collection'}</span></span><span class="stock-body"><span class="stock-make">${esc(car.make)}</span><strong class="stock-model">${esc(car.model)}</strong><span class="stock-spec">${esc(car.trim)}</span><span class="stock-spec">${car.year} &middot; ${car.miles.toLocaleString('en-GB')} miles &middot; ${car.gearbox}</span><span class="stock-spec">${car.fuel} &middot; ${car.bodyType}</span><span class="stock-foot"><span class="stock-price" data-price="${car.id}" data-slot="lead">${gbp.format(car.price)}</span><span class="stock-go" aria-hidden="true">&nearr;</span></span><span class="stock-monthly" data-price="${car.id}" data-slot="alt" data-fmt="illustration">${money.format(quote.monthly)}/mo illustration &middot; ${APR}% APR</span></span></a></li>`;
 }
 
+// The budget field follows the Total Cost / Monthly Cost switch: a price ceiling or a monthly one.
+function budgetField(mode, params) {
+  const monthly = mode === 'monthly';
+  const steps = monthly ? MONTHLY_STEPS : [8000, 10000, 12500, 15000, 20000, 25000, 30000];
+  const name = monthly ? 'maxMonthly' : 'maxPrice';
+  const optionsHtml = steps.map((step) => `<option value="${step}"${String(step) === params.get(name) ? ' selected' : ''}>${gbp.format(step)}${monthly ? '/mo' : ''}</option>`).join('');
+  return `<label class="field" data-budget>${monthly ? 'Maximum monthly cost' : 'Maximum price'}<select name="${name}"><option value="">No maximum</option>${optionsHtml}</select></label>`;
+}
+
+// Switching the mode swaps the budget field and refilters, since the two scales are not interchangeable.
+document.addEventListener('price-mode-change', () => {
+  const form = document.querySelector('#stock-filters');
+  const field = form?.querySelector('[data-budget]');
+  if (!field) return;
+  field.outerHTML = budgetField(getPriceMode(), new URLSearchParams());
+  form.dispatchEvent(new Event('change', { bubbles: true }));
+});
+
 function stockPage(params) {
+  // A link that carries a budget also carries the scale it was made in.
+  if (params.get('maxMonthly') && getPriceMode() !== 'monthly') setPriceMode('monthly');
+  else if (params.get('maxPrice') && getPriceMode() !== 'total') setPriceMode('total');
   const makes = [...new Set(STOCK.map((car) => car.make))].sort();
   return `${header('The collection', 'Your next chapter.', 'A considered collection of cars for everyday life and the occasional long way home. Each one with its own detail page, and no surprises in the small print.')}<div class="shell page-content">
+    <div class="price-switch" data-price-switch>
+      <button type="button" data-mode="total">Total Cost</button>
+      <button type="button" role="switch" aria-checked="false" aria-label="Show monthly cost instead of total cost" class="price-switch-track"><span></span></button>
+      <button type="button" data-mode="monthly">Monthly Cost</button>
+    </div>
     <form id="stock-filters" class="filters" role="search" aria-label="Filter the collection">
       <label class="field">Search<input type="search" name="query" value="${esc(params.get('query') || '')}" placeholder="Make, model or trim" /></label>
       <label class="field">Make<select name="make">${options(makes, params.get('make'), 'Any make')}</select></label>
@@ -44,7 +70,7 @@ function stockPage(params) {
       <label class="field">Body type<select name="bodyType">${options(BODY_TYPES.map((body) => body.name), params.get('bodyType'), 'Any body type')}</select></label>
       <label class="field">Fuel<select name="fuel">${options([...new Set(STOCK.map((car) => car.fuel))].sort(), params.get('fuel'), 'Any fuel')}</select></label>
       <label class="field">Transmission<select name="gearbox">${options(['Automatic', 'Manual'], params.get('gearbox'), 'Any transmission')}</select></label>
-      <label class="field">Maximum price<select name="maxPrice"><option value="">No maximum</option>${[8000, 10000, 12500, 15000, 20000, 25000, 30000].map((price) => `<option value="${price}"${String(price) === params.get('maxPrice') ? ' selected' : ''}>${gbp.format(price)}</option>`).join('')}</select></label>
+      ${budgetField(getPriceMode(), params)}
       <button class="button" type="submit">Update collection &nearr;</button>
     </form>
     <div class="filter-actions"><p id="results-count" role="status"></p><label class="field">Sort by<select id="stock-sort">${['featured', 'price-asc', 'price-desc', 'year-desc', 'mileage-asc'].map((value, index) => `<option value="${value}"${(params.get('sort') || 'featured') === value ? ' selected' : ''}>${['Our picks first', 'Price: low to high', 'Price: high to low', 'Newest year', 'Lowest mileage'][index]}</option>`).join('')}</select></label><button class="quiet-button" type="button" data-clear-filters>Clear all filters</button></div>
@@ -92,7 +118,7 @@ function vehiclePage(car) {
     <div class="vehicle-layout"><div><div class="vehicle-image"><img src="${photo(car.img, 1400)}" alt="${esc(`${car.make} ${car.model}, illustrative stock photograph`)}"${car.focus ? ` style="object-position:${car.focus}"` : ''} /></div>
       <h2>At a glance.</h2><dl class="spec-table">${specs.map(([label, value]) => `<div><dt>${esc(label)}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>
       <section class="section-gap"><h2>A good fit for the road ahead.</h2><p class="quiet">This ${car.year} ${esc(car.model)} brings together ${car.gearbox.toLowerCase()} driving and the practicality of a ${car.bodyType.toLowerCase()}. With ${car.miles.toLocaleString('en-GB')} miles in this sample specification, it is ready to be explored at your own pace.</p><p class="quiet">Ask about service records, running costs and the details that matter to you. We would confirm the full specification, preparation and warranty in writing before a real purchase.</p><ul class="check-list"><li>Vehicle history and mileage checks discussed before purchase</li><li>Preparation and condition report explained at handover</li><li>Time for a viewing and an unhurried test drive</li><li>Part-exchange and finance options to talk through</li></ul></section>
-    </div><aside class="vehicle-purchase content-card"><p class="eyebrow">A considered choice</p><h2>${esc(car.make)}<br />${esc(car.model)}</h2><p>${esc(car.trim)}</p><div class="price">${gbp.format(car.price)}</div><p>Or an illustrative ${money.format(quote.monthly)} per month.</p><a class="button" href="#/contact?vehicle=${car.id}">Enquire about this car &nearr;</a><a class="button button-outline" href="#/finance?vehicle=${car.id}">Explore finance</a><a class="button button-outline" href="#/sell?vehicle=${car.id}">Value your part-exchange</a><p class="fine-print">Cash price ${money.format(car.price)}. No deposit. Amount of credit ${money.format(car.price)}. 60 monthly payments of ${money.format(quote.monthly)}. Total payable ${money.format(quote.total)}. Cost of credit ${money.format(quote.interest)}. ${APR}% APR. No fees or balloon payment in this illustration. Finance subject to status; not an offer.</p></aside></div>
+    </div><aside class="vehicle-purchase content-card"><p class="eyebrow">A considered choice</p><h2>${esc(car.make)}<br />${esc(car.model)}</h2><p>${esc(car.trim)}</p><div class="price" data-price="${car.id}" data-slot="lead">${gbp.format(car.price)}</div><p data-price="${car.id}" data-slot="alt" data-fmt="sentence">Or an illustrative ${money.format(quote.monthly)} per month.</p><a class="button" href="#/contact?vehicle=${car.id}">Enquire about this car &nearr;</a><a class="button button-outline" href="#/finance?vehicle=${car.id}">Explore finance</a><a class="button button-outline" href="#/sell?vehicle=${car.id}">Value your part-exchange</a><p class="fine-print">Cash price ${money.format(car.price)}. No deposit. Amount of credit ${money.format(car.price)}. 60 monthly payments of ${money.format(quote.monthly)}. Total payable ${money.format(quote.total)}. Cost of credit ${money.format(quote.interest)}. ${APR}% APR. No fees or balloon payment in this illustration. Finance subject to status; not an offer.</p></aside></div>
     <section class="section-gap"><div class="section-heading"><h2>Something else to consider.</h2><a class="text-link" href="#/vehicles">The full collection &nearr;</a></div><ul class="vehicle-grid">${STOCK.filter((other) => other.id !== car.id).slice(0, 3).map(vehicleCard).join('')}</ul></section>
   </div>`;
 }

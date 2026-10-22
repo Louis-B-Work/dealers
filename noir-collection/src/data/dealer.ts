@@ -54,7 +54,7 @@ export const dealer: Dealer = {
  */
 export const REPRESENTATIVE_APR = 11.9
 
-export const brokerDisclosure = `${dealer.name} is a credit broker, not a lender.`
+export const brokerDisclosure = `Car Finance 247 is a credit broker, not a lender.`
 
 export const representativeExample =
   'Representative Example: Borrow £12,000.00 over 5 years with a £0.00 deposit. ' +

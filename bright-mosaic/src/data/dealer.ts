@@ -54,13 +54,42 @@ export const dealer: Dealer = {
  */
 export const REPRESENTATIVE_APR = 11.9
 
-export const brokerDisclosure = `${dealer.name} is a credit broker, not a lender.`
+export const brokerDisclosure = `Car Finance 247 is a credit broker, not a lender.`
 
 export const representativeExample =
   'Representative Example: Borrow £12,000.00 over 5 years with a £0.00 deposit. ' +
   `Representative ${REPRESENTATIVE_APR}% APR fixed rate. Monthly payment: £262.69. ` +
   'Option to purchase fee £10.00 payable. Total cost of credit: £3,771.40. ' +
   'Total amount repayable: £15,771.40.'
+
+/**
+ * Where "Check eligibility" sends people. The eligibility form lives on another
+ * site, so this is the one place to change when the real address is known.
+ */
+export const ELIGIBILITY_URL = 'https://example.com/check-eligibility'
+
+/** Assumed guaranteed future value, as a share of the price, by term. Illustrative only. */
+const BALLOON_SHARE: Record<number, number> = { 24: 0.5, 36: 0.4, 48: 0.32, 60: 0.25 }
+
+export function balloonFor(price: number, termMonths: number): number {
+  return Math.round(price * (BALLOON_SHARE[termMonths] ?? 0.3))
+}
+
+/**
+ * PCP is the same annuity with the final payment discounted back, so only the
+ * part of the loan that is not covered by the balloon is paid off monthly.
+ */
+export function pcpMonthlyFor(
+  principal: number,
+  balloon: number,
+  termMonths: number = QUOTE_TERM_MONTHS,
+  apr: number = REPRESENTATIVE_APR,
+): number {
+  if (principal <= 0) return 0
+  const r = monthlyRate(apr)
+  const discounted = balloon * (1 + r) ** -termMonths
+  return Math.max(0, Math.round(((principal - discounted) * r) / (1 - (1 + r) ** -termMonths)))
+}
 
 /**
  * The longest term we quote against. Every "from £x a month" figure on the site

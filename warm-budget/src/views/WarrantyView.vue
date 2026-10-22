@@ -1,6 +1,6 @@
 <template>
   <div class="bg-paper">
-    <PageHeader title="Warranty" subtitle="Drive away with added peace of mind on your next used car.">
+    <PageHeader wide title="Warranty" subtitle="Drive away with added peace of mind on your next used car.">
       <div class="mt-7 flex flex-wrap gap-3">
         <RouterLink to="/contact" class="btn-primary">
           Ask our team
@@ -15,7 +15,7 @@
 
     <!-- confidence: a warm highlight card -->
     <section class="u-section">
-      <div class="u-gutter">
+      <div class="u-gutter-wide">
         <div class="grid items-center gap-8 rounded-block bg-highlight-wash px-6 py-10 sm:px-12 md:py-14 lg:grid-cols-[1fr_1.5fr] lg:gap-14">
           <div class="flex items-center gap-5">
             <span class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-white/70 text-highlight-ink">
@@ -39,7 +39,7 @@
 
     <!-- what is covered -->
     <section class="pb-4 sm:pb-8">
-      <div class="u-gutter flex flex-col gap-10">
+      <div class="u-gutter-wide flex flex-col gap-10">
         <SectionHeading
           title="What a warranty can cover"
           subtitle="Packages vary by car and level of cover. They are designed to help with the cost of unexpected faults."
@@ -64,7 +64,7 @@
 
     <!-- extended cover -->
     <section class="u-section">
-      <div class="u-gutter">
+      <div class="u-gutter-wide">
         <div class="grid gap-8 rounded-block bg-paper-dark px-6 py-12 text-ink-inverse sm:px-12 md:py-16 lg:grid-cols-2 lg:gap-14">
           <div class="flex flex-col items-start gap-5">
             <h2 class="u-display text-[1.65rem] !text-ink-inverse sm:text-[2rem] md:text-[2.35rem]">Extended cover</h2>
@@ -94,7 +94,7 @@
 
     <!-- faq -->
     <section class="pb-4 sm:pb-8">
-      <div class="u-gutter flex flex-col gap-10">
+      <div class="u-gutter-wide flex flex-col gap-10">
         <SectionHeading title="Warranty questions answered" center />
         <div class="mx-auto w-full max-w-3xl">
           <FaqList :faqs="faqs" />

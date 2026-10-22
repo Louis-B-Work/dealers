@@ -2,10 +2,11 @@
   <div class="bg-paper">
     <!-- valuation: the whole thing is one friendly pill bar on the dark slab -->
     <PageHeader
+      wide
       title="Looking to part-exchange or sell your car?"
       subtitle="Get a free, instant valuation so you know exactly how much you can put towards your next car."
     >
-      <form class="mt-8 w-full max-w-4xl" novalidate @submit.prevent="onSubmit">
+      <form class="mt-8 w-full" novalidate @submit.prevent="onSubmit">
         <div
           class="flex flex-col gap-2 rounded-panel bg-paper-soft p-2 shadow-card sm:rounded-full sm:flex-row sm:items-stretch"
         >
@@ -70,7 +71,7 @@
 
     <!-- stock -->
     <section class="u-section">
-      <div class="u-gutter flex flex-col gap-10">
+      <div class="u-gutter-wide flex flex-col gap-10">
         <div class="flex flex-wrap items-end justify-between gap-4">
           <SectionHeading title="Featured cars" subtitle="Freshly prepared, fully checked and ready to drive away." />
           <RouterLink to="/vehicles" class="btn-ghost shrink-0">
@@ -78,7 +79,7 @@
             <AppIcon name="arrow" :size="16" />
           </RouterLink>
         </div>
-        <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <li v-for="vehicle in featured" :key="vehicle.id">
             <VehicleCard :vehicle="vehicle" />
           </li>
@@ -88,7 +89,7 @@
 
     <!-- finance disclosure -->
     <section class="pb-8">
-      <div class="u-gutter">
+      <div class="u-gutter-wide">
         <p class="u-legal mx-auto max-w-prose text-center">
           {{ representativeExample }} {{ brokerDisclosure }}
         </p>
@@ -109,7 +110,7 @@ import AppIcon from '../components/shared/AppIcon.vue'
 import ContactPanel from '../components/shared/ContactPanel.vue'
 import VehicleCard from '../components/shared/VehicleCard.vue'
 
-const featured = vehicles.slice(0, 3)
+const featured = vehicles.slice(0, 4)
 const points = ['Free valuation', 'No obligation', 'We can settle your finance']
 
 const reg = ref('')

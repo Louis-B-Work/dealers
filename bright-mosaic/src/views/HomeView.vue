@@ -5,6 +5,7 @@
     <FinanceCta />
     <ValuationCta />
     <Reviews />
+    <RepresentativeStrip />
   </div>
 </template>
 
@@ -15,6 +16,7 @@ import FeaturedBento from '../components/home/FeaturedBento.vue'
 import FinanceCta from '../components/home/FinanceCta.vue'
 import ValuationCta from '../components/home/ValuationCta.vue'
 import Reviews from '../components/home/Reviews.vue'
+import RepresentativeStrip from '../components/shared/RepresentativeStrip.vue'
 
 useScrollReveal()
 </script>

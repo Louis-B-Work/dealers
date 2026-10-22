@@ -45,18 +45,8 @@
                    first thing on screen when the shopper lands. -->
               <div>
                 <span class="field-label">Budget</span>
-                <div class="mb-2 inline-flex w-full rounded-control bg-paper-sink p-1">
-                  <button
-                    v-for="mode in modes"
-                    :key="mode.value"
-                    type="button"
-                    class="mode-btn"
-                    :class="{ 'is-active': filters.priceMode === mode.value }"
-                    :aria-pressed="filters.priceMode === mode.value"
-                    @click="setMode(mode.value)"
-                  >
-                    {{ mode.label }}
-                  </button>
+                <div class="mb-3">
+                  <PriceModeToggle />
                 </div>
                 <SelectMenu
                   v-model="budget"
@@ -160,7 +150,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, useId } from 'vue'
+import { computed, ref, useId, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import {
   countVehicles,
@@ -169,11 +159,12 @@ import {
   totalPriceBands,
   useVehicleFilters,
   type FilterOption,
-  type PriceMode,
   type SortKey,
 } from '../composables/useVehicleFilters'
+import { usePriceMode } from '../composables/usePriceMode'
 import { vehicles } from '../data/vehicles'
 import AppIcon from '../components/shared/AppIcon.vue'
+import PriceModeToggle from '../components/shared/PriceModeToggle.vue'
 import PageHeader from '../components/shared/PageHeader.vue'
 import SelectMenu from '../components/shared/SelectMenu.vue'
 import type { SelectOption } from '../components/shared/SelectMenu.vue'
@@ -183,15 +174,15 @@ const route = useRoute()
 const queryId = useId()
 const railOpen = ref(false)
 
-const modes: { value: PriceMode; label: string }[] = [
-  { value: 'total', label: 'Total' },
-  { value: 'monthly', label: 'Monthly' },
-]
-
 // The homepage search bar hands its answers over as query params, so a shopper
 // arrives with their budget already applied rather than having to say it twice.
 const initialMaxPrice = Number(route.query.maxPrice) || ''
 const initialMaxMonthly = Number(route.query.maxMonthly) || ''
+
+const { priceMode: sitePriceMode } = usePriceMode()
+// A link that carries a budget also carries the currency it was made in.
+if (initialMaxMonthly) sitePriceMode.value = 'monthly'
+else if (initialMaxPrice) sitePriceMode.value = 'total'
 
 const {
   filters,
@@ -204,7 +195,7 @@ const {
   activeFilterCount,
   reset,
 } = useVehicleFilters({
-  priceMode: initialMaxMonthly ? 'monthly' : 'total',
+  priceMode: sitePriceMode.value,
   maxPrice: initialMaxPrice,
   maxMonthly: initialMaxMonthly,
   make: typeof route.query.make === 'string' ? route.query.make : '',
@@ -259,12 +250,12 @@ function toOptions(list: FilterOption[]): SelectOption[] {
 }
 
 // Switching currency invalidates the answer — £10,000 is not £10,000 a month.
-function setMode(mode: PriceMode) {
+watch(sitePriceMode, (mode) => {
   if (filters.value.priceMode === mode) return
   filters.value.priceMode = mode
   filters.value.maxPrice = ''
   filters.value.maxMonthly = ''
-}
+})
 
 function clearAll() {
   reset()

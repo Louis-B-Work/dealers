@@ -1,13 +1,13 @@
 <template>
   <section id="calculator" class="u-section">
-    <div class="u-gutter flex flex-col gap-10">
+    <div class="u-gutter-wide flex flex-col gap-10">
       <SectionHeading
         title="Estimate your payments"
         subtitle="For illustration purposes only. Credit is subject to status."
         center
       />
 
-      <div class="card mx-auto grid w-full max-w-5xl gap-8 p-6 md:p-10 lg:grid-cols-[1.1fr_1fr]">
+      <div class="card grid w-full gap-8 p-6 md:p-10 lg:grid-cols-[1.25fr_1fr] lg:gap-14">
         <div class="flex flex-col gap-7">
           <div class="flex flex-col gap-2">
             <span class="field-label !mb-0">Type of finance</span>

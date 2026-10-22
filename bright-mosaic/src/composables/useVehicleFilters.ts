@@ -16,6 +16,8 @@ export interface VehicleFilters {
   query: string
   /** Upper price limit as a string, so it binds straight to a select; '' means any. */
   maxPrice: string
+  /** Upper monthly-payment limit, used when shopping by monthly cost; '' means any. */
+  maxMonthly: string
 }
 
 /** Budget ceilings offered by the hero chips and the VLP filter. */
@@ -32,6 +34,7 @@ export function useVehicleFilters(initial: Partial<VehicleFilters> = {}) {
     fuel: initial.fuel ?? '',
     query: initial.query ?? '',
     maxPrice: initial.maxPrice ?? '',
+    maxMonthly: initial.maxMonthly ?? '',
   })
 
   const sort = ref<SortKey>('featured')
@@ -49,6 +52,7 @@ export function useVehicleFilters(initial: Partial<VehicleFilters> = {}) {
       if (f.bodyType && v.bodyType !== f.bodyType) return false
       if (f.fuel && v.fuel !== f.fuel) return false
       if (f.maxPrice && v.price > Number(f.maxPrice)) return false
+      if (f.maxMonthly && v.monthlyFrom > Number(f.maxMonthly)) return false
       if (query) {
         const haystack = `${v.make} ${v.model} ${v.variant} ${v.colour}`.toLowerCase()
         if (!haystack.includes(query)) return false
@@ -77,13 +81,13 @@ export function useVehicleFilters(initial: Partial<VehicleFilters> = {}) {
   })
 
   function reset() {
-    filters.value = { make: '', bodyType: '', fuel: '', query: '', maxPrice: '' }
+    filters.value = { make: '', bodyType: '', fuel: '', query: '', maxPrice: '', maxMonthly: '' }
     sort.value = 'featured'
   }
 
   const activeFilterCount = computed(() => {
     const f = filters.value
-    return [f.make, f.bodyType, f.fuel, f.query, f.maxPrice].filter(Boolean).length
+    return [f.make, f.bodyType, f.fuel, f.query, f.maxPrice, f.maxMonthly].filter(Boolean).length
   })
 
   return {

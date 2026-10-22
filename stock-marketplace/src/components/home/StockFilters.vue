@@ -1,5 +1,7 @@
 <template>
   <form class="flex flex-col gap-5" role="search" aria-label="Filter the stock" @submit.prevent>
+    <PriceModeToggle :search="search" />
+
     <div>
       <label class="field-label" for="f-query">Search</label>
       <input
@@ -179,6 +181,7 @@ import {
   formatCurrency,
 } from '../../composables/useStockSearch'
 import type { StockSearch } from '../../composables/useStockSearch'
+import PriceModeToggle from '../shared/PriceModeToggle.vue'
 
 defineProps<{ search: StockSearch }>()
 </script>

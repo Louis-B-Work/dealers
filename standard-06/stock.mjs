@@ -28,13 +28,21 @@ export const BODY_TYPES = [
   { name: 'Convertible', plural: 'convertibles' },
 ];
 
+// Monthly budget ceilings offered when shopping by monthly cost.
+export const MONTHLY_STEPS = [150, 200, 250, 300, 400, 500, 600];
+
+// The "from" monthly figure every card quotes: 60 months, no deposit, at the representative APR.
+export const monthlyOf = (car) => financeQuote(car.price, 0, 60).monthly;
+
 export function filterStock(params, stock = STOCK) {
   const query = (params.get('query') || '').trim().toLowerCase();
   const max = Number(params.get('maxPrice'));
+  const maxMonthly = Number(params.get('maxMonthly'));
   const results = stock.filter((car) =>
     (!query || `${car.make} ${car.model} ${car.trim}`.toLowerCase().includes(query)) &&
     ['make', 'model', 'bodyType', 'fuel', 'gearbox'].every((key) => !params.get(key) || car[key] === params.get(key)) &&
-    (!max || car.price <= max));
+    (!max || car.price <= max) &&
+    (!maxMonthly || monthlyOf(car) <= maxMonthly));
   const sorters = {
     'price-asc': (a, b) => a.price - b.price,
     'price-desc': (a, b) => b.price - a.price,
@@ -65,4 +73,55 @@ export function parseRoute(hash) {
 
 export function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
+}
+
+// ── Total cost vs monthly cost ──
+// One site-wide choice, kept in localStorage. Prices carry data attributes and
+// applyPriceMode() rewrites them, so changing the switch never re-renders a page.
+const PRICE_MODE_KEY = 'price-mode';
+
+export function getPriceMode() {
+  try {
+    return localStorage.getItem(PRICE_MODE_KEY) === 'monthly' ? 'monthly' : 'total';
+  } catch {
+    return 'total';
+  }
+}
+
+export function setPriceMode(mode) {
+  try {
+    localStorage.setItem(PRICE_MODE_KEY, mode);
+  } catch {
+    /* storage unavailable: the choice lasts for this visit only */
+  }
+  if (typeof document !== 'undefined') {
+    document.dispatchEvent(new CustomEvent('price-mode-change', { detail: mode }));
+  }
+}
+
+/**
+ * Elements with `data-price="<car id>"` show the figure the shopper chose:
+ * `data-slot="lead"` is the headline figure and `data-slot="alt"` is the other one.
+ * `data-fmt="illustration"` keeps the APR wording the stock cards already carry.
+ */
+export function applyPriceMode(root = document) {
+  const mode = getPriceMode();
+  root.querySelectorAll('[data-price]').forEach((el) => {
+    const car = STOCK.find((candidate) => candidate.id === el.dataset.price);
+    if (!car) return;
+    const cash = gbp.format(car.price);
+    const monthly = money.format(financeQuote(car.price, 0, 60).monthly);
+    const illustration = el.dataset.fmt === 'illustration';
+    if (el.dataset.slot === 'alt') {
+      el.textContent = mode === 'monthly'
+        ? (illustration ? `${cash} cash price · illustration at ${APR}% APR` : `${cash} cash price`)
+        : (illustration ? `${monthly}/mo illustration · ${APR}% APR` : el.dataset.fmt === 'sentence' ? `Or an illustrative ${monthly} per month.` : `or ${monthly} a month`);
+    } else {
+      el.textContent = mode === 'monthly' ? `${monthly}/mo` : cash;
+    }
+  });
+  document.querySelectorAll('[data-price-switch]').forEach((sw) => {
+    sw.dataset.mode = mode;
+    sw.querySelector('[role="switch"]')?.setAttribute('aria-checked', String(mode === 'monthly'));
+  });
 }

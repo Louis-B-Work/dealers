@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import { test } from 'node:test'
-import { STOCK, BODY_TYPES, filterStock, financeQuote, parseRoute, escapeHtml } from '../standard-06/stock.mjs'
+import { STOCK, BODY_TYPES, filterStock, financeQuote, monthlyOf, parseRoute, escapeHtml } from '../standard-06/stock.mjs'
 import { templates } from './templates.mjs'
 
 test('template 6 uses personalisable dealership branding throughout', async () => {
@@ -108,3 +108,11 @@ test('hash routes preserve portable vehicle and search links', () => {
 test('query text is escaped before inserting it into markup', () => {
   assert.equal(escapeHtml('<img src="x" onerror=\'x\'>&'), '&lt;img src=&quot;x&quot; onerror=&#39;x&#39;&gt;&amp;')
 })
+
+test('a monthly budget filters on the same figure the cards quote', () => {
+  const results = filterStock(new URLSearchParams({ maxMonthly: '250' }));
+  assert.ok(results.length > 0 && results.length < STOCK.length);
+  assert.ok(results.every((car) => monthlyOf(car) <= 250));
+  assert.ok(STOCK.filter((car) => !results.includes(car)).every((car) => monthlyOf(car) > 250));
+  assert.equal(monthlyOf(STOCK[0]), financeQuote(STOCK[0].price, 0, 60).monthly);
+});

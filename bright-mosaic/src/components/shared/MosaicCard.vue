@@ -3,7 +3,7 @@
     :to="{ name: 'vehicle', params: { id: vehicle.id } }"
     class="mosaic-card group"
     :class="{ 'is-large': large }"
-    :aria-label="`${vehicle.year} ${vehicle.make} ${vehicle.model}, ${formatCurrency(vehicle.price)}`"
+    :aria-label="`${vehicle.year} ${vehicle.make} ${vehicle.model}, ${priceLabel(vehicle, priceMode)}`"
   >
     <img
       :src="vehicle.image"
@@ -25,14 +25,16 @@
         <span class="font-bold text-ink">{{ vehicle.make }} {{ vehicle.model }}</span>
         <span v-if="large" class="ml-1.5 hidden text-ink-muted sm:inline">{{ vehicle.year }}</span>
       </span>
-      <span class="price-pill">{{ formatCurrency(vehicle.price) }}</span>
+      <span class="price-pill">{{ priceLabel(vehicle, priceMode) }}</span>
     </span>
   </RouterLink>
 </template>
 
 <script setup lang="ts">
 import type { Vehicle } from '../../data/vehicles'
-import { formatCurrency } from '../../composables/useVehicleFilters'
+import { priceLabel, usePriceMode } from '../../composables/usePriceMode'
+
+const { priceMode } = usePriceMode()
 
 // The card fills whatever box its parent gives it: the mosaic and bento
 // layouts own the shape, the card only owns the hover behaviour.

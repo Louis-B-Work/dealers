@@ -292,6 +292,11 @@
           <div class="hero-copy">
             <h1 id="hero-title"><span>Good cars.</span> <em>Well found.</em></h1>
             <p class="hero-sub">A thoughtful collection of well-kept cars, chosen for the journeys still ahead. No hard sell.</p>
+            <div class="price-switch hero-switch" data-price-switch>
+              <button type="button" data-mode="total">Total Cost</button>
+              <button type="button" role="switch" aria-checked="false" aria-label="Show monthly cost instead of total cost" class="price-switch-track"><span></span></button>
+              <button type="button" data-mode="monthly">Monthly Cost</button>
+            </div>
           </div>
 
           <form class="hero-search" id="hero-search" role="search" aria-label="Search our cars">
@@ -427,7 +432,7 @@
       </div>
     </footer>
     <script type="module">
-      import { STOCK, BODY_TYPES, photo, gbp, money, financeQuote } from './stock.mjs';
+      import { STOCK, BODY_TYPES, MONTHLY_STEPS, photo, gbp, money, financeQuote, monthlyOf, applyPriceMode, getPriceMode, setPriceMode } from './stock.mjs';
       import { initPages } from './app.mjs';
       const nav = document.querySelector('.nav');
       const menuButton = document.querySelector('.menu');
@@ -461,8 +466,11 @@
       const countEl = form.querySelector('[data-hs-count]');
       const statusEl = document.querySelector('[data-hs-status]');
 
+      // The budget ceiling follows the Total Cost / Monthly Cost switch.
+      const isMonthly = () => getPriceMode() === 'monthly';
+      const budgetOf = (car) => (isMonthly() ? monthlyOf(car) : car.price);
       const matches = ({ make = makeSel.value, model = modelSel.value, max = priceSel.value } = {}) =>
-        STOCK.filter((car) => (!make || car.make === make) && (!model || car.model === model) && (!max || car.price <= Number(max))).length;
+        STOCK.filter((car) => (!make || car.make === make) && (!model || car.model === model) && (!max || budgetOf(car) <= Number(max))).length;
       const fillSelect = (select, anyLabel, options) => {
         const current = select.value;
         select.replaceChildren(new Option(anyLabel, ''), ...options.map(({ value, label }) => new Option(label, value)));
@@ -475,7 +483,11 @@
         const models = make ? [...new Set(STOCK.filter((c) => c.make === make).map((c) => c.model))].sort() : [];
         fillSelect(modelSel, 'Any model', models.map((model) => ({ value: model, label: `${model} (${matches({ model })})` })));
       };
-      const renderPrices = () => fillSelect(priceSel, 'No max', PRICE_STEPS.map((max) => ({ value: max, label: `Up to ${gbp.format(max)}` })));
+      const priceLabel = document.querySelector('label[for="hs-price"]');
+      const renderPrices = () => {
+        priceLabel.textContent = isMonthly() ? 'Max monthly' : 'Max price';
+        fillSelect(priceSel, 'No max', (isMonthly() ? MONTHLY_STEPS : PRICE_STEPS).map((max) => ({ value: max, label: `Up to ${gbp.format(max)}${isMonthly() ? '/mo' : ''}` })));
+      };
       const renderCount = () => {
         const total = matches();
         countEl.textContent = total;
@@ -487,9 +499,18 @@
       form.addEventListener('submit', (event) => {
         event.preventDefault();
         const params = new URLSearchParams([...new FormData(form)].filter(([, v]) => v));
+        if (isMonthly() && params.has('maxPrice')) {
+          params.set('maxMonthly', params.get('maxPrice'));
+          params.delete('maxPrice');
+        }
         location.hash = `/vehicles${params.size ? `?${params}` : ''}`;
       });
       renderPrices(); renderMakes(); renderModels(); renderCount();
+      // A different scale makes the old ceiling meaningless, so the budget resets with the switch.
+      document.addEventListener('price-mode-change', () => {
+        priceSel.value = '';
+        renderPrices(); renderMakes(); renderModels(); renderCount();
+      });
 
       const hero = document.querySelector('.hero');
       const rail = document.querySelector('.hero-rail');
@@ -500,7 +521,7 @@
         <li class="rail-card${i > 1 ? ' is-extra' : ''}" style="--i:${i - 2}"${i > 1 ? ' inert' : ''}>
           <a href="#/vehicles/${car.id}" aria-label="${car.year} ${car.make} ${car.model}, ${gbp.format(car.price)}">
             <img src="${photo(car.img, 420)}" alt="" loading="${i > 1 ? 'lazy' : 'eager'}" />
-            <span class="rc-body"><span class="rc-make">${car.make}</span><strong>${car.model}</strong><small>${car.year} · <b>${gbp.format(car.price)}</b></small></span>
+            <span class="rc-body"><span class="rc-make">${car.make}</span><strong>${car.model}</strong><small>${car.year} · <b data-price="${car.id}" data-slot="lead">${gbp.format(car.price)}</b></small></span>
           </a>
         </li>`).join('');
       const extras = [...track.querySelectorAll('.is-extra')];
@@ -567,13 +588,14 @@
                 <span class="stock-make">${car.make}</span>
                 <strong class="stock-model">${car.model}</strong>
                 <span class="stock-spec">${[car.year, car.miles && `${car.miles.toLocaleString('en-GB')} miles`, car.gearbox].filter(Boolean).join(' · ')}</span>
-                <span class="stock-foot"><span class="stock-price">${gbp.format(car.price)}</span><span class="stock-go" aria-hidden="true">↗</span></span>
-                <span class="stock-monthly">or ${money.format(financeQuote(car.price, 0, 60).monthly)} a month</span>
+                <span class="stock-foot"><span class="stock-price" data-price="${car.id}" data-slot="lead">${gbp.format(car.price)}</span><span class="stock-go" aria-hidden="true">↗</span></span>
+                <span class="stock-monthly" data-price="${car.id}" data-slot="alt">or ${money.format(financeQuote(car.price, 0, 60).monthly)} a month</span>
               </span>
             </a>
           </li>`).join('');
         stockRow.scrollLeft = 0;
         syncArrows();
+        applyPriceMode();
       };
       const selectTab = (tab, focus = false) => {
         stockTabs.forEach((btn) => {
@@ -620,7 +642,7 @@
             <a href="#/vehicles?bodyType=${encodeURIComponent(name)}" aria-label="Shop ${plural}: ${cars.length} ${cars.length === 1 ? 'car' : 'cars'} from ${gbp.format(cheapest.price)}">
               <span class="type-meta">
                 <span class="type-name">${name === 'SUV' ? 'SUVs' : `${name}s`}</span>
-                <span class="type-from">From <b>${gbp.format(cheapest.price)}</b></span>
+                <span class="type-from">From <b data-price="${cheapest.id}" data-slot="lead">${gbp.format(cheapest.price)}</b></span>
                 <span class="type-shop">Shop ${plural}</span>
               </span>
               <span class="type-photo">${pictured ? `<img src="${photo(pictured.img, 520)}" alt="" loading="lazy"${pictured.focus ? ` style="object-position:${pictured.focus}"` : ''} />` : ''}</span>
@@ -635,7 +657,18 @@
           location.hash = `${regForm.dataset.go}${reg ? `?reg=${encodeURIComponent(reg)}` : ''}`;
         });
       });
+      // Total cost vs monthly cost: one switch, many prices.
+      document.addEventListener('click', (event) => {
+        const sw = event.target.closest('[data-price-switch]');
+        const button = event.target.closest('button');
+        if (!sw || !button || !sw.contains(button)) return;
+        setPriceMode(button.dataset.mode ?? (getPriceMode() === 'monthly' ? 'total' : 'monthly'));
+      });
+      document.addEventListener('price-mode-change', () => applyPriceMode());
+      // Pages swap their own markup in, so reapply whenever a route renders.
+      new MutationObserver(() => applyPriceMode()).observe(document.querySelector('#route-page'), { childList: true });
       initPages(syncNav);
+      applyPriceMode();
     </script>
   </body>
 </html>
