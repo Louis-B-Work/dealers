@@ -71,13 +71,24 @@
             at {{ REPRESENTATIVE_APR }}% APR over {{ term / 12 }} years
           </p>
 
+          <!-- Nothing at this budget: the button greys out rather than promising "0 cars". -->
           <RouterLink
+            v-if="matching > 0"
             :to="{ name: 'vehicles', query: { maxMonthly: String(monthly) } }"
             class="btn-primary mt-5 w-full"
           >
             <AppIcon name="search" :size="17" />
-            Show me {{ matching }} cars I can afford
+            Show me {{ matching }} {{ matching === 1 ? 'car' : 'cars' }} I can afford
           </RouterLink>
+          <button
+            v-else
+            type="button"
+            disabled
+            class="btn mt-5 w-full cursor-not-allowed border-line bg-line/60 !opacity-100 text-ink-muted"
+          >
+            <AppIcon name="search" :size="17" />
+            No cars found at that budget
+          </button>
         </div>
 
         <p class="u-legal mt-5">{{ calculatorDisclaimer }}</p>

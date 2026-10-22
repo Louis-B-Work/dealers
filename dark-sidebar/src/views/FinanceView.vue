@@ -1,7 +1,7 @@
 <template>
   <div class="bg-paper">
     <PageHeader
-      title="Car finance, made simple"
+      title="Finance your vehicle"
       subtitle="See your monthly payment, compare HP and PCP, and check your eligibility in minutes."
     >
       <div class="flex flex-wrap gap-3 pt-2">

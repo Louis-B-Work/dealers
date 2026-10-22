@@ -3,7 +3,10 @@
        rounded-bottom slab the homepage hero uses, at a third of the height. -->
   <header class="bg-paper">
     <div class="rounded-b-block bg-paper-dark">
-      <div class="u-gutter flex w-full flex-col items-start py-12 sm:py-16 lg:py-20">
+      <div
+        class="flex w-full flex-col items-start py-12 sm:py-16 lg:py-20"
+        :class="wide ? 'u-gutter-wide' : 'u-gutter'"
+      >
         <h1 class="u-display max-w-3xl text-[1.9rem] text-ink-inverse sm:text-[2.35rem] md:text-[2.75rem]">
           {{ title }}
         </h1>
@@ -20,5 +23,7 @@
 defineProps<{
   title: string
   subtitle?: string
+  /** Full-width pages line the heading up with the nav and the page below it. */
+  wide?: boolean
 }>()
 </script>
