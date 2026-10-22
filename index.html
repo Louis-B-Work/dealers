@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#f3f2ee" />
     <meta
       name="description"
-      content="Explore eight dealer website designs, from cinematic video to a stock-first marketplace and a dark, premium collection."
+      content=""
     />
     <title>Louis' Dealer Designs</title>
     <style>
@@ -203,6 +203,80 @@
         line-height: 1.5;
       }
 
+      .progress {
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 1px solid #ecece6;
+      }
+
+      .progress-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 10px;
+        color: #70746c;
+        font-size: 11px;
+        font-weight: 750;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .progress-bar {
+        height: 4px;
+        margin-bottom: 12px;
+        border-radius: 999px;
+        background: #ecece6;
+        overflow: hidden;
+      }
+
+      .progress-bar span {
+        display: block;
+        height: 100%;
+        border-radius: inherit;
+        background: #63816c;
+      }
+
+      .checklist {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 6px 12px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .checklist li {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        color: #9a9e95;
+        font-size: 12px;
+      }
+
+      .checklist li.done {
+        color: #2f3a30;
+      }
+
+      .tick {
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 14px;
+        height: 14px;
+        border: 1.5px solid #c9cdc4;
+        border-radius: 4px;
+        font-size: 10px;
+        line-height: 1;
+      }
+
+      .checklist li.done .tick {
+        border-color: #63816c;
+        background: #63816c;
+        color: #fff;
+      }
+
       .card-bottom {
         display: flex;
         align-items: center;
@@ -255,6 +329,10 @@
         .card {
           min-height: 180px;
         }
+
+        .checklist {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -270,7 +348,6 @@
   <body>
     <main class="page">
       <header>
-        <p class="eyebrow">Louis' design explorations</p>
         <h1>Dealer website<br />templates</h1>
         <p class="intro">
           A quick way into each design direction. Open a preview to explore its pages, vehicle
@@ -281,9 +358,8 @@
       <aside class="guide" aria-label="How to open a preview">
         <span class="guide-mark" aria-hidden="true"></span>
         <span>
-          <strong>Eight designs. One place to explore.</strong>
           Choose a template below to explore its preview in a new tab. These are design
-          demonstrations, not live dealerships.
+          demos, not live dealerships.
         </span>
       </aside>
 
@@ -430,5 +506,53 @@
         <a href="./noir-collection/cars/CREDITS.md">Noir Collection photo credits and licences</a>.
       </footer>
     </main>
+    <script>
+      // Pages a complete template should have, matching the CF247 template overview.
+      const pages = [
+        ['home', 'Homepage'],
+        ['vlp', 'VLP'],
+        ['vdp', 'VDP'],
+        ['finance', 'Finance'],
+        ['sell', 'Sell'],
+        ['about', 'About'],
+        ['contact', 'Contact'],
+        ['mot', 'MOT'],
+        ['warranty', 'Warranty'],
+        ['body-shop', 'Body Shop'],
+        ['breakdown', 'Breakdown'],
+      ]
+
+      // Update a template's list here as its pages are built.
+      const built = {
+        'light-video': ['home', 'vlp', 'vdp', 'finance', 'sell', 'about', 'contact', 'mot', 'warranty', 'body-shop', 'breakdown'],
+        'dark-sidebar': ['home', 'vlp', 'vdp', 'finance', 'sell', 'about', 'contact', 'mot'],
+        'minimal-editorial': ['home', 'vlp', 'vdp', 'contact'],
+        'warm-budget': ['home', 'vlp', 'vdp', 'contact'],
+        'bright-mosaic': ['home', 'vlp', 'vdp', 'contact'],
+        'standard-06': pages.map(([key]) => key),
+        'stock-marketplace': pages.map(([key]) => key),
+        'noir-collection': pages.map(([key]) => key),
+      }
+
+      for (const card of document.querySelectorAll('.card')) {
+        const done = built[card.querySelector('.port')?.textContent.trim()]
+        if (!done) continue
+        const count = pages.filter(([key]) => done.includes(key)).length
+        const section = document.createElement('div')
+        section.className = 'progress'
+        section.innerHTML = `
+          <div class="progress-head"><span>Pages</span><span>${count} / ${pages.length}</span></div>
+          <div class="progress-bar"><span style="width:${(count / pages.length) * 100}%"></span></div>
+          <ul class="checklist">
+            ${pages
+              .map(([key, label]) => {
+                const ok = done.includes(key)
+                return `<li class="${ok ? 'done' : ''}"><span class="tick" aria-hidden="true">${ok ? '✓' : ''}</span>${label}</li>`
+              })
+              .join('')}
+          </ul>`
+        card.insertBefore(section, card.querySelector('.card-bottom'))
+      }
+    </script>
   </body>
 </html>

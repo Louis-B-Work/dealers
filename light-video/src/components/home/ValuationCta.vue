@@ -12,7 +12,6 @@
         <div class="relative grid items-center gap-10 lg:grid-cols-[1.3fr_1fr]">
           <div class="flex flex-col gap-5">
             <SectionHeading
-              eyebrow="Sell or part-exchange"
               title="Your car could be worth more than you think"
               subtitle="Get a competitive, no-obligation valuation in under a minute. Sell outright or put it towards your next car, and we handle all the paperwork."
             />

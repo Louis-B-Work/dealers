@@ -22,7 +22,6 @@
 
       <div class="flex flex-col gap-6">
         <SectionHeading
-          eyebrow="Our story"
           title="A different kind of dealership"
           subtitle="We've built our reputation on one simple idea: treat every customer the way we'd want to be treated ourselves."
         />

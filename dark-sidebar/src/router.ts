@@ -5,38 +5,6 @@ import type { RouteRecordRaw } from 'vue-router'
 // fully navigable without seven near-identical files.
 const stubs: { path: string; name: string; eyebrow: string; heading: string; intro: string }[] = [
   {
-    path: '/finance',
-    name: 'finance',
-    eyebrow: 'Finance made simple',
-    heading: 'Finance built around you',
-    intro:
-      'Representative finance on any vehicle in our collection, with a decision in principle in minutes.',
-  },
-  {
-    path: '/sell',
-    name: 'sell',
-    eyebrow: 'Sell or part-exchange',
-    heading: 'Sell us your car',
-    intro:
-      'A fair, transparent valuation in minutes. Sell outright or put the value straight towards your next car.',
-  },
-  {
-    path: '/about',
-    name: 'about',
-    eyebrow: 'Our story',
-    heading: 'About us',
-    intro:
-      'Years of handpicking, preparing and presenting premium vehicles to an exacting standard.',
-  },
-  {
-    path: '/mot',
-    name: 'mot',
-    eyebrow: 'Servicing',
-    heading: 'MOT testing',
-    intro:
-      'Class 4 MOT testing by our in-house technicians, with free retests and while-you-wait appointments.',
-  },
-  {
     path: '/warranty',
     name: 'warranty',
     eyebrow: 'Peace of mind',
@@ -101,6 +69,30 @@ const routes: RouteRecordRaw[] = [
     name: 'contact',
     component: () => import('./views/ContactView.vue'),
     meta: { title: 'Contact Us | Dealership Name' },
+  },
+  {
+    path: '/finance',
+    name: 'finance',
+    component: () => import('./views/FinanceView.vue'),
+    meta: { title: 'Car Finance | Dealership Name' },
+  },
+  {
+    path: '/sell',
+    name: 'sell',
+    component: () => import('./views/SellView.vue'),
+    meta: { title: 'Sell Your Car | Dealership Name' },
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: () => import('./views/AboutView.vue'),
+    meta: { title: 'About Us | Dealership Name' },
+  },
+  {
+    path: '/mot',
+    name: 'mot',
+    component: () => import('./views/MotView.vue'),
+    meta: { title: 'MOT & Service | Dealership Name' },
   },
   ...stubRoutes,
   {
