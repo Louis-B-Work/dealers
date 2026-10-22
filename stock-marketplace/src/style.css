@@ -156,7 +156,7 @@ body {
    surrounding text colour, so they suit light and dark panels alike. */
 .range-steps {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 0.5rem;
   margin-top: 0.5rem;
 }
