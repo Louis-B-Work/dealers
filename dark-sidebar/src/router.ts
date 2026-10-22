@@ -1,33 +1,8 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 
-// Scaffolded pages share one view and differ only by route meta, so the nav is
-// fully navigable without seven near-identical files.
+// Pages still to be designed share one view and differ only by route meta.
 const stubs: { path: string; name: string; eyebrow: string; heading: string; intro: string }[] = [
-  {
-    path: '/warranty',
-    name: 'warranty',
-    eyebrow: 'Peace of mind',
-    heading: 'Warranty cover',
-    intro:
-      'Every car leaves us with comprehensive warranty cover, with extended plans available at any point.',
-  },
-  {
-    path: '/body-shop',
-    name: 'body-shop',
-    eyebrow: 'Repairs & refinishing',
-    heading: 'Body shop',
-    intro:
-      'Manufacturer-grade paint and panel work, from stone-chip touch-ups to full accident repair.',
-  },
-  {
-    path: '/breakdown',
-    name: 'breakdown',
-    eyebrow: 'On the road',
-    heading: 'Breakdown assistance',
-    intro:
-      'Nationwide recovery and roadside assistance, included for twelve months with every vehicle.',
-  },
   {
     path: '/privacy',
     name: 'privacy',
@@ -93,6 +68,24 @@ const routes: RouteRecordRaw[] = [
     name: 'mot',
     component: () => import('./views/MotView.vue'),
     meta: { title: 'MOT & Service | Dealership Name' },
+  },
+  {
+    path: '/warranty',
+    name: 'warranty',
+    component: () => import('./views/WarrantyView.vue'),
+    meta: { title: 'Warranty | Dealership Name' },
+  },
+  {
+    path: '/body-shop',
+    name: 'body-shop',
+    component: () => import('./views/BodyShopView.vue'),
+    meta: { title: 'Body Shop | Dealership Name' },
+  },
+  {
+    path: '/breakdown',
+    name: 'breakdown',
+    component: () => import('./views/BreakdownView.vue'),
+    meta: { title: 'Breakdown | Dealership Name' },
   },
   ...stubRoutes,
   {
