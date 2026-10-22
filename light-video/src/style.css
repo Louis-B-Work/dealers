@@ -222,3 +222,36 @@ body {
     inset: -12px -6px;
   }
 }
+
+/* − / + buttons added under each slider by rangeSteppers.ts. They borrow the
+   surrounding text colour, so they suit light and dark panels alike. */
+.range-steps {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.range-step-btn {
+  display: inline-flex;
+  height: 2.5rem;
+  width: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid currentColor;
+  border-radius: 9999px;
+  background: transparent;
+  color: inherit;
+  font-size: 1.25rem;
+  line-height: 1;
+  opacity: 0.75;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  transition: opacity 0.15s, background-color 0.15s;
+}
+.range-step-btn:hover,
+.range-step-btn:active {
+  opacity: 1;
+  background: color-mix(in srgb, currentColor 14%, transparent);
+}
