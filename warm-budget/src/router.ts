@@ -1,51 +1,8 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 
-// Scaffolded pages share one view and differ only by route meta, so the nav is
-// fully navigable without eight near-identical files.
+// Pages still to be designed share one view and differ only by route meta.
 const stubs: { path: string; name: string; heading: string; intro: string }[] = [
-  {
-    path: '/sell',
-    name: 'sell',
-    heading: 'We will buy your car',
-    intro:
-      'A free, no-obligation valuation in minutes. Sell it outright or put the value straight towards your next one, and we will even settle outstanding finance.',
-  },
-  {
-    path: '/about',
-    name: 'about',
-    heading: 'The friendly local dealership',
-    intro:
-      'A family-run forecourt that has been selling honest used cars to the same town for over twenty-five years.',
-  },
-  {
-    path: '/mot',
-    name: 'mot',
-    heading: 'MOT & servicing',
-    intro:
-      'Class 4 MOTs, interim and full servicing for any make or model, not just the cars we sell. Free retests and while-you-wait appointments.',
-  },
-  {
-    path: '/warranty',
-    name: 'warranty',
-    heading: 'Warranty cover',
-    intro:
-      'Every car we sell comes with warranty cover as standard, with extended plans available at any point in the first year.',
-  },
-  {
-    path: '/body-shop',
-    name: 'body-shop',
-    heading: 'Body shop',
-    intro:
-      'Paint and panel work on site, from kerbed alloys and car park dinks to full insurance repair work.',
-  },
-  {
-    path: '/breakdown',
-    name: 'breakdown',
-    heading: 'Breakdown cover',
-    intro:
-      'Nationwide roadside assistance and recovery, included for twelve months with every car on the forecourt.',
-  },
   {
     path: '/privacy',
     name: 'privacy',
@@ -91,6 +48,42 @@ const routes: RouteRecordRaw[] = [
     name: 'finance',
     component: () => import('./views/FinanceView.vue'),
     meta: { title: 'Car Finance | Dealership Name' },
+  },
+  {
+    path: '/sell',
+    name: 'sell',
+    component: () => import('./views/SellView.vue'),
+    meta: { title: 'Sell Your Car | Dealership Name' },
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: () => import('./views/AboutView.vue'),
+    meta: { title: 'About Us | Dealership Name' },
+  },
+  {
+    path: '/mot',
+    name: 'mot',
+    component: () => import('./views/MotView.vue'),
+    meta: { title: 'MOT & Service | Dealership Name' },
+  },
+  {
+    path: '/warranty',
+    name: 'warranty',
+    component: () => import('./views/WarrantyView.vue'),
+    meta: { title: 'Warranty | Dealership Name' },
+  },
+  {
+    path: '/body-shop',
+    name: 'body-shop',
+    component: () => import('./views/BodyShopView.vue'),
+    meta: { title: 'Body Shop | Dealership Name' },
+  },
+  {
+    path: '/breakdown',
+    name: 'breakdown',
+    component: () => import('./views/BreakdownView.vue'),
+    meta: { title: 'Breakdown | Dealership Name' },
   },
   ...stubRoutes,
   {
