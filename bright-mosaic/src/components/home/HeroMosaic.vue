@@ -224,4 +224,41 @@ const budgetChips = computed(() =>
 .mosaic-col {
   @apply flex flex-col gap-3 sm:gap-4;
 }
+
+/* Below lg the wall becomes one swipeable row: the columns dissolve so every
+   tile is a direct child of the scroller, and each snaps into place. */
+@media (max-width: 1023px) {
+  .mosaic-wall {
+    --wg: 1.25rem;
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    margin-inline: calc(var(--wg) * -1);
+    padding-inline: var(--wg);
+    scroll-padding-inline: var(--wg);
+    padding-bottom: 0.5rem;
+  }
+  @media (min-width: 640px) {
+    .mosaic-wall {
+      --wg: 2rem;
+    }
+  }
+  .mosaic-wall::-webkit-scrollbar {
+    display: none;
+  }
+  .mosaic-col {
+    display: contents !important;
+  }
+  .mosaic-wall [data-tile] {
+    display: block !important;
+    flex: 0 0 72%;
+    max-width: 20rem;
+    width: auto !important;
+    aspect-ratio: 4 / 3 !important;
+    scroll-snap-align: start;
+  }
+}
 </style>
